@@ -1,0 +1,3 @@
+collection_homepage:
+    path:     /
+    defaults: { _controller: CollectionBundle:Default:index }
