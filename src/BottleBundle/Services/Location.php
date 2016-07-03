@@ -1,9 +1,9 @@
 <?php
 
-namespace BottleBundle\Services\Location;
+namespace BottleBundle\Services;
 
-use Doctrine\ORM\EntityManager;
-use Symfony\Component\DependencyInjection\ContainerInterface as Container;
+//use Doctrine\ORM\EntityManager;
+//use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 //use Httpful\Request;
 
 
