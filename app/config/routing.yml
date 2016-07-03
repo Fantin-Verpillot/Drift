@@ -1,3 +1,15 @@
+report:
+    resource: "@ReportBundle/Resources/config/routing.yml"
+    prefix:   /
+
+main:
+    resource: "@MainBundle/Resources/config/routing.yml"
+    prefix:   /
+
+bottle:
+    resource: "@BottleBundle/Resources/config/routing.yml"
+    prefix:   /
+
 collection:
     resource: "@CollectionBundle/Resources/config/routing.yml"
     prefix:   /
