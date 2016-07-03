@@ -47,9 +47,9 @@ class BottleAdmin
     /**
      * @var string
      *
-     * @ORM\Column(name="lessage", type="string", length=4096)
+     * @ORM\Column(name="message", type="string", length=4096)
      */
-    private $lessage;
+    private $message;
 
     /**
      * @var string
@@ -146,26 +146,26 @@ class BottleAdmin
     }
 
     /**
-     * Set lessage
+     * Set message
      *
-     * @param string $lessage
+     * @param string $message
      * @return BottleAdmin
      */
-    public function setLessage($lessage)
+    public function setMessage($message)
     {
-        $this->lessage = $lessage;
+        $this->message = $message;
 
         return $this;
     }
 
     /**
-     * Get lessage
+     * Get message
      *
      * @return string 
      */
-    public function getLessage()
+    public function getMessage()
     {
-        return $this->lessage;
+        return $this->message;
     }
 
     /**
