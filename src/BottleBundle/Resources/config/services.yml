@@ -1,4 +1,4 @@
 services:
-#    bottle.example:
-#        class: BottleBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
+    bottle_location:
+        class: BottleBundle\Services\Location
+        arguments: []

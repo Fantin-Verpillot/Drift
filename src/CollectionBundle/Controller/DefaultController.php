@@ -9,7 +9,7 @@ class DefaultController extends Controller
     private $em;
     public function indexAction()
     {
-        /*$this->em = $this->getDoctrine().getManager();
+        /*$this->em = $this->getDoctrine()->getManager();
         $bottleRepository = $this->em->getRepository("BottleBundle:Bottle");*/
         return $this->render('CollectionBundle:Default:index.html.twig');
     }
