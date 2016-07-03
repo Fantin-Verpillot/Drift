@@ -1,3 +1,7 @@
 bottle_homepage:
     path:     /
-    defaults: { _controller: BottleBundle:Default:index }
+    defaults: { _controller: BottleBundle:Bottle:index }
+
+bottle_open_botte:
+  path:        /bottle/open
+  defaults: { _controller: BottleBundle:Bottle:openBottle }
