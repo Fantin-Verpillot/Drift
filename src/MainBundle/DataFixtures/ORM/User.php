@@ -33,8 +33,8 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
             array(
                 'login'         => 'admin',
                 'password'      => 'password',
-                'email'         => 0,
-                'role'          => $faker->email,
+                'email'         => $faker->email,
+                'role'          => 0,
                 'experience'    => 0,
                 'level'         => 1,
             ),

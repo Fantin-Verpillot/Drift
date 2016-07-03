@@ -114,12 +114,12 @@ class LoadBottleAdminData extends AbstractFixture implements OrderedFixtureInter
 
         foreach ($bottleAdmins as $key => $value) {
             $bottleAdmin = new BottleAdmin();
-            $bottleAdmin->setMessage($value['fkReceiver']);
-            $bottleAdmin->setMessage($value['fkTransmitter']);
-            $bottleAdmin->setMessage($value['state']);
+            $bottleAdmin->setFkReceiver($value['fkReceiver']);
+            $bottleAdmin->setFkTransmitter($value['fkTransmitter']);
+            $bottleAdmin->setState($value['state']);
             $bottleAdmin->setMessage($value['message']);
-            $bottleAdmin->setMessage($value['image']);
-            $bottleAdmin->setMessage($value['type']);
+            $bottleAdmin->setImage($value['image']);
+            $bottleAdmin->setType($value['type']);
 
             $em->persist($bottleAdmin);
             $this->addReference('BottleAdmin'.$key, $bottleAdmin);

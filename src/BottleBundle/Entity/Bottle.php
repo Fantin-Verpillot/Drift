@@ -25,7 +25,7 @@ class Bottle
      * @var int
      *
      * @ORM\ManyToOne(targetEntity="MainBundle\Entity\User")
-     * @ORM\JoinColumn(name="fk_receiver", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="fk_receiver", referencedColumnName="id", nullable=true)
      */
     private $fkReceiver;
 

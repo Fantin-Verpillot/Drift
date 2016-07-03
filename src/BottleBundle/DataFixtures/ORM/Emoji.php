@@ -5,7 +5,7 @@ namespace BottleBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use BottleBundle\Entity\Bottle;
+use BottleBundle\Entity\Emoji;
 
 class LoadEmojiData extends AbstractFixture implements OrderedFixtureInterface
 {
