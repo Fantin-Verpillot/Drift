@@ -30,8 +30,8 @@ class LoadEmojiData extends AbstractFixture implements OrderedFixtureInterface
         );
 
         foreach ($emojis as $key => $value) {
-            $emoji = new Bottle();
-            $emoji->setMessage($value['name']);
+            $emoji = new Emoji();
+            $emoji->setName($value['name']);
 
             $em->persist($emoji);
             $this->addReference('Emoji'.$key, $emoji);
