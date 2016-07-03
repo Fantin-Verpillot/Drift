@@ -10,7 +10,7 @@ use \Faker\Factory as Faker;
 
 class LoadBottleData extends AbstractFixture implements OrderedFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $em)
     {
         $faker = Faker::create();
         $bottles = array(
@@ -83,14 +83,14 @@ class LoadBottleData extends AbstractFixture implements OrderedFixtureInterface
             $bottle->setMessage($value['message']);
             $bottle->setMessage($value['image']);
 
-            $manager->persist($bottle);
+            $em->persist($bottle);
             $this->addReference('Bottle'.$key, $bottle);
         }
-        $manager->flush();
+        $em->flush();
     }
 
     public function getOrder()
     {
-        return 4;
+        return 5;
     }
 }
