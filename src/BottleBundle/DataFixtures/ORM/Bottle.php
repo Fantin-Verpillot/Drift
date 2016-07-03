@@ -73,15 +73,15 @@ class LoadBottleData extends AbstractFixture implements OrderedFixtureInterface
 
         foreach ($bottles as $key => $value) {
             $bottle = new Bottle();
-            $bottle->setMessage($value['fkReceiver']);
-            $bottle->setMessage($value['fkTransmitter']);
-            $bottle->setMessage($value['state']);
-            $bottle->setMessage($value['mark']);
-            $bottle->setMessage($value['fkEmoji']);
-            $bottle->setMessage($value['latitude']);
-            $bottle->setMessage($value['longitude']);
+            $bottle->setFkReceiver($value['fkReceiver']);
+            $bottle->setFkTransmitter($value['fkTransmitter']);
+            $bottle->setState($value['state']);
+            $bottle->setMark($value['mark']);
+            $bottle->setFkEmoji($value['fkEmoji']);
+            $bottle->setLatitude($value['latitude']);
+            $bottle->setLongitude($value['longitude']);
             $bottle->setMessage($value['message']);
-            $bottle->setMessage($value['image']);
+            $bottle->setImage($value['image']);
 
             $em->persist($bottle);
             $this->addReference('Bottle'.$key, $bottle);
