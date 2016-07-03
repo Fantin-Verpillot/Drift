@@ -1,5 +1,5 @@
-bottle_homepage:
-    path:     /
+bottle_home:
+    path:     /bottle
     defaults: { _controller: BottleBundle:Bottle:index }
 
 bottle_open_botte:
