@@ -16,9 +16,9 @@ class BottleRepository extends EntityRepository
         return null;
     }
 
-    public function getBottleToOpen($userConnected)
+    public function getAvailableBottle($userConnected)
     {
-        $bottles = $this->findByFkReceiver(null);
+        $bottles = $this->findByState(1);
         foreach ($bottles as $bottle) {
             if ($bottle->getFkTransmitter()->getId() !== $userConnected->getId()) {
                 return $bottle;

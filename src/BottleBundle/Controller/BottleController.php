@@ -4,7 +4,6 @@ namespace BottleBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use \Httpful\Request as HttpRequest;
 
 class BottleController extends Controller
 {
@@ -20,7 +19,7 @@ class BottleController extends Controller
 
         $pendingBottle = $bottleRepository->getPendingBottle($user);
         if ($pendingBottle !== null) {
-            return $this->render('BottleBundle:Bottle:open.html.twig',
+            return $this->render('BottleBundle:Bottle:bottle.html.twig',
                 array('bottle' => $pendingBottle)
             );
         }
@@ -36,34 +35,24 @@ class BottleController extends Controller
         // TODO : take connected one
         $user = $userRepository->findAll()[1];
 
-        $bottle = $bottleRepository->getBottleToOpen($user);
-        if ($bottle !== null) {
-            $bottle->setFkReceiver($user);
-            $bottle->setLatitude(0);
-            $bottle->setLongitude(0);
-            //$this->em->persist($bottle);
-            //$this->em->flush();
+        // Check if there is a pending (open but not marked/emojied) bottle
+        $bottle = $bottleRepository->getPendingBottle($user);
+        if ($bottle === null) {
+            $bottle = $bottleRepository->getAvailableBottle($user);
+            if ($bottle !== null) {
+                // TODO : get log and lat
+                $locationService = $this->container->get('bottle_location');
+
+                $bottle->setFkReceiver($user);
+                $bottle->setLatitude(0);
+                $bottle->setLongitude(0);
+                $bottle->setState(2);
+                //$this->em->persist($bottle);
+                //$this->em->flush();
+            }
         }
-
-        $locationService = $this->container->get('bottle_location');
-        var_dump($locationService->myservice());
-
-        return $this->render('BottleBundle:Bottle:open.html.twig',
+        return $this->render('BottleBundle:Bottle:bottle.html.twig',
             array('bottle' => $bottle)
         );
-    }
-
-    private function exempleJerem($url)
-    {
-        try {
-            $webPage = HttpRequest::get($url)->send();
-            $webPageBody = $webPage->body;
-            if ($webPageBody !== null && $webPageBody !== '' && $webPageBody !== false) {
-                return $webPageBody;
-            }
-            return null;
-        } catch (\Exception $e) {
-            return null;
-        }
     }
 }
