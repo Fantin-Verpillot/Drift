@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new BottleBundle\BottleBundle(),
             new MainBundle\MainBundle(),
             new ReportBundle\ReportBundle(),
+            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
