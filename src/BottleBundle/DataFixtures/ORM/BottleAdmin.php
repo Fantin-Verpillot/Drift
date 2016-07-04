@@ -21,6 +21,7 @@ class LoadBottleAdminData extends AbstractFixture implements OrderedFixtureInter
                 'message'           => $faker->realText(1000),
                 'image'             => null,
                 'type'              => 'help',
+                'received_date'     => $faker->dateTimeThisYear($max = 'now'),
             ),
             array(
                 'fkReceiver'        => $this->getReference('User1'),
@@ -29,6 +30,7 @@ class LoadBottleAdminData extends AbstractFixture implements OrderedFixtureInter
                 'message'           => $faker->realText(1000),
                 'image'             => null,
                 'type'              => 'help',
+                'received_date'     => $faker->dateTimeThisYear($max = 'now'),
             ),
             array(
                 'fkReceiver'        => $this->getReference('User1'),
@@ -37,6 +39,7 @@ class LoadBottleAdminData extends AbstractFixture implements OrderedFixtureInter
                 'message'           => $faker->realText(1000),
                 'image'             => null,
                 'type'              => 'help',
+                'received_date'     => $faker->dateTimeThisYear($max = 'now'),
             ),
             array(
                 'fkReceiver'        => $this->getReference('User1'),
@@ -45,6 +48,7 @@ class LoadBottleAdminData extends AbstractFixture implements OrderedFixtureInter
                 'message'           => $faker->realText(1000),
                 'image'             => null,
                 'type'              => 'help',
+                'received_date'     => $faker->dateTimeThisYear($max = 'now'),
             ),
             array(
                 'fkReceiver'        => $this->getReference('User1'),
@@ -53,6 +57,7 @@ class LoadBottleAdminData extends AbstractFixture implements OrderedFixtureInter
                 'message'           => $faker->realText(1000),
                 'image'             => null,
                 'type'              => 'info',
+                'received_date'     => $faker->dateTimeThisYear($max = 'now'),
             ),
             array(
                 'fkReceiver'        => $this->getReference('User1'),
@@ -61,6 +66,7 @@ class LoadBottleAdminData extends AbstractFixture implements OrderedFixtureInter
                 'message'           => $faker->realText(1000),
                 'image'             => null,
                 'type'              => 'info',
+                'received_date'     => $faker->dateTimeThisYear($max = 'now'),
             ),
             array(
                 'fkReceiver'        => $this->getReference('User1'),
@@ -69,6 +75,7 @@ class LoadBottleAdminData extends AbstractFixture implements OrderedFixtureInter
                 'message'           => $faker->realText(1000),
                 'image'             => null,
                 'type'              => 'info',
+                'received_date'     => $faker->dateTimeThisYear($max = 'now'),
             ),
             array(
                 'fkReceiver'        => $this->getReference('User1'),
@@ -77,6 +84,7 @@ class LoadBottleAdminData extends AbstractFixture implements OrderedFixtureInter
                 'message'           => $faker->realText(1000),
                 'image'             => null,
                 'type'              => 'info',
+                'received_date'     => $faker->dateTimeThisYear($max = 'now'),
             ),
             array(
                 'fkReceiver'        => $this->getReference('User1'),
@@ -85,6 +93,7 @@ class LoadBottleAdminData extends AbstractFixture implements OrderedFixtureInter
                 'message'           => $faker->realText(1000),
                 'image'             => null,
                 'type'              => 'warning',
+                'received_date'     => $faker->dateTimeThisYear($max = 'now'),
             ),
             array(
                 'fkReceiver'        => $this->getReference('User1'),
@@ -93,6 +102,7 @@ class LoadBottleAdminData extends AbstractFixture implements OrderedFixtureInter
                 'message'           => $faker->realText(1000),
                 'image'             => null,
                 'type'              => 'warning',
+                'received_date'     => $faker->dateTimeThisYear($max = 'now'),
             ),
             array(
                 'fkReceiver'        => $this->getReference('User1'),
@@ -101,6 +111,7 @@ class LoadBottleAdminData extends AbstractFixture implements OrderedFixtureInter
                 'message'           => $faker->realText(1000),
                 'image'             => null,
                 'type'              => 'warning',
+                'received_date'     => $faker->dateTimeThisYear($max = 'now'),
             ),
             array(
                 'fkReceiver'        => $this->getReference('User1'),
@@ -109,6 +120,7 @@ class LoadBottleAdminData extends AbstractFixture implements OrderedFixtureInter
                 'message'           => $faker->realText(1000),
                 'image'             => null,
                 'type'              => 'warning',
+                'received_date'     => $faker->dateTimeThisYear($max = 'now'),
             ),
         );
 

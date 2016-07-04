@@ -4,7 +4,6 @@ namespace BottleBundle\Services;
 
 //use Doctrine\ORM\EntityManager;
 //use Symfony\Component\DependencyInjection\ContainerInterface as Container;
-use \Httpful\Request as HttpRequest;
 
 
 class Location
@@ -25,7 +24,7 @@ class Location
         }
     }
 
-    function get_client_ip_env() {
+    function getClientIpEnv() {
         $ipaddress = '';
         if (getenv('HTTP_CLIENT_IP'))
             $ipaddress = getenv('HTTP_CLIENT_IP');

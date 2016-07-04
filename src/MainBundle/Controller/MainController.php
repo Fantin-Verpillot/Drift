@@ -8,9 +8,17 @@ use Symfony\Component\HttpFoundation\Request;
 
 class MainController extends Controller
 {
+    private $em;
+
     public function indexAction()
     {
-        return $this->render('MainBundle:Main:index.html.twig');
+        $this->em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        return $this->render('MainBundle:Main:index.html.twig',
+            array('user' => $user)
+        );
+
     }
 
     public function loginAction(Request $request) {
@@ -27,4 +35,6 @@ class MainController extends Controller
             'error'         => $error,
         ));
     }
+
+
 }

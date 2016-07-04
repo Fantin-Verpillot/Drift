@@ -12,4 +12,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class BottleAdminRepository extends EntityRepository
 {
+
+
+    public function getAdminBottles($userConnected)
+    {
+        $bottles = $this->findByFkReceiver($userConnected);
+        $allBottles = [];
+        foreach ($bottles as $bottle) {
+            if ($bottle->getFkTransmitter()->getId() !== $userConnected->getId() && $bottle->getState() == 3) {
+                $allBottles[] = $bottle;
+            }
+        }
+        return $allBottles;
+    }
 }

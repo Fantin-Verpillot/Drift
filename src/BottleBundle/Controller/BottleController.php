@@ -48,7 +48,7 @@ class BottleController extends Controller
             $bottle = $bottleRepository->getAvailableBottle($user);
             if ($bottle !== null) {
                 $locationService = $this->container->get('bottle_location');
-                $ip = $locationService->get_client_ip_env();
+                $ip = $locationService->getClientIpEnv();
 
                 $bottle->setFkReceiver($user);
                 $bottle->setLatitude($locationService->myservice($ip)[0]);
@@ -58,10 +58,14 @@ class BottleController extends Controller
                 $this->em->flush();
             }
         }
+
         return $this->render('BottleBundle:Bottle:open.html.twig',
             array('bottle' => $bottle,
-                  'emojis' => $emojis
-            )
+                  'emojis' => $emojis,
+                  'mark'=> $bottleRepository->getAverageMark($user),
+                  'bottleTransmitted' => $bottleRepository->countTransmittedBottle($user),
+                  'bottleReceived' => $bottleRepository->countReceivedBottle($user),
+                )
         );
     }
 

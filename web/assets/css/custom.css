@@ -1,0 +1,44 @@
+body {
+    background-color: #ededed;
+
+}
+
+.content-page {
+    margin-top : 80px;
+}
+
+/* Navbar */
+
+.custom-navbar {
+
+}
+
+.custom-navbar .navbar-brand {
+    color: white;
+    font-size: 25px;
+}
+
+.custom-navbar .navbar-nav > li > a{
+    color: white;
+    font-size: 16px;
+}
+
+.no-padding {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* User panel */
+
+.user-panel {
+
+}
+
+.user-panel .heading {
+    font-size: 20px;
+}
+
+.user-panel .text {
+    font-size : 18px;
+}
+
