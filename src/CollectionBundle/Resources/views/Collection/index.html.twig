@@ -27,44 +27,49 @@
 
 {% block body %}
 
-    <div class="row">
-        <div class="col-md-6">
-            <h1 class="animated fadeInDown" style="margin: 0;">My collection</h1>
-        </div>
-        <div class="col-md-6">
-            <a href="{{  path('main_home') }}" class="btn btn-primary pull-right" style="position: relative; top: 20px;">
-                My profile
-                <i class="fa fa-arrow-right" aria-hidden="true"></i>
-            </a>
-        </div>
-    </div>
-
-
-    <hr style="border-color: #444444;">
-
-    <div class="row">
-
-        {% for bottle in archived %}
-            <div class="col-md-3">
-                <div class="panel panel-default bottle grow animated fadeIn">
-                    <p class="text">
-                        {{ bottle.message|length > 200 ? bottle.message | slice(0, 200) ~ ' ...' : bottle.message }}
-                    <p class="info">
-                        {#{{ bottle.received_date|date('Y-m-d') }}#}
-                        {{ bottle.received_date | default('18/10/1994') }}
-                    </p>
-
-                    {% if (bottle.image is not null) %}
-                        <p class="image-icon">
-                            <i class="fa fa-picture-o" aria-hidden="true"></i>
-                        </p>
-                    {% endif %}
-
-                </div>
+    <div class="container" style="margin-top: 80px;">
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="animated fadeInDown" style="margin: 0;">My collection</h1>
             </div>
-        {% else %}
-            <p>No bottles archived</p>
-        {% endfor %}
+            <div class="col-md-6">
+                <a href="{{ path('main_home') }}" class="btn btn-primary pull-right"
+                   style="position: relative; top: 20px;">
+                    My profile
+                    {#<i class="fa fa-arrow-right" aria-hidden="true"></i>#}
+                </a>
+            </div>
+        </div>
+
+        <hr style="border-color: #444444;">
+
+        <div class="row">
+
+            {% for bottle in archived %}
+                <div class="col-md-3">
+                    <div class="panel panel-default bottle grow animated fadeIn">
+                        <p class="text">
+                            {{ bottle.message|length > 200 ? bottle.message | slice(0, 200) ~ ' ...' : bottle.message }}
+                        <p class="info">
+                            {% if (bottle.receivedDate is not null) %}
+                                {{ bottle.receivedDate|date('Y/m/d') }}
+                            {% else %}
+                                NULL_DATE
+                            {% endif %}
+                        </p>
+
+                        {% if (bottle.image is not null) %}
+                            <p class="image-icon">
+                                <i class="fa fa-picture-o" aria-hidden="true"></i>
+                            </p>
+                        {% endif %}
+
+                    </div>
+                </div>
+            {% else %}
+                <p>No bottles archived</p>
+            {% endfor %}
+        </div>
     </div>
 
 {% endblock %}

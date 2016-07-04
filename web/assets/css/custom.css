@@ -1,10 +1,12 @@
-body {
+html, body {
     background-color: #ededed;
-
+    height: 100%;
+    width: 100%;
 }
 
 .content-page {
-    margin-top : 80px;
+    height: 100%;
+    width: 100%;
 }
 
 /* Navbar */
