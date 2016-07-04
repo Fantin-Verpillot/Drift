@@ -40,5 +40,11 @@ body {
 
 .user-panel .text {
     font-size : 18px;
+    margin-bottom: 8px;
+}
+
+.user-panel .text .sub-text {
+    font-size: 15px;
+    margin-left: 18px;
 }
 
