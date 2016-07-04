@@ -19,7 +19,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
                 'password'      => 'password',
                 'email'         => $faker->email,
                 'roles'         => array('ROLE_USER'),
-                'experience'    => 1000,
+                'experience'    => 170,
                 'level'         => 2,
             ),
             array(
@@ -27,7 +27,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
                 'password'      => 'password',
                 'email'         => $faker->email,
                 'roles'         => array('ROLE_USER'),
-                'experience'    => 100,
+                'experience'    => 40,
                 'level'         => 1,
             ),
             array(
