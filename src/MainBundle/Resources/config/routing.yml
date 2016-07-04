@@ -1,4 +1,4 @@
-main_homepage:
+main_home:
     path:     /
     defaults: { _controller: MainBundle:Main:index }
 

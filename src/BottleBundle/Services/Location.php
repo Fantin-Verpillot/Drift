@@ -24,7 +24,7 @@ class Location
         }
     }
 
-    function get_client_ip_env() {
+    function getClientIpEnv() {
         $ipaddress = '';
         if (getenv('HTTP_CLIENT_IP'))
             $ipaddress = getenv('HTTP_CLIENT_IP');
