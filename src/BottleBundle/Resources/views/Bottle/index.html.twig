@@ -1,4 +1,9 @@
-Bonjour, ouvrez une bouteille.<br />
-<form action="{{ path('bottle_open_botte') }}" method="post">
+Vous pouvez ouvrir une bouteille
+<form action="{{ path('bottle_open') }}" method="post">
     <input type="submit" name="open" value="Pick up a bottle" />
+</form><br />
+
+Ou en envoyer une à la mer
+<form action="{{ path('bottle_write') }}" method="post">
+    <input type="submit" name="write" value="Write a bottle" />
 </form>
