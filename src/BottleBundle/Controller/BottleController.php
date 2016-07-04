@@ -40,9 +40,8 @@ class BottleController extends Controller
         if ($bottle === null) {
             $bottle = $bottleRepository->getAvailableBottle($user);
             if ($bottle !== null) {
-                // TODO : get ip addr
-                $ip = '8.8.8.8';
                 $locationService = $this->container->get('bottle_location');
+                $ip = $locationService->get_client_ip_env();
 
                 $bottle->setFkReceiver($user);
                 $bottle->setLatitude($locationService->myservice($ip)[0]);
