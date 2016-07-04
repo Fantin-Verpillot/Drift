@@ -32,10 +32,8 @@ class BottleRepository extends EntityRepository
 
    public static function cmp($b1, $b2)
     {
-        /*$r1 = $b1->getReceivedDate();
-        $r2 = $b2->getReceivedDate(); */
-        //echo $r1;
-        echo var_dump($b1->getReceivedDate());
+        $r1 = $b1->getReceivedDate();
+        $r2 = $b2->getReceivedDate();
         if ($b1 == $b2) {
             return 0;
         }
@@ -63,7 +61,7 @@ class BottleRepository extends EntityRepository
         }
 
         // then we merge the user's bottle + the one he received from the admin
-        $adminBottles = $bottleAdminRepository->getAdminBottlesCollected($userConnected);
+        $adminBottles = $bottleAdminRepository->getSavedAdminBottle($userConnected);
 
         $allBottles = $userBottles;
 

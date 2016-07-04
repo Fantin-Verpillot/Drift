@@ -14,12 +14,12 @@ class BottleAdminRepository extends EntityRepository
 {
 
 
-    public function getAdminBottlesCollected($userConnected)
+    public function getSavedAdminBottle($userConnected)
     {
         $bottles = $this->findByFkReceiver($userConnected);
         $allBottles = [];
         foreach ($bottles as $bottle) {
-            if ($bottle->getFkTransmitter()->getId() !== $userConnected->getId() && $bottle->getState() == 3) {
+            if ($bottle->getState() == 3) {
                 $allBottles[] = $bottle;
             }
         }
