@@ -13,3 +13,7 @@ bottle_write:
 bottle_evaluate:
   path:        /bottle/evaluate
   defaults: { _controller: BottleBundle:Bottle:evaluateBottle }
+
+bottle_create:
+  path:        /bottle/create
+  defaults: { _controller: BottleBundle:Bottle:createBottle }

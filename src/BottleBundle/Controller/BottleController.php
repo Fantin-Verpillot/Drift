@@ -2,10 +2,10 @@
 
 namespace BottleBundle\Controller;
 
+use BottleBundle\Entity\Bottle;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\SecurityExtraBundle\Annotation\Secure; /* /!\ Don't remove, used by the annotations /!\ */
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Intl\Exception\NotImplementedException;
 
 class BottleController extends Controller
 {
@@ -69,11 +69,40 @@ class BottleController extends Controller
      * @Secure(roles="ROLE_USER, ROLE_ADMIN")
      */
     public function writeBottleAction() {
-        throw new NotImplementedException('This feature is comming soon!');
+        return $this->render('BottleBundle:Bottle:write.html.twig');
     }
 
     /**
      * @Secure(roles="ROLE_USER, ROLE_ADMIN")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function createBottleAction(Request $request) {
+        $this->em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        $message = $request->request->get('message');
+        $image = $request->request->get('image');
+        $send = $request->request->get('send');
+
+        if ($message !== '') {
+            $bottle = new Bottle();
+            $bottle->constructBottle($user, $message, $send !== null ? 1 : 0, $image === '' ? null : $image);
+            $this->em->persist($bottle);
+            $this->em->flush();
+
+            //add flashbag
+            return $this->redirectToRoute('bottle_home');
+        }
+
+        //add flashbag
+        return $this->redirectToRoute('bottle_write');
+    }
+
+    /**
+     * @Secure(roles="ROLE_USER, ROLE_ADMIN")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function evaluateBottleAction(Request $request) {
         $this->em = $this->getDoctrine()->getManager();

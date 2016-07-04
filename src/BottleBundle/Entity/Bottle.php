@@ -88,6 +88,19 @@ class Bottle
     private $image;
 
 
+    public function constructBottle($fkTransmitter, $message, $state, $image = null) {
+        $fkReceiver = null;
+        $this->fkTransmitter = $fkTransmitter;
+        $this->state = $state;
+        $mark = null;
+        $fkEmoji = null;
+        $latitude = null;
+        $longitude = null;
+        $this->message = $message;
+        $this->image = $image;
+    }
+
+
     /**
      * Get id
      *

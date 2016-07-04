@@ -1,3 +1,6 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
 {% if error is not null %}
     <div>{{ error.message }}</div>
 {% endif %}
@@ -10,3 +13,4 @@
 
     <button type="submit">login</button>
 </form>
+{% endblock %}
