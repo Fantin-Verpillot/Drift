@@ -213,4 +213,8 @@ class BottleAdmin
     {
         return $this->type;
     }
+
+    public function getSourceRole() {
+        return 'ROLE_ADMIN';
+    }
 }

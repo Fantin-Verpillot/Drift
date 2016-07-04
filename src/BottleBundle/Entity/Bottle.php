@@ -304,4 +304,8 @@ class Bottle
     {
         return $this->image;
     }
+
+    public function getSourceRole() {
+        return 'ROLE_USER';
+    }
 }
