@@ -1,25 +1,71 @@
-<ul>
-    {% for bottle in archived %}
-        <li>{{ bottle.message }}</li>
-    {% else %}
-        <li>No archived bottle</li>
-    {% endfor %}
+{#<ul>#}
 
 
-    <form method="post" action="{{ path('collection_delete') }}">
-        <p>
-            <label for="idBottle">Id to delete : </label>
-            <input type="number" name="idBottle" id="idBottle" />
+    {#<form method="post" action="{{ path('collection_delete') }}">#}
+        {#<p>#}
+            {#<label for="idBottle">Id to delete : </label>#}
+            {#<input type="number" name="idBottle" id="idBottle" />#}
 
-            <input type="submit" value="Envoyer" />
-        </p>
-    </form>
+            {#<input type="submit" value="Envoyer" />#}
+        {#</p>#}
+    {#</form>#}
 
-    {% if res is defined %}
-        {% if res.id is defined %}
-            id Bottle deleted: {{ res.id }}
+    {#{% if res is defined %}#}
+        {#{% if res.id is defined %}#}
+            {#id Bottle deleted: {{ res.id }}#}
+        {#{% else %}#}
+            {#{{ res }}#}
+        {#{% endif %}#}
+    {#{% endif %}#}
+{#</ul>#}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    My collection
+{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-6">
+            <h1 class="animated fadeInDown" style="margin: 0;">My collection</h1>
+        </div>
+        <div class="col-md-6">
+            <a href="{{  path('main_home') }}" class="btn btn-primary pull-right" style="position: relative; top: 20px;">
+                My profile
+                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
+
+
+    <hr style="border-color: #444444;">
+
+    <div class="row">
+
+        {% for bottle in archived %}
+            <div class="col-md-3">
+                <div class="panel panel-default bottle grow animated fadeIn">
+                    <p class="text">
+                        {{ bottle.message|length > 200 ? bottle.message | slice(0, 200) ~ ' ...' : bottle.message }}
+                    <p class="info">
+                        {#{{ bottle.received_date|date('Y-m-d') }}#}
+                        {{ bottle.received_date | default('18/10/1994') }}
+                    </p>
+
+                    {% if (bottle.image is not null) %}
+                        <p class="image-icon">
+                            <i class="fa fa-picture-o" aria-hidden="true"></i>
+                        </p>
+                    {% endif %}
+
+                </div>
+            </div>
         {% else %}
-            {{ res }}
-        {% endif %}
-    {% endif %}
-</ul>
+            <p>No bottles archived</p>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
