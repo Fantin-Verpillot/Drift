@@ -62,9 +62,6 @@ class BottleController extends Controller
         return $this->render('BottleBundle:Bottle:open.html.twig',
             array('bottle' => $bottle,
                   'emojis' => $emojis,
-                  'mark'=> $bottleRepository->getAverageMark($user),
-                  'bottleTransmitted' => $bottleRepository->countTransmittedBottle($user),
-                  'bottleReceived' => $bottleRepository->countReceivedBottle($user),
                 )
         );
     }

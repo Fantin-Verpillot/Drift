@@ -88,7 +88,13 @@ class BottleRepository extends EntityRepository
     }
 
     public function countEmojiByBottle($userConnected) {
-        return count ($this->findByFkTransmitter($userConnected));
+        $qb = $this->createQueryBuilder('b')
+            ->select('count(b.fkEmoji) as countEmoji, e.id, e.name')
+            ->join('b.fkEmoji', 'e')
+            ->Where('b.fkTransmitter = :userId')
+            ->setParameter(':userId', $userConnected->getId())
+            ->groupBy('b.fkEmoji');
 
+        return $qb->getQuery()->getResult();
     }
 }

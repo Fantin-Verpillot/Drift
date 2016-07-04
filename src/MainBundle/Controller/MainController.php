@@ -14,9 +14,15 @@ class MainController extends Controller
     {
         $this->em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
+        $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
 
         return $this->render('MainBundle:Main:index.html.twig',
-            array('user' => $user)
+            array(
+                'user'              => $user,
+                'mark'              => $bottleRepository->getAverageMark($user),
+                'bottleTransmitted' => $bottleRepository->countTransmittedBottle($user),
+                'bottleReceived'    => $bottleRepository->countReceivedBottle($user),
+                )
         );
 
     }
