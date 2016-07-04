@@ -87,6 +87,14 @@ class Bottle
      */
     private $image;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="received_date", type="datetime", nullable=true)
+     */
+    private $receivedDate;
+
+
 
     public function constructBottle($fkTransmitter, $message, $state, $image = null) {
         $fkReceiver = null;
@@ -98,35 +106,30 @@ class Bottle
         $longitude = null;
         $this->message = $message;
         $this->image = $image;
+        $this->receivedDate = null;
+    }
+
+    /**
+     * Get receivedDate
+     *
+     * @return \DateTime
+     */
+    public function getReceivedDate()
+    {
+        return $this->receivedDate;
     }
 
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="received_date", type="datetime", nullable=true)
+     * Set receivedDate
+     * @param $receivedDate
+     * @return $this
      */
-    private $received_date;
-
-
-    /**
-     * Get received date
-     *
-     * @return datetime
-     */
-    public function getReceived_date()
+    public function setReceivedDate($receivedDate)
     {
-        return $this->received_date;
-    }
+        $this->receivedDate = $receivedDate;
 
-
-    /**
-     * Set received date
-     *
-     */
-    public function setReceived_date($received_date)
-    {
-        $this->received_date = $received_date;
+        return $this;
     }
 
 
