@@ -7,10 +7,7 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
         <!-- Bootstrap -->
-        <link rel="stylesheet" href="https://bootswatch.com/paper/bootstrap.css" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" />
-
-        <!-- Animate css -->
+        <link rel="stylesheet" href="https://bootswatch.com/paper/bootstrap.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
 
         <!-- Font awesome -->
@@ -19,11 +16,18 @@
         <!-- Own css -->
         <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}?version={{ version }}" />
     </head>
+
     <body>
-        {% block body %}{% endblock %}
+
+        {% include 'navbar.html.twig' %}
+
+        <div class="container content-page">
+            {% block body %}{% endblock %}
+        </div>
 
         {% block javascripts %}{% endblock %}
         <!-- Bootstrap -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     </body>
 </html>
