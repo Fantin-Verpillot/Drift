@@ -6,6 +6,8 @@ use Doctrine\ORM\EntityRepository;
 
 class BottleRepository extends EntityRepository
 {
+    private $em;
+
     public function getPendingBottle($userConnected) {
         $bottles = $this->findByFkReceiver($userConnected);
         foreach ($bottles as $bottle) {
@@ -27,17 +29,53 @@ class BottleRepository extends EntityRepository
         return null;
     }
 
-    public function getArchivedBottles($userConnected)
+
+   public static function cmp($b1, $b2)
     {
+        /*$r1 = $b1->getReceivedDate();
+        $r2 = $b2->getReceivedDate(); */
+        //echo $r1;
+        echo var_dump($b1->getReceivedDate());
+        if ($b1 == $b2) {
+            return 0;
+        }
+        return ( $b1 < $b2) ? -1 : 1;
+    }
+
+    /*
+     * Get all users bottles and the ones sent by the admin
+     *
+     * return an array sorted by received_date of all collected bottles
+     * */
+    public function getCollectedBottles($userConnected)
+    {
+        $this->em = $this->getEntityManager();
+        $bottleAdminRepository = $this->em->getRepository('BottleBundle:BottleAdmin');
+
         $bottles = $this->findByFkReceiver($userConnected);
-        $bottlesFilter = [];
+
+        // get all user's bottles
+        $userBottles = [];
         foreach ($bottles as $bottle) {
             if ($bottle->getFkTransmitter()->getId() !== $userConnected->getId() && $bottle->getState() == 3) {
-                $bottlesFilter[] = $bottle;
+                $userBottles[] = $bottle;
             }
         }
 
-        return $bottlesFilter;
+        // then we merge the user's bottle + the one he received from the admin
+        $adminBottles = $bottleAdminRepository->getAdminBottlesCollected($userConnected);
+
+        $allBottles = $userBottles;
+
+        foreach ($adminBottles as $bottle) {
+            if ($bottle->getFkTransmitter()->getId() !== $userConnected->getId() && $bottle->getState() == 3) {
+                $allBottles[] = $bottle;
+            }
+        }
+
+        // return the sorted array
+       //return usort($allBottles, array('BottleBundle\Repository\BottleRepository','cmp'));
+        return $allBottles;
     }
 
     public function getAverageMark($userConnected){

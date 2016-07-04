@@ -14,7 +14,7 @@ class BottleAdminRepository extends EntityRepository
 {
 
 
-    public function getAdminBottles($userConnected)
+    public function getAdminBottlesCollected($userConnected)
     {
         $bottles = $this->findByFkReceiver($userConnected);
         $allBottles = [];
