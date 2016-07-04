@@ -15,7 +15,6 @@ class MainController extends Controller
         $this->em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
-        var_dump($bottleRepository->countEmojiByBottle($user));
 
         return $this->render('MainBundle:Main:index.html.twig',
             array(
@@ -23,7 +22,7 @@ class MainController extends Controller
                 'mark'              => $bottleRepository->getAverageMark($user),
                 'bottleTransmitted' => $bottleRepository->countTransmittedBottle($user),
                 'bottleReceived'    => $bottleRepository->countReceivedBottle($user),
-                'emojiCount'        => $bottleRepository->countEmojiByBottle($user),
+                'emojis'        => $bottleRepository->countEmojiByBottle($user),
                 )
         );
 
