@@ -1,9 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-<h3>Open a bottle</h3>
-<a href="{{ path('bottle_open') }}">Pick up a bottle</a><br />
+{% block title %}
+    Actions
+{% endblock %}
 
-<h3>Send a bottle</h3>
-<a href="{{ path('bottle_write') }}">Write a bottle</a>
+{% block body %}
+
+    <div style="display: table; width: 100%; height: 100%">
+        <div style="display: table-cell; vertical-align: middle">
+            {#<div class="row">#}
+                {#<div class="col-md-4 col-md-offset-4">#}
+                    <div class="panel panel-default container-button">
+                        <p id="title" class="info-text">What do you want to do<i class="fa fa-question" aria-hidden="true"></i></p>
+                        <div id="button-group">
+                            <a href="{{ path('bottle_open') }}" class="button btn btn-primary  grow btn-lg">Open a bottle</a>
+                            <a href="{{ path('bottle_write') }}" class="button btn btn-primary grow btn-lg">Send a bottle</a>
+                        </div>
+                    </div>
+                {#</div>#}
+            {#</div>#}
+        </div>
+    </div>
+
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script type="text/javascript">
+
+    $.fn.extend({
+        animateCss: function (animationName) {
+            var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+            $(this).addClass('animated ' + animationName).one(animationEnd, function() {
+                $(this).removeClass('animated ' + animationName);
+            });
+        }
+    });
+
+    $('#title').animateCss('fadeIn');
+    $('#button-group').animateCss('fadeIn');
+
+</script>
+
+
 {% endblock %}

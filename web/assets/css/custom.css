@@ -91,3 +91,33 @@ html, body {
 
 .grow { transition: all .2s ease-in-out; }
 .grow:hover { transform: scale(1.05); }
+
+.container-button {
+    text-align: center;
+    padding: 20px;
+}
+
+.container-button .info-text {
+    font-size: 50px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.container-button .button {
+    margin-left: 10px;
+    font-size:25px;
+}
+
+
+#title {
+    -webkit-animation-duration: 2s;
+    -webkit-animation-delay: 0.2s;
+    -webkit-animation-iteration-count: 1;
+}
+
+#button-group {
+    -webkit-animation-duration: 2s;
+    -webkit-animation-delay: 0.8s;
+    -webkit-animation-iteration-count: 1;
+}
+
