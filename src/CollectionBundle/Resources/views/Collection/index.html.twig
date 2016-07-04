@@ -1,5 +1,7 @@
-<html>
-    <body>
-	Hello World!
-    </body>
-</html>
+<ul>
+    {% for bottle in archived %}
+        <li>{{ bottle.message }}</li>
+    {% else %}
+        <li>No archived bottle</li>
+    {% endfor %}
+</ul>

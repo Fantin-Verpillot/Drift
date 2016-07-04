@@ -1,8 +1,3 @@
-collection_homepage:
-    path:     /
+collection_home:
+    path:     /collection
     defaults: { _controller: CollectionBundle:Collection:index }
-
-
-archived_bottles:
-  path:        /Collection/archived
-  defaults: { _controller: CollectionBundle:Collection:getCollection }
