@@ -50,9 +50,9 @@ class LoadBottleData extends AbstractFixture implements OrderedFixtureInterface
             array(
                 'fkReceiver'        => $this->getReference('User1'),
                 'fkTransmitter'     => $this->getReference('User0'),
-                'state'             => 2,
-                'mark'              => null,
-                'fkEmoji'           => null,
+                'state'             => 3,
+                'mark'              => 3,
+                'fkEmoji'           => $this->getReference('Emoji2'),
                 'latitude'          => 48.856614,
                 'longitude'         => 2.3522219000000177,
                 'message'           => $faker->realText(1000),

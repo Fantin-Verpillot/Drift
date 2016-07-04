@@ -1,4 +1,24 @@
-Message : {{ bottle.message }}
-Lieu : {{ bottle.latitude }}, {{ bottle.longitude }}
+<html>
+<body>
+{% if bottle is not null %}
+    <h3>You open the bottle... it contains a message!</h3>
+    <div>{{ bottle.message }}</div><br /><br />
 
-Choose a mark and an emoji !
+    <h3>Please evaluate this bottle</h3>
+
+    <form action="{{ path('bottle_evaluate') }}" method="post">
+        Mark (/5) <input type="text" name="mark" value="" /><br />
+        Emoji <select name="emoji">
+            {% for emoji in emojis %}
+                <option value="{{ emoji.id }}">{{ emoji.name }}</option>
+            {% endfor %}
+        </select><br /><br />
+
+        <input type="submit" name="write" value="Save and evaluate" />
+    </form>
+
+{% else %}
+    Aucune bouteille n'est arrivée jusqu'à vous, revenez demain !
+{% endif %}
+</body>
+</html>

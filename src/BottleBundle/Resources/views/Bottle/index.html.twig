@@ -1,4 +1,5 @@
-Bonjour, ouvrez une bouteille.<br />
-<form action="{{ path('bottle_open_botte') }}" method="post">
-    <input type="submit" name="open" value="Pick up a bottle" />
-</form>
+<h3>Open a bottle</h3>
+<a href="{{ path('bottle_open') }}">Pick up a bottle</a><br />
+
+<h3>Send a bottle</h3>
+<a href="{{ path('bottle_write') }}">Write a bottle</a>
