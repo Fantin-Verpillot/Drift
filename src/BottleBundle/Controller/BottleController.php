@@ -39,7 +39,6 @@ class BottleController extends Controller
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
         $emojiRepository = $this->em->getRepository('BottleBundle:Emoji');
 
-        // TODO : take connected one
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $emojis = $emojiRepository->findAll();
 
@@ -62,7 +61,7 @@ class BottleController extends Controller
         return $this->render('BottleBundle:Bottle:open.html.twig',
             array('bottle' => $bottle,
                   'emojis' => $emojis,
-                )
+            )
         );
     }
 
@@ -81,6 +80,7 @@ class BottleController extends Controller
     public function createBottleAction(Request $request) {
         $this->em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
+        $userRepository = $this->em->getRepository('MainBundle:User');
 
         $message = $request->request->get('message');
         $image = $request->request->get('image');
@@ -88,15 +88,23 @@ class BottleController extends Controller
 
         if ($message !== '') {
             $bottle = new Bottle();
-            $bottle->constructBottle($user, $message, $send !== null ? 1 : 0, $image === '' ? null : $image);
+            $state = $send !== null ? 1 : 0;
+            $bottle->constructBottle($user, $message, $state, $image === '' ? null : $image);
             $this->em->persist($bottle);
+
+            if ($state === 1) {
+                $upped = $userRepository->earnExperience($user, 10);
+                if ($upped) {
+                    // TODO : add flashbag level up
+                }
+            }
             $this->em->flush();
 
-            //add flashbag
+            // TODO : add flashbag bootle created
             return $this->redirectToRoute('bottle_home');
         }
 
-        //add flashbag
+        // TODO : add flashbag failed fields (+rewrite fields)
         return $this->redirectToRoute('bottle_write');
     }
 
@@ -110,9 +118,11 @@ class BottleController extends Controller
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
         $emojiRepository = $this->em->getRepository('BottleBundle:Emoji');
+        $userRepository = $this->em->getRepository('MainBundle:User');
 
         $mark = $request->request->get('mark');
         $idEmoji = $request->request->get('emoji');
+        $evaluated = false;
 
         if ($mark !== '' && $idEmoji != '') {
             $bottle = $bottleRepository->getPendingBottle($user);
@@ -123,7 +133,18 @@ class BottleController extends Controller
                 $bottle->setState(3);
                 $this->em->persist($bottle);
                 $this->em->flush();
+                $evaluated = true;
+
+                $upped = $userRepository->earnExperience($user, $mark * 10 + $emoji->getWeight());
+                if ($upped) {
+                    // TODO : add flashbag level up
+                }
+                // TODO : add flashbag evaluated success
             }
+        }
+
+        if (!$evaluated) {
+            // TODO : add flashbag bad fields
         }
 
         return $this->redirectToRoute('bottle_home');

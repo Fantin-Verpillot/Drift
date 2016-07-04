@@ -13,25 +13,35 @@ class LoadEmojiData extends AbstractFixture implements OrderedFixtureInterface
     {
         $emojis = array(
             array(
-                'name'  => 'Happy'
+                'name'      => 'Happy',
+                'weight'    => 30
             ),
             array(
-                'name'  => 'Angry'
+                'name'      => 'Angry',
+                'weight'    => 0
             ),
             array(
-                'name'  => 'Sad'
+                'name'      => 'Sad',
+                'weight'    => 0
             ),
             array(
-                'name'  => 'Affected'
+                'name'      => 'Shocked',
+                'weight'    => 0
             ),
             array(
-                'name'  => 'In love'
+                'name'      => 'In love',
+                'weight'    => 50
+            ),
+            array(
+                'name'      => 'Smitten',
+                'weight'    => 40
             ),
         );
 
         foreach ($emojis as $key => $value) {
             $emoji = new Emoji();
             $emoji->setName($value['name']);
+            $emoji->setWeight($value['weight']);
 
             $em->persist($emoji);
             $this->addReference('Emoji'.$key, $emoji);
