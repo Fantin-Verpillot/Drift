@@ -49,3 +49,43 @@ body {
     margin-left: 18px;
 }
 
+/* Bottle */
+
+.bottle {
+    height: 250px;
+    padding: 20px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+
+/*.bottle:after {*/
+    /*content: ' ';*/
+    /*display: block;*/
+    /*background-color: white;*/
+    /*height: 20px;*/
+    /*width: 100%;*/
+    /*position: absolute;*/
+    /*bottom: 0;*/
+/*}*/
+
+.bottle .text {
+    font-style: italic;
+    font-size: 14px;
+}
+
+.bottle .info {
+    position: absolute;
+    bottom: -5px;
+    right: 10px;
+    font-size: 11px;
+}
+
+.bottle .image-icon {
+    position: absolute;
+    bottom: -5px;
+    left: 20px;
+}
+
+.grow { transition: all .2s ease-in-out; }
+.grow:hover { transform: scale(1.05); }
