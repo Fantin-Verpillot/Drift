@@ -3,14 +3,17 @@
 namespace BottleBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use JMS\SecurityExtraBundle\Annotation\Secure; /* /!\ Don't remove, used by the annotations /!\ */
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Intl\Exception\NotImplementedException; /* /!\ Don't remove, used by the annotations /!\ */
 
 class BottleController extends Controller
 {
     private $em;
 
     /**
-     * @Secure(roles="ROLE_USER")
+     * @Secure(roles="ROLE_USER, ROLE_ADMIN")
      */
     public function indexAction()
     {
@@ -23,24 +26,23 @@ class BottleController extends Controller
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
 
-        $pendingBottle = $bottleRepository->getPendingBottle($user);
-        if ($pendingBottle !== null) {
-            return $this->render('BottleBundle:Bottle:open.html.twig',
-                array('bottle' => $pendingBottle)
-            );
+        if ($bottleRepository->getPendingBottle($user) !== null) {
+            return $this->redirectToRoute('bottle_open');
         }
         return $this->render('BottleBundle:Bottle:index.html.twig');
     }
 
     /**
-     * @Secure(roles="ROLE_USER")
+     * @Secure(roles="ROLE_USER, ROLE_ADMIN")
      */
     public function openBottleAction() {
         $this->em = $this->getDoctrine()->getManager();
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
+        $emojiRepository = $this->em->getRepository('BottleBundle:Emoji');
 
         // TODO : take connected one
         $user = $this->get('security.token_storage')->getToken()->getUser();
+        $emojis = $emojiRepository->findAll();
 
         $bottle = $bottleRepository->getPendingBottle($user);
         if ($bottle === null) {
@@ -58,14 +60,44 @@ class BottleController extends Controller
             }
         }
         return $this->render('BottleBundle:Bottle:open.html.twig',
-            array('bottle' => $bottle)
+            array('bottle' => $bottle,
+                  'emojis' => $emojis
+            )
         );
     }
 
     /**
-     * @Secure(roles="ROLE_USER")
+     * @Secure(roles="ROLE_USER, ROLE_ADMIN")
      */
     public function writeBottleAction() {
-        return $this->render('BottleBundle:Bottle:index.html.twig');
+        throw new NotImplementedException('This feature is comming soon!');
+    }
+
+    /**
+     * @Secure(roles="ROLE_USER, ROLE_ADMIN")
+     */
+    public function evaluateBottleAction(Request $request) {
+        $this->em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
+        $emojiRepository = $this->em->getRepository('BottleBundle:Emoji');
+
+        $mark = $request->request->get('mark');
+        $idEmoji = $request->request->get('emoji');
+
+        if ($mark !== '' && $idEmoji != '') {
+            $bottle = $bottleRepository->getPendingBottle($user);
+            $emoji = $emojiRepository->find($idEmoji);
+            if ($bottle !== null && $emoji != null) {
+                $bottle->setMark($mark);
+                $bottle->setFkEmoji($emoji);
+                $bottle->setState(3);
+                $this->em->persist($bottle);
+                $this->em->flush();
+            }
+        }
+
+        return $this->redirectToRoute('bottle_home');
+        //return $this->render('BottleBundle:Bottle:index.html.twig');
     }
 }

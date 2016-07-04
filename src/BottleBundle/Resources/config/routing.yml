@@ -9,3 +9,7 @@ bottle_open:
 bottle_write:
   path:        /bottle/write
   defaults: { _controller: BottleBundle:Bottle:writeBottle }
+
+bottle_evaluate:
+  path:        /bottle/evaluate
+  defaults: { _controller: BottleBundle:Bottle:evaluateBottle }
