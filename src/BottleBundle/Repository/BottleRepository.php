@@ -61,7 +61,7 @@ class BottleRepository extends EntityRepository
         }
 
         // then we merge the user's bottle + the one he received from the admin
-        $adminBottles = $bottleAdminRepository->getSavedAdminBottle($userConnected);
+        $adminBottles = $bottleAdminRepository->getSavedAdminBottles($userConnected);
 
         $allBottles = $userBottles;
 
