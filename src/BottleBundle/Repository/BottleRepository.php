@@ -26,4 +26,16 @@ class BottleRepository extends EntityRepository
         }
         return null;
     }
+
+    public function getArchivedBottles($userConnected)
+    {
+        $bottles = $this->findByFkReceiver($userConnected);
+        //$Allbottles2 = $bottles->findByState(3);
+        foreach ($bottles as $bottle) {
+            if ($bottle->getFkTransmitter()->getId() !== $userConnected->getId() && $bottle->getState() == 3) {
+                $allBottles[] = $bottle;
+            }
+        }
+        return $allBottles;
+    }
 }
