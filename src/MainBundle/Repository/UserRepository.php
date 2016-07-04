@@ -18,18 +18,15 @@ class UserRepository extends EntityRepository
         $changed = false;
 
         while ($experience >= $level * $level * 50) {
-            ++$level;
             $experience -= $level * $level * 50;
+            ++$level;
             $changed = true;
         }
 
-        if ($changed) {
-            $user->setExperience($experience);
-            $user->setLevel($experience);
-            $this->em->persist($user);
-            $this->em->flush();
-            return true;
-        }
-        return false;
+        $user->setExperience($experience);
+        $user->setLevel($level);
+        $this->em->persist($user);
+        $this->em->flush();
+        return $changed;
     }
 }

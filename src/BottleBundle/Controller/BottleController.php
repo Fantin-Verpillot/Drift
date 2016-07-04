@@ -93,8 +93,7 @@ class BottleController extends Controller
             $this->em->persist($bottle);
 
             if ($state === 1) {
-                $upped = $userRepository->earnExperience($user, 10);
-                if ($upped) {
+                if ($userRepository->earnExperience($user, 10)) {
                     // TODO : add flashbag level up
                 }
             }
@@ -135,9 +134,12 @@ class BottleController extends Controller
                 $this->em->flush();
                 $evaluated = true;
 
-                $upped = $userRepository->earnExperience($user, $mark * 10 + $emoji->getWeight());
-                if ($upped) {
-                    // TODO : add flashbag level up
+                if ($userRepository->earnExperience($bottle->getFkTransmitter(), $mark * 10 + $emoji->getWeight())) {
+                    // TODO : add flashbag level up next connection
+                }
+
+                if ($userRepository->earnExperience($user, 5)) {
+                    // TODO : add flashbag level up now
                 }
                 // TODO : add flashbag evaluated success
             }
@@ -147,6 +149,7 @@ class BottleController extends Controller
             // TODO : add flashbag bad fields
         }
 
-        return $this->redirectToRoute('bottle_home');
+        //return $this->redirectToRoute('bottle_home');
+        return $this->render('BottleBundle:Bottle:index.html.twig');
     }
 }
