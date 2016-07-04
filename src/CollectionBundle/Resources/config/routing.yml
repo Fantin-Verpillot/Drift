@@ -1,3 +1,7 @@
 collection_home:
     path:     /collection
     defaults: { _controller: CollectionBundle:Collection:index }
+
+collection_delete:
+    path:     /collection/delete
+    defaults: { _controller: CollectionBundle:Collection:delete }

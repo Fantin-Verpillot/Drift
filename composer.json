@@ -19,7 +19,6 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "doctrine/doctrine-fixtures-bundle": "^2.3",
         "fzaninotto/faker": "^1.6",
-        "nategood/httpful": "*",
         "jms/security-extra-bundle": "dev-master"
     },
     "require-dev": {
