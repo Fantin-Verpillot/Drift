@@ -13,6 +13,15 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+    /*
+     * State values :
+     * 0 = draft
+     * 1 = sent but not transmitted
+     * 2 = opened and still reading it
+     * 3 = opened and saved in the collection
+     * 4 = opened and deleted
+     */
+
     /**
      * @var int
      *
@@ -233,5 +242,9 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         return true;
+    }
+
+    public function isAdmin() {
+        return in_array('ROLE_ADMIN', $this->roles);
     }
 }

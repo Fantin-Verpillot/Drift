@@ -26,11 +26,10 @@ class BottleController extends Controller
         //$user = $this->get('security.token_storage')->getToken()->getUser();
         //if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) { ... }
         $this->em = $this->getDoctrine()->getManager();
-        $userRepository = $this->em->getRepository('MainBundle:User');
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
 
         // TODO : take connected one
-        $user = $userRepository->findAll()[1];
+        $user = $this->get('security.token_storage')->getToken()->getUser();
 
         $pendingBottle = $bottleRepository->getPendingBottle($user);
         if ($pendingBottle !== null) {
@@ -45,13 +44,14 @@ class BottleController extends Controller
      * @Secure(roles="ROLE_USER")
      */
     public function openBottleAction(Request $request) {
+        //quand transmitter pick up, on est fked
         //check if a bottle has not be oppened
         $this->em = $this->getDoctrine()->getManager();
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
         $userRepository = $this->em->getRepository('MainBundle:User');
 
         // TODO : take connected one
-        $user = $userRepository->findAll()[1];
+        $user = $this->get('security.token_storage')->getToken()->getUser();
 
         // Check if there is a pending (open but not marked/emojied) bottle
         $bottle = $bottleRepository->getPendingBottle($user);
