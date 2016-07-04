@@ -1,3 +1,11 @@
 main_homepage:
     path:     /
-    defaults: { _controller: MainBundle:Default:index }
+    defaults: { _controller: MainBundle:Main:index }
+
+login:
+    pattern:   /login
+    defaults:  { _controller: MainBundle:Main:login }
+login_check:
+    pattern:   /login_check
+logout:
+    pattern:   /logout

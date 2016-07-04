@@ -4,12 +4,23 @@ namespace BottleBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use JMS\SecurityExtraBundle\Annotation\Secure; /* /!\ Don't remove, used by the annotations /!\ */
 
 class BottleController extends Controller
 {
     private $em;
+
+    /**
+     * @Secure(roles="ROLE_USER")
+     */
     public function indexAction()
     {
+        /*if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            var_dump("admin");
+        }
+        if ($this->get('security.context')->isGranted('ROLE_USER')) {
+            var_dump("user");
+        }*/
         $this->em = $this->getDoctrine()->getManager();
         $userRepository = $this->em->getRepository('MainBundle:User');
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
@@ -26,6 +37,9 @@ class BottleController extends Controller
         return $this->render('BottleBundle:Bottle:index.html.twig');
     }
 
+    /**
+     * @Secure(roles="ROLE_USER")
+     */
     public function openBottleAction(Request $request) {
         //check if a bottle has not be oppened
         $this->em = $this->getDoctrine()->getManager();

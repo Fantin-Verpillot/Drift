@@ -15,26 +15,26 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $faker = Faker::create();
         $users = array(
             array(
-                'login'         => 'transmitter',
+                'username'      => 'transmitter',
                 'password'      => 'password',
                 'email'         => $faker->email,
-                'role'          => 1,
+                'roles'         => array('ROLE_USER'),
                 'experience'    => 1000,
                 'level'         => 2,
             ),
             array(
-                'login'         => 'receiver',
+                'username'      => 'receiver',
                 'password'      => 'password',
                 'email'         => $faker->email,
-                'role'          => 1,
+                'roles'         => array('ROLE_USER'),
                 'experience'    => 100,
                 'level'         => 1,
             ),
             array(
-                'login'         => 'admin',
+                'username'      => 'admin',
                 'password'      => 'password',
                 'email'         => $faker->email,
-                'role'          => 0,
+                'roles'         => array('ROLE_ADMIN', 'ROLE_USER'),
                 'experience'    => 0,
                 'level'         => 1,
             ),
@@ -42,10 +42,10 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 
         foreach ($users as $key => $value) {
             $user = new User();
-            $user->setLogin($value['login']);
+            $user->setUsername($value['username']);
             $user->setPassword($value['password']);
             $user->setEmail($value['email']);
-            $user->setRole($value['role']);
+            $user->setRoles($value['roles']);
             $user->setExperience($value['experience']);
             $user->setLevel($value['level']);
 
