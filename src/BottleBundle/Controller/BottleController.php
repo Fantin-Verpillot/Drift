@@ -15,12 +15,16 @@ class BottleController extends Controller
      */
     public function indexAction()
     {
+        //OLD WAY
         /*if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
             var_dump("admin");
         }
         if ($this->get('security.context')->isGranted('ROLE_USER')) {
             var_dump("user");
         }*/
+        //NEXT WAY
+        //$user = $this->get('security.token_storage')->getToken()->getUser();
+        //if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) { ... }
         $this->em = $this->getDoctrine()->getManager();
         $userRepository = $this->em->getRepository('MainBundle:User');
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
