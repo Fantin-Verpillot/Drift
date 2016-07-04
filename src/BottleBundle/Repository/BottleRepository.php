@@ -30,12 +30,13 @@ class BottleRepository extends EntityRepository
     public function getArchivedBottles($userConnected)
     {
         $bottles = $this->findByFkReceiver($userConnected);
-        //$Allbottles2 = $bottles->findByState(3);
+        $allBottles = [];
         foreach ($bottles as $bottle) {
             if ($bottle->getFkTransmitter()->getId() !== $userConnected->getId() && $bottle->getState() == 3) {
                 $allBottles[] = $bottle;
             }
         }
-        return $allBottles;
+
+            return $allBottles;
     }
 }

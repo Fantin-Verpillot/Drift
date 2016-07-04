@@ -4,4 +4,22 @@
     {% else %}
         <li>No archived bottle</li>
     {% endfor %}
+
+
+    <form method="post" action="{{ path("collection_delete") }}">
+        <p>
+            <label for="idBottle">Id to delete : </label>
+            <input type="number" name="idBottle" id="idBottle" />
+
+            <input type="submit" value="Envoyer" />
+        </p>
+    </form>
+
+    {% if res is defined %}
+        {% if res.id is defined %}
+            id Bottle deleted: {{ res.id }}
+        {% else %}
+            {{ res }}
+        {% endif %}
+    {% endif %}
 </ul>

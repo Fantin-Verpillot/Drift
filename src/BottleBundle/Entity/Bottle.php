@@ -89,6 +89,35 @@ class Bottle
 
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="received_date", type="datetime", nullable=true)
+     */
+    private $received_date;
+
+
+    /**
+     * Get received date
+     *
+     * @return datetime
+     */
+    public function getReceived_date()
+    {
+        return $this->received_date;
+    }
+
+
+    /**
+     * Set received date
+     *
+     */
+    public function setReceived_date($received_date)
+    {
+        $this->received_date = $received_date;
+    }
+
+
+    /**
      * Get id
      *
      * @return integer 
@@ -303,5 +332,9 @@ class Bottle
     public function getImage()
     {
         return $this->image;
+    }
+
+    public function getSourceRole() {
+        return 'ROLE_USER';
     }
 }

@@ -3,10 +3,9 @@
 namespace BottleBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use JMS\SecurityExtraBundle\Annotation\Secure;
-use Symfony\Component\Config\Definition\Exception\Exception;
+use JMS\SecurityExtraBundle\Annotation\Secure; /* /!\ Don't remove, used by the annotations /!\ */
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Intl\Exception\NotImplementedException; /* /!\ Don't remove, used by the annotations /!\ */
+use Symfony\Component\Intl\Exception\NotImplementedException;
 
 class BottleController extends Controller
 {
@@ -98,6 +97,5 @@ class BottleController extends Controller
         }
 
         return $this->redirectToRoute('bottle_home');
-        //return $this->render('BottleBundle:Bottle:index.html.twig');
     }
 }
