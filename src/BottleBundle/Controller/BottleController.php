@@ -35,8 +35,10 @@ class BottleController extends Controller
 
     /**
      * @Secure(roles="ROLE_USER, ROLE_ADMIN")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function openBottleAction() {
+    public function openBottleAction(Request $request) {
         $this->em = $this->getDoctrine()->getManager();
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
         $emojiRepository = $this->em->getRepository('BottleBundle:Emoji');
@@ -50,12 +52,12 @@ class BottleController extends Controller
             $bottle = $bottleRepository->getAvailableBottle($user);
             if ($bottle !== null) {
                 $locationService = $this->container->get('bottle_location');
-                $ip = $locationService->getClientIpEnv();
+                $location = $locationService->getLocationByIP($request->getClientIp());
 
                 $bottle->setFkReceiver($user);
                 $bottle->setReceivedDate(new DateTime('NOW', new DateTimeZone('Europe/Paris')));
-                $bottle->setLatitude($locationService->myservice($ip)[0]);
-                $bottle->setLongitude($locationService->myservice($ip)[1]);
+                $bottle->setLatitude($locationService->getLocationByIP($location[0]));
+                $bottle->setLongitude($locationService->getLocationByIP($location[1]));
                 $bottle->setState(2);
                 $this->em->persist($bottle);
                 $this->em->flush();
