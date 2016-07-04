@@ -134,6 +134,7 @@ class LoadBottleAdminData extends AbstractFixture implements OrderedFixtureInter
             $bottleAdmin->setMessage($value['message']);
             $bottleAdmin->setImage($value['image']);
             $bottleAdmin->setType($value['type']);
+            $bottleAdmin->setReceivedDate($value['received_date']);
 
             $em->persist($bottleAdmin);
             $this->addReference('BottleAdmin'.$key, $bottleAdmin);

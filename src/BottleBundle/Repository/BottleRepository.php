@@ -34,10 +34,10 @@ class BottleRepository extends EntityRepository
     {
         $r1 = $b1->getReceivedDate();
         $r2 = $b2->getReceivedDate();
-        if ($b1 == $b2) {
+        if ($r1 === $r2) {
             return 0;
         }
-        return ( $b1 < $b2) ? -1 : 1;
+        return ( $r1 < $r2) ? -1 : 1;
     }
 
     /*
@@ -72,8 +72,8 @@ class BottleRepository extends EntityRepository
         }
 
         // return the sorted array
-       //return usort($allBottles, array('BottleBundle\Repository\BottleRepository','cmp'));
-        return $allBottles;
+       return usort($allBottles, array('BottleBundle\Repository\BottleRepository','cmp'));
+        //return $allBottles;
     }
 
     public function getAverageMark($userConnected){
