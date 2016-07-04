@@ -22,6 +22,7 @@ class MainController extends Controller
                 'mark'              => $bottleRepository->getAverageMark($user),
                 'bottleTransmitted' => $bottleRepository->countTransmittedBottle($user),
                 'bottleReceived'    => $bottleRepository->countReceivedBottle($user),
+                'emojiCount'        => $bottleRepository->countEmojiByBottle($user),
                 )
         );
 
