@@ -70,27 +70,30 @@ class BottleAdmin
      *
      * @ORM\Column(name="received_date", type="datetime", nullable=true)
      */
-    private $received_date;
+    private $receivedDate;
 
 
     /**
-     * Get received date
+     * Get receivedDate
      *
-     * @return datetime
+     * @return \DateTime
      */
-    public function getReceived_date()
+    public function getReceivedDate()
     {
-        return $this->received_date;
+        return $this->receivedDate;
     }
 
 
     /**
-     * Set received date
-     *
+     * Set receivedDate
+     * @param $receivedDate
+     * @return $this
      */
-    public function setReceived_date($received_date)
+    public function setReceivedDate($receivedDate)
     {
-        $this->received_date = $received_date;
+        $this->receivedDate = $receivedDate;
+
+        return $this;
     }
 
     /**
