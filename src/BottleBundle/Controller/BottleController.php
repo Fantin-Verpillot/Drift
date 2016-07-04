@@ -3,6 +3,8 @@
 namespace BottleBundle\Controller;
 
 use BottleBundle\Entity\Bottle;
+use DateTime;
+use DateTimeZone;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\SecurityExtraBundle\Annotation\Secure; /* /!\ Don't remove, used by the annotations /!\ */
 use Symfony\Component\HttpFoundation\Request;
@@ -38,6 +40,7 @@ class BottleController extends Controller
         $this->em = $this->getDoctrine()->getManager();
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
         $emojiRepository = $this->em->getRepository('BottleBundle:Emoji');
+        $userRepository = $this->em->getRepository('MainBundle:User');
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $emojis = $emojiRepository->findAll();
@@ -50,11 +53,16 @@ class BottleController extends Controller
                 $ip = $locationService->getClientIpEnv();
 
                 $bottle->setFkReceiver($user);
+                $bottle->setReceivedDate(new DateTime('NOW', new DateTimeZone('Europe/Paris')));
                 $bottle->setLatitude($locationService->myservice($ip)[0]);
                 $bottle->setLongitude($locationService->myservice($ip)[1]);
                 $bottle->setState(2);
                 $this->em->persist($bottle);
                 $this->em->flush();
+
+                if ($userRepository->earnExperience($user, 5)) {
+                    // TODO : add flashbag level up now
+                }
             }
         }
 
@@ -138,9 +146,6 @@ class BottleController extends Controller
                     // TODO : add flashbag level up next connection
                 }
 
-                if ($userRepository->earnExperience($user, 5)) {
-                    // TODO : add flashbag level up now
-                }
                 // TODO : add flashbag evaluated success
             }
         }

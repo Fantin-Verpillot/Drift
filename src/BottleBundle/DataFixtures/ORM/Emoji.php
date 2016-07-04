@@ -36,6 +36,10 @@ class LoadEmojiData extends AbstractFixture implements OrderedFixtureInterface
                 'name'      => 'Smitten',
                 'weight'    => 40
             ),
+            array(
+                'name'      => 'Amused',
+                'weight'    => 30
+            ),
         );
 
         foreach ($emojis as $key => $value) {
