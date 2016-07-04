@@ -8,81 +8,85 @@
 
     <div class="row">
         <div class="col-md-12 no-padding">
-            <div class="panel panel-default user-panel">
+            <div class="panel panel-default user-panel animated fadeIn">
                 <div class="panel-heading heading">
                     <i class="fa fa-info-circle" aria-hidden="true"></i> Information
                 </div>
                 <div class="panel-body">
                     <div class="text">
-                        <i class="fa fa-user" aria-hidden="true"></i> Lyfing
+                        <i class="fa fa-user" aria-hidden="true"></i> {{ user.username }}
                     </div>
 
                     <div class="text">
-                        <i class="fa fa-envelope" aria-hidden="true"></i> philippe.eng@epita.fr
+                        <i class="fa fa-envelope" aria-hidden="true"></i> {{  user.email }}
                     </div>
 
                     <div class="text">
-                        <i class="fa fa-star" aria-hidden="true"></i> XP (60/100)
+                        <i class="fa fa-star" aria-hidden="true"></i> XP ({{  user.experience  }}/{{ (user.level * user.level) * 50 }})
                         <div class="progress">
-                            <div class="progress-bar" style="width: 60%;"></div>
+                            <div class="progress-bar" style="width: {{ (user.experience / (user.level * user.level * 50)) * 100 }}%;"></div>
                         </div>
-                    <div>
+                        <div>
 
-                    <div class="text">
-                        <i class="fa fa-trophy" aria-hidden="true"></i> Level 123
-                    </div>
-
-                    <div class="text">
-                        <i class="fa fa-star-half-o" aria-hidden="true"></i> 3.5 / 5
-                    </div>
-
-                    <div class="text">
-                        <i class="fa fa-asterisk" aria-hidden="true"></i> Bottles
-                        <div class="sub-text"><i class="fa fa-arrow-left" aria-hidden="true"></i> 20 received</div>
-                        <div class="sub-text"><i class="fa fa-arrow-right" aria-hidden="true"></i> 10 sent</div>
-                    </div>
-
-
-                    <div class="text">
-                        <i class="fa fa-asterisk" aria-hidden="true"></i> Bottles order by mood
-                        <div class="row" style="padding: 0;">
-                            <div class="col-md-1">
-                                <div class="sub-text"><i class="fa fa-heart" aria-hidden="true"></i> 10</div>
+                            <div class="text">
+                                <i class="fa fa-trophy" aria-hidden="true"></i> Level {{ user.level }}
                             </div>
 
-                            <div class="col-md-1">
-                                <div class="sub-text"><i class="fa fa-smile-o" aria-hidden="true"></i> 10</div>
+                            <div class="text">
+                                <i class="fa fa-star-half-o" aria-hidden="true"></i> {{ mark }} / 5
                             </div>
 
-                            <div class="col-md-1">
-                                <div class="sub-text"><i class="fa fa-meh-o" aria-hidden="true"></i> 10</div>
+                            <div class="text">
+                                <i class="fa fa-asterisk" aria-hidden="true"></i> <span
+                                        style="font-weight: 500;">Bottles</span>
+                                <div class="sub-text"><i class="fa fa-arrow-left" aria-hidden="true"></i> {{ bottleReceived }} received
+                                </div>
+                                <div class="sub-text"><i class="fa fa-arrow-right" aria-hidden="true"></i> {{ bottleTransmitted }} sent</div>
                             </div>
 
-                            <div class="col-md-1">
-                                <div class="sub-text"><i class="fa fa-frown-o" aria-hidden="true"></i> 10</div>
+
+                            <div class="text">
+                                <i class="fa fa-asterisk" aria-hidden="true"></i> <span style="font-weight: 500;">Bottles order by mood</span>
+                                <div class="row" style="padding: 0;">
+                                    <div class="col-md-1">
+                                        <div class="sub-text"><i class="fa fa-heart" aria-hidden="true"></i> 10</div>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <div class="sub-text"><i class="fa fa-smile-o" aria-hidden="true"></i> 10</div>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <div class="sub-text"><i class="fa fa-meh-o" aria-hidden="true"></i> 10</div>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <div class="sub-text"><i class="fa fa-frown-o" aria-hidden="true"></i> 10</div>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <div class="sub-text"><i class="fa fa-fire" aria-hidden="true"></i> 10</div>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="col-md-1">
-                                <div class="sub-text"><i class="fa fa-fire" aria-hidden="true"></i> 10</div>
+
+                            <div class="row" style="margin-top: 40px;">
+                                <div class="col-md-6">
+                                    <a href="{{  path('collection_home') }}" class="btn btn-primary btn-lg">My collection</a>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <a href="{{  path('bottle_home') }}" class="btn btn-primary btn-lg pull-right">Bottles</a>
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-
-                    <div class="row" style="margin-top: 40px;">
-                        <div class="col-md-6">
-                            <a href="#" class="btn btn-primary btn-lg">My collection</a>
-                        </div>
-
-                        <div class="col-md-6">
-                            <a href="#" class="btn btn-primary btn-lg pull-right">Bottles</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 
 {% endblock %}
