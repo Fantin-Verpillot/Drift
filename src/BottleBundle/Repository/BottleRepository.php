@@ -16,6 +16,22 @@ class BottleRepository extends EntityRepository
         return null;
     }
 
+    public function queryBuilderExample() {
+        //$this->container->getEntityManager()
+        $qb = $this->createQueryBuilder('b')
+            ->select('count(b.fkEmoji) as countEmoji, e.id, e.name')
+            ->join('b.fkEmoji', 'e')
+            ->Where('b.fkTransmitter = 47')
+            ->groupBy('b.fkEmoji');
+            //->andWhere('e.name = :name_emoji')
+            //->setParameter('name_emoji', 'angry')
+            //->addOrderBy('b.message', 'asc')
+            //->setFirstResult(5)
+            //->setMaxResults(10);
+
+        return $qb->getQuery()->getResult();
+    }
+
     public function getAvailableBottle($userConnected)
     {
         $bottles = $this->findByState(1);
