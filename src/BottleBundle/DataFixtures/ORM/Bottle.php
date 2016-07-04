@@ -24,7 +24,7 @@ class LoadBottleData extends AbstractFixture implements OrderedFixtureInterface
                 'longitude'         => null,
                 'message'           => $faker->realText(1000),
                 'image'             => null,
-                'received_date'     => "2016-07-08",
+                'received_date'     => $faker->dateTimeThisYear($max = 'now'),
             ),
             array(
                 'fkReceiver'        => null,
@@ -36,7 +36,7 @@ class LoadBottleData extends AbstractFixture implements OrderedFixtureInterface
                 'longitude'         => null,
                 'message'           => $faker->realText(1000),
                 'image'             => null,
-                'received_date'     => "2016-07-10",
+                'received_date'     => $faker->dateTimeThisYear($max = 'now'),
             ),
             array(
                 'fkReceiver'        => null,
@@ -48,7 +48,7 @@ class LoadBottleData extends AbstractFixture implements OrderedFixtureInterface
                 'longitude'         => null,
                 'message'           => $faker->realText(1000),
                 'image'             => 'http://okux.org/wp-content/uploads/2013/07/fond-d-ecran-coucher-de-soleil-en-taille-reelle.jpg',
-                'received_date'     => "2016-06-08",
+                'received_date'     => $faker->dateTimeThisYear($max = 'now'),
             ),
             array(
                 'fkReceiver'        => $this->getReference('User1'),
@@ -60,7 +60,7 @@ class LoadBottleData extends AbstractFixture implements OrderedFixtureInterface
                 'longitude'         => 2.3522219000000177,
                 'message'           => $faker->realText(1000),
                 'image'             => null,
-                'received_date'     => "2016-07-01",
+                'received_date'     => $faker->dateTimeThisYear($max = 'now'),
             ),
             array(
                 'fkReceiver'        => $this->getReference('User1'),
@@ -72,7 +72,7 @@ class LoadBottleData extends AbstractFixture implements OrderedFixtureInterface
                 'longitude'         => 2.3522219000000177,
                 'message'           => $faker->realText(1000),
                 'image'             => 'http://img1.mxstatic.com/wallpapers/9c3d9ad540db9c53767569ae2faa15ac_large.jpeg',
-                'received_date'     => "2016-07-08",
+                'received_date'     => $faker->dateTimeThisYear($max = 'now'),
             ),
             array(
                 'fkReceiver'        => $this->getReference('User1'),
@@ -84,7 +84,7 @@ class LoadBottleData extends AbstractFixture implements OrderedFixtureInterface
                 'longitude'         => 2.3522219000000177,
                 'message'           => $faker->realText(1000),
                 'image'             => 'http://img1.mxstatic.com/wallpapers/9c3d9ad540db9c53767569ae2faa15ac_large.jpeg',
-                'received_date'     => "2016-07-18",
+                'received_date'     => $faker->dateTimeThisYear($max = 'now'),
             ),
         );
 
