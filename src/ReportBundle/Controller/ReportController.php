@@ -4,10 +4,10 @@ namespace ReportBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class DefaultController extends Controller
+class ReportController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('ReportBundle:Default:index.html.twig');
+        return $this->render('ReportBundle:Report:index.html.twig');
     }
 }

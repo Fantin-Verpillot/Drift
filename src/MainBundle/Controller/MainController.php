@@ -15,6 +15,7 @@ class MainController extends Controller
         $this->em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
+        var_dump($bottleRepository->countEmojiByBottle($user));
 
         return $this->render('MainBundle:Main:index.html.twig',
             array(
