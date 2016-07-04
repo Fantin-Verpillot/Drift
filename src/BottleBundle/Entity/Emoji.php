@@ -28,6 +28,13 @@ class Emoji
      */
     private $name;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="weight", type="integer", nullable=false)
+     */
+    private $weight;
+
 
     /**
      * Get id
@@ -60,5 +67,28 @@ class Emoji
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set weight
+     *
+     * @param integer $weight
+     * @return Emoji
+     */
+    public function setWeight($weight)
+    {
+        $this->weight = $weight;
+
+        return $this;
+    }
+
+    /**
+     * Get weight
+     *
+     * @return integer
+     */
+    public function getWeight()
+    {
+        return $this->weight;
     }
 }

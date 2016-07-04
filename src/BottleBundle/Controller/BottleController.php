@@ -3,6 +3,8 @@
 namespace BottleBundle\Controller;
 
 use BottleBundle\Entity\Bottle;
+use DateTime;
+use DateTimeZone;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\SecurityExtraBundle\Annotation\Secure; /* /!\ Don't remove, used by the annotations /!\ */
 use Symfony\Component\HttpFoundation\Request;
@@ -38,8 +40,8 @@ class BottleController extends Controller
         $this->em = $this->getDoctrine()->getManager();
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
         $emojiRepository = $this->em->getRepository('BottleBundle:Emoji');
+        $userRepository = $this->em->getRepository('MainBundle:User');
 
-        // TODO : take connected one
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $emojis = $emojiRepository->findAll();
 
@@ -51,18 +53,23 @@ class BottleController extends Controller
                 $ip = $locationService->getClientIpEnv();
 
                 $bottle->setFkReceiver($user);
+                $bottle->setReceivedDate(new DateTime('NOW', new DateTimeZone('Europe/Paris')));
                 $bottle->setLatitude($locationService->myservice($ip)[0]);
                 $bottle->setLongitude($locationService->myservice($ip)[1]);
                 $bottle->setState(2);
                 $this->em->persist($bottle);
                 $this->em->flush();
+
+                if ($userRepository->earnExperience($user, 5)) {
+                    // TODO : add flashbag level up now
+                }
             }
         }
 
         return $this->render('BottleBundle:Bottle:open.html.twig',
             array('bottle' => $bottle,
                   'emojis' => $emojis,
-                )
+            )
         );
     }
 
@@ -81,6 +88,7 @@ class BottleController extends Controller
     public function createBottleAction(Request $request) {
         $this->em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
+        $userRepository = $this->em->getRepository('MainBundle:User');
 
         $message = $request->request->get('message');
         $image = $request->request->get('image');
@@ -88,15 +96,22 @@ class BottleController extends Controller
 
         if ($message !== '') {
             $bottle = new Bottle();
-            $bottle->constructBottle($user, $message, $send !== null ? 1 : 0, $image === '' ? null : $image);
+            $state = $send !== null ? 1 : 0;
+            $bottle->constructBottle($user, $message, $state, $image === '' ? null : $image);
             $this->em->persist($bottle);
+
+            if ($state === 1) {
+                if ($userRepository->earnExperience($user, 10)) {
+                    // TODO : add flashbag level up
+                }
+            }
             $this->em->flush();
 
-            //add flashbag
+            // TODO : add flashbag bootle created
             return $this->redirectToRoute('bottle_home');
         }
 
-        //add flashbag
+        // TODO : add flashbag failed fields (+rewrite fields)
         return $this->redirectToRoute('bottle_write');
     }
 
@@ -110,9 +125,11 @@ class BottleController extends Controller
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
         $emojiRepository = $this->em->getRepository('BottleBundle:Emoji');
+        $userRepository = $this->em->getRepository('MainBundle:User');
 
         $mark = $request->request->get('mark');
         $idEmoji = $request->request->get('emoji');
+        $evaluated = false;
 
         if ($mark !== '' && $idEmoji != '') {
             $bottle = $bottleRepository->getPendingBottle($user);
@@ -123,9 +140,21 @@ class BottleController extends Controller
                 $bottle->setState(3);
                 $this->em->persist($bottle);
                 $this->em->flush();
+                $evaluated = true;
+
+                if ($userRepository->earnExperience($bottle->getFkTransmitter(), $mark * 10 + $emoji->getWeight())) {
+                    // TODO : add flashbag level up next connection
+                }
+
+                // TODO : add flashbag evaluated success
             }
         }
 
-        return $this->redirectToRoute('bottle_home');
+        if (!$evaluated) {
+            // TODO : add flashbag bad fields
+        }
+
+        //return $this->redirectToRoute('bottle_home');
+        return $this->render('BottleBundle:Bottle:index.html.twig');
     }
 }

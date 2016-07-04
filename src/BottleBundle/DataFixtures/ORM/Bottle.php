@@ -2,6 +2,8 @@
 
 namespace BottleBundle\DataFixtures\ORM;
 
+use DateTime;
+use DateTimeZone;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -24,7 +26,7 @@ class LoadBottleData extends AbstractFixture implements OrderedFixtureInterface
                 'longitude'         => null,
                 'message'           => $faker->realText(500),
                 'image'             => null,
-                'received_date'     => new \DateTime('NOW'),
+                'received_date'     => null,
             ),
             array(
                 'fkReceiver'        => null,
@@ -36,7 +38,7 @@ class LoadBottleData extends AbstractFixture implements OrderedFixtureInterface
                 'longitude'         => null,
                 'message'           => $faker->realText(500),
                 'image'             => null,
-                'received_date'     => new \DateTime('NOW'),
+                'received_date'     => null,
             ),
             array(
                 'fkReceiver'        => null,
@@ -48,7 +50,7 @@ class LoadBottleData extends AbstractFixture implements OrderedFixtureInterface
                 'longitude'         => null,
                 'message'           => $faker->realText(500),
                 'image'             => 'http://okux.org/wp-content/uploads/2013/07/fond-d-ecran-coucher-de-soleil-en-taille-reelle.jpg',
-                'received_date'     => new \DateTime('NOW'),
+                'received_date'     => null,
             ),
             array(
                 'fkReceiver'        => null,
@@ -60,7 +62,7 @@ class LoadBottleData extends AbstractFixture implements OrderedFixtureInterface
                 'longitude'         => null,
                 'message'           => $faker->realText(500),
                 'image'             => null,
-                'received_date'     => new \DateTime('NOW'),
+                'received_date'     => null,
             ),
             array(
                 'fkReceiver'        => $this->getReference('User1'),
@@ -72,7 +74,7 @@ class LoadBottleData extends AbstractFixture implements OrderedFixtureInterface
                 'longitude'         => 2.3522219000000177,
                 'message'           => $faker->realText(500),
                 'image'             => null,
-                'received_date'     => new \DateTime('NOW'),
+                'received_date'     => new DateTime('NOW', new DateTimeZone('Europe/Paris')),
             ),
             array(
                 'fkReceiver'        => $this->getReference('User1'),
@@ -84,7 +86,7 @@ class LoadBottleData extends AbstractFixture implements OrderedFixtureInterface
                 'longitude'         => 2.3522219000000177,
                 'message'           => $faker->realText(500),
                 'image'             => 'http://img1.mxstatic.com/wallpapers/9c3d9ad540db9c53767569ae2faa15ac_large.jpeg',
-                'received_date'     => new \DateTime('NOW'),
+                'received_date'     => new DateTime('NOW', new DateTimeZone('Europe/Paris')),
             ),
             array(
                 'fkReceiver'        => $this->getReference('User1'),
@@ -96,7 +98,7 @@ class LoadBottleData extends AbstractFixture implements OrderedFixtureInterface
                 'longitude'         => 2.3522219000000177,
                 'message'           => $faker->realText(500),
                 'image'             => 'http://img1.mxstatic.com/wallpapers/9c3d9ad540db9c53767569ae2faa15ac_large.jpeg',
-                'received_date'     => new \DateTime('NOW'),
+                'received_date'     => new DateTime('NOW', new DateTimeZone('Europe/Paris')),
             ),
             array(
                 'fkReceiver'        => $this->getReference('User1'),
@@ -108,7 +110,7 @@ class LoadBottleData extends AbstractFixture implements OrderedFixtureInterface
                 'longitude'         => 2.3522219000000177,
                 'message'           => $faker->realText(500),
                 'image'             => 'http://img1.mxstatic.com/wallpapers/9c3d9ad540db9c53767569ae2faa15ac_large.jpeg',
-                'received_date'     => new \DateTime('NOW'),
+                'received_date'     => new DateTime('NOW', new DateTimeZone('Europe/Paris')),
             ),
         );
 
