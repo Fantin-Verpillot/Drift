@@ -7,5 +7,12 @@ login:
     defaults:  { _controller: MainBundle:Main:login }
 login_check:
     pattern:   /login_check
+
 logout:
     pattern:   /logout
+
+
+
+gmap:
+    pattern:   /gmap
+    defaults:  { _controller: MainBundle:Main:showGmap }

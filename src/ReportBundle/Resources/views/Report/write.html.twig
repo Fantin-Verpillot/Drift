@@ -3,7 +3,7 @@
 {% block body %}
     <h3>Write a report</h3>
     <form method="post" action="{{ path('report_create') }}">
-        <textarea style="width: 800px; height:300px;" placeholder="Message" name="message"></textarea><br />
+        <textarea style="width: 800px; height:300px;" placeholder="Message (Optional)" name="message"></textarea><br />
         <input type="submit" name="send" value="Send report" />
     </form>
 {% endblock %}
