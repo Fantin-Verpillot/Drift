@@ -13,7 +13,6 @@
 
                 <div class="col-md-6 col-md-offset-3">
 
-                    {% if bottle is not null %}
                         <div class="panel panel-default bottle-open animated zoomIn" style="background-color: white">
                             <p class="title">
                                 A new bottle has been received ..
@@ -29,7 +28,7 @@
                                             <div class="col-md-4">
                                                 <div class="checkbox">
                                                     <label>
-                                                        <input type="checkbox" name="saveBottle"> Save bottle
+                                                        <input type="checkbox" name="saveBottle" value="save"> Save bottle
                                                     </label>
                                                 </div>
                                             </div>
@@ -67,15 +66,6 @@
                             </div>
 
                         </div>
-
-                    {% else %}
-                        <div class="panel panel-default bottle-open animated zoomIn" style="background-color: white">
-                            <p class="title">
-                                <i class="fa fa-info-circle" aria-hidden="true"></i>
-                                No bottle available for you, please come back later !
-                            </p>
-                        </div>
-                    {% endif %}
 
                 </div>
 
