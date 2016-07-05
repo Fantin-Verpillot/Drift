@@ -76,7 +76,12 @@ class BottleController extends Controller
             }
         }
 
-        return $this->render('BottleBundle:Bottle:open.html.twig',
+        if ($bottle->getSourceRole() === 'ROLE_USER') {
+            $nameView = 'openUser';
+        } else {
+            $nameView = 'openAdmin';
+        }
+        return $this->render('BottleBundle:Bottle:' . $nameView . '.html.twig',
             array('bottle' => $bottle,
                   'emojis' => $emojis,
             )
