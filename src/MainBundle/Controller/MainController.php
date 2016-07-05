@@ -43,5 +43,12 @@ class MainController extends Controller
         ));
     }
 
+    public function showGmapAction(Request $request)
+    {
+
+        return $this->render('MainBundle:Main:gmap.html.twig', array(
+            'last_username' => $request));
+
+    }
 
 }
