@@ -92,6 +92,12 @@ class BottleController extends Controller
      * @Secure(roles="ROLE_USER, ROLE_ADMIN")
      */
     public function writeBottleAction() {
+        $this->em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
+        if ($bottleRepository->getPendingBottle($user) !== null) {
+            return $this->redirectToRoute('bottle_open');
+        }
         return $this->render('BottleBundle:Bottle:write.html.twig');
     }
 

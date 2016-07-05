@@ -50,14 +50,7 @@ class BottleAdmin
      * @ORM\Column(name="message", type="string", length=4096)
      */
     private $message;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="image", type="string", length=255, nullable=true)
-     */
-    private $image;
-
+    
     /**
      * @var string
      *
@@ -196,29 +189,6 @@ class BottleAdmin
     public function getMessage()
     {
         return $this->message;
-    }
-
-    /**
-     * Set image
-     *
-     * @param string $image
-     * @return BottleAdmin
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return string 
-     */
-    public function getImage()
-    {
-        return $this->image;
     }
 
     /**
