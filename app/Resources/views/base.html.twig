@@ -18,12 +18,12 @@
     </head>
 
     <body>
-
+<div class="flash-bag-message">
     {% for flashMessage in app.session.flashbag.get('notice') %}
 
         <div class="alert alert-info alert-dismissable col-lg-10 col-lg-offset-1">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <strong>Information</strong> {{ flashMessage }}
+            {{ flashMessage }}
         </div>
 
     {% endfor %}
@@ -32,7 +32,7 @@
 
         <div class="alert alert-danger alert-dismissable col-lg-10 col-lg-offset-1">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <strong>Error</strong> {{ flashMessage }}
+            {{ flashMessage }}
         </div>
 
     {% endfor %}
@@ -41,7 +41,7 @@
 
         <div class="alert alert-warning alert-dismissable col-lg-10 col-lg-offset-1">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <strong>Warning</strong> {{ flashMessage }}
+            {{ flashMessage }}
         </div>
 
     {% endfor %}
@@ -50,11 +50,11 @@
 
         <div class="alert alert-success alert-dismissable col-lg-10 col-lg-offset-1">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <strong>Success</strong> {{ flashMessage }}
+            {{ flashMessage }}
         </div>
 
     {% endfor %}
-
+</div>
         {#{% include 'navbar.html.twig' %}#}
 
         {% block body %}{% endblock %}

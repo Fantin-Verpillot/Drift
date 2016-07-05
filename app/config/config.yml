@@ -39,7 +39,7 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     globals:
-      version: "1"
+      version: "2"
 
 # Doctrine Configuration
 doctrine:
