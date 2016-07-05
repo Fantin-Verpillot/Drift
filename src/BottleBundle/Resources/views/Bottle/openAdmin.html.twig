@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if bottle is not null %}
+
+        {#<div style="display: table; width: 100%; height: 100%">#}
+            {#<div style="display: table-cell; vertical-align: middle">#}
+
+                {#<div class="row">#}
+                    {#<div class="col-md-6 col-md-offset-3">#}
+                        {#<div class="panel panel-default bottle-open animated zoomIn">#}
+                            {#<p class="title">Opening a new bottle ..</p>#}
+                            {#{% if bottle.image is not null %}#}
+                                {#<img src="{{ bottle.img }}" alt="bottleImage">#}
+                            {#{% endif %}#}
+                            {#<p class="text">{{ bottle.message }}</p>#}
+                        {#</div>#}
+
+                    {#</div>#}
+
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+
+        <h3>You open the bottle... it contains a message!</h3>
+        <div>It's a bottle from {{ bottle.sourceRole }}</div>
+        <div>{{ bottle.message }}</div><br/><br/>
+
+        <h3>Please evaluate this bottle</h3>
+
+        <form action="{{ path('bottle_evaluate') }}" method="post">
+            Mark (/5) <input type="text" name="mark" value=""/><br/><br/>
+            Emoji <select name="emoji">
+                {% for emoji in emojis %}
+                    <option value="{{ emoji.id }}">{{ emoji.name }}</option>
+                {% endfor %}
+            </select><br/><br/>
+
+            <input type="submit" name="write" value="Save and evaluate"/>
+        </form>
+
+    {% else %}
+        There is no bottle available for you, come back later!
+    {% endif %}
+{% endblock %}

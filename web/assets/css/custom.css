@@ -153,3 +153,26 @@ html, body {
 /* Override form-control bootstrap */
 
 
+/* Open bottle page */
+
+.bottle-open {
+    padding: 20px;
+}
+
+.bottle-open p {
+    margin: 0;
+}
+
+.bottle-open .title {
+    text-align: center;
+    font-weight: 500;
+    font-size: 25px;
+}
+
+.bottle-open .text {
+    font-style: italic;
+    font-size: 16px;
+
+}
+
+
