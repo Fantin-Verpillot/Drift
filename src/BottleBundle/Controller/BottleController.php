@@ -38,7 +38,8 @@ class BottleController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function openBottleAction(Request $request) {
+    public function openBottleAction(Request $request)
+    {
         $this->em = $this->getDoctrine()->getManager();
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
         $emojiRepository = $this->em->getRepository('BottleBundle:Emoji');
@@ -51,19 +52,26 @@ class BottleController extends Controller
         if ($bottle === null) {
             $bottle = $bottleRepository->getAvailableBottle($user);
             if ($bottle !== null) {
-                $locationService = $this->container->get('bottle_location');
-                $location = $locationService->getLocationByIP($request->getClientIp());
+                if ($bottle->getSourceRole() === 'ROLE_USER') {
+                    $locationService = $this->container->get('bottle_location');
+                    $location = $locationService->getLocationByIP($request->getClientIp());
 
-                $bottle->setFkReceiver($user);
-                $bottle->setReceivedDate(new DateTime('NOW', new DateTimeZone('Europe/Paris')));
-                $bottle->setLatitude($locationService->getLocationByIP($location[0]));
-                $bottle->setLongitude($locationService->getLocationByIP($location[1]));
-                $bottle->setState(2);
-                $this->em->persist($bottle);
-                $this->em->flush();
+                    $bottle->setFkReceiver($user);
+                    $bottle->setReceivedDate(new DateTime('NOW', new DateTimeZone('Europe/Paris')));
+                    $bottle->setLatitude($locationService->getLocationByIP($location[0]));
+                    $bottle->setLongitude($locationService->getLocationByIP($location[1]));
+                    $bottle->setState(2);
+                    $this->em->persist($bottle);
+                    $this->em->flush();
 
-                if ($userRepository->earnExperience($user, 5)) {
-                    // TODO : add flashbag level up now
+                    if ($userRepository->earnExperience($user, 5)) {
+                        $this->get('session')->getFlashBag()->add('success', 'Congrats! Level up to ' . $user->getLevel() . '!');
+                    }
+                } else {
+                    $bottle->setReceivedDate(new DateTime('NOW', new DateTimeZone('Europe/Paris')));
+                    $bottle->setState(2);
+                    $this->em->persist($bottle);
+                    $this->em->flush();
                 }
             }
         }
@@ -104,16 +112,16 @@ class BottleController extends Controller
 
             if ($state === 1) {
                 if ($userRepository->earnExperience($user, 10)) {
-                    // TODO : add flashbag level up
+                    $this->get('session')->getFlashBag()->add('success', 'Congrats! Level up to ' . $user->getLevel() . '!');
                 }
             }
             $this->em->flush();
 
-            // TODO : add flashbag bootle created
+            $this->get('session')->getFlashBag()->add('success', 'Bottle successfully sent.');
             return $this->redirectToRoute('bottle_home');
         }
 
-        // TODO : add flashbag failed fields (+rewrite fields)
+        $this->get('session')->getFlashBag()->add('error', 'Some fields had bad format.'); //TODO : rewrite fields
         return $this->redirectToRoute('bottle_write');
     }
 
@@ -126,37 +134,55 @@ class BottleController extends Controller
         $this->em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
-        $emojiRepository = $this->em->getRepository('BottleBundle:Emoji');
+        $bottle = $bottleRepository->getPendingBottle($user);
+        $success = false;
+
+        if ($bottle != null) {
+            if ($bottle->getSourceRole === 'ROLE_USER') {
+                $mark = $request->request->get('mark');
+                $idEmoji = $request->request->get('emoji');
+                $success = $this->manageUserBottle($bottle, $mark, $idEmoji);
+            } else {
+                $success = $this->manageAdminBottle($bottle);
+            }
+        }
+
+        if ($success) {
+            $this->get('session')->getFlashBag()->add('success', 'Bottle successfully saved.');
+        } else {
+            $this->get('session')->getFlashBag()->add('success', 'Some fields had bad format.');
+        }
+
+        return $this->redirectToRoute('bottle_home');
+    }
+
+    private function manageUserBottle($bottle, $mark, $idEmoji) {
+        $this->em = $this->getDoctrine()->getManager();
         $userRepository = $this->em->getRepository('MainBundle:User');
-
-        $mark = $request->request->get('mark');
-        $idEmoji = $request->request->get('emoji');
-        $evaluated = false;
-
+        $emojiRepository = $this->em->getRepository('BottleBundle:Emoji');
         if ($mark !== '' && $idEmoji != '') {
-            $bottle = $bottleRepository->getPendingBottle($user);
             $emoji = $emojiRepository->find($idEmoji);
-            if ($bottle !== null && $emoji != null) {
+            if ($emoji != null) {
                 $bottle->setMark($mark);
                 $bottle->setFkEmoji($emoji);
                 $bottle->setState(3);
                 $this->em->persist($bottle);
                 $this->em->flush();
-                $evaluated = true;
 
                 if ($userRepository->earnExperience($bottle->getFkTransmitter(), $mark * 10 + $emoji->getWeight())) {
                     // TODO : add flashbag level up next connection
                 }
-
-                // TODO : add flashbag evaluated success
+                return true;
             }
         }
+        return false;
+    }
 
-        if (!$evaluated) {
-            // TODO : add flashbag bad fields
-        }
-
-        //return $this->redirectToRoute('bottle_home');
-        return $this->render('BottleBundle:Bottle:index.html.twig');
+    private function manageAdminBottle($bottle) {
+        $this->em = $this->getDoctrine()->getManager();
+        $bottle->setState(3);
+        $this->em->persist($bottle);
+        $this->em->flush();
+        return true;
     }
 }

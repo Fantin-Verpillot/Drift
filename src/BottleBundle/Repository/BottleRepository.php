@@ -9,6 +9,13 @@ class BottleRepository extends EntityRepository
     private $em;
 
     public function getPendingBottle($userConnected) {
+        $this->em = $this->getEntityManager();
+        $bottleAdminRepository = $this->em->getRepository('BottleBundle:BottleAdmin');
+        $bottle = $bottleAdminRepository->getPendingBottleAdmin($userConnected);
+        if ($bottle !== null) {
+            return $bottle;
+        }
+
         $bottles = $this->findByFkReceiver($userConnected);
         foreach ($bottles as $bottle) {
             if ($bottle->getState() === 2) {
@@ -20,6 +27,13 @@ class BottleRepository extends EntityRepository
 
     public function getAvailableBottle($userConnected)
     {
+        $this->em = $this->getEntityManager();
+        $bottleAdminRepository = $this->em->getRepository('BottleBundle:BottleAdmin');
+        $bottle = $bottleAdminRepository->getAvailableBottleAdmin($userConnected);
+        if ($bottle !== null) {
+            return $bottle;
+        }
+
         $bottles = $this->findByState(1);
         foreach ($bottles as $bottle) {
             if ($bottle->getFkTransmitter()->getId() !== $userConnected->getId()) {

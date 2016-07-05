@@ -3,6 +3,7 @@
 {% block body %}
 {% if bottle is not null %}
     <h3>You open the bottle... it contains a message!</h3>
+    <div>It's a bottle from {{ bottle.sourceRole }}</div>
     <div>{{ bottle.message }}</div><br /><br />
 
     <h3>Please evaluate this bottle</h3>
