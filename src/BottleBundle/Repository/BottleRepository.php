@@ -119,10 +119,11 @@ class BottleRepository extends EntityRepository
         $result = $qb->getQuery()->getResult();
         $emojiRepository = $this->getEntityManager()->getRepository('BottleBundle:Emoji');
         $emojis = $emojiRepository->findAll();
+        $allEmoji = array();
+
         foreach ($emojis as $emoji) {
             $allEmoji[$emoji->getName()] = 0;
         }
-
         foreach ($result as $e) {
             $allEmoji[$e['name']] = (int) $e['countEmoji'];
         }

@@ -43,6 +43,13 @@ class Report
      */
     private $message;
 
+    public function constructReport($fkBottle, $state, $message)
+    {
+        $this->fkBottle = $fkBottle;
+        $this->state = $state;
+        $this->message = $message;
+    }
+
 
     /**
      * Get id
