@@ -30,7 +30,7 @@ class LoadEmojiData extends AbstractFixture implements OrderedFixtureInterface
             array(
                 'name'      => 'Shocked',
                 'weight'    => 0,
-                'image'     => 'fa-???'
+                'image'     => 'fa-exclamation-circle'
             ),
             array(
                 'name'      => 'In love',
