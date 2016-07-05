@@ -12,4 +12,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class ReportRepository extends EntityRepository
 {
+    public function getReportByState($state) {
+        $qb = $this->createQueryBuilder('r')
+            ->select('r.id as reportId, r.message as reportMessage, b.message, b.image, u.id as userId, u.username')
+            ->join('r.fkBottle', 'b')
+            ->join('b.fkTransmitter', 'u')
+            ->where('r.state = :state')
+            ->setParameter(':state', $state);
+
+        $result = $qb->getQuery()->getResult();
+
+        return $result;
+    }
 }

@@ -17,11 +17,11 @@ class ReportController extends Controller
     public function indexAction() {
 
         $this->em = $this->getDoctrine()->getManager();
-        $entityRepository = $this->em->getRepository('ReportBundle:Report');
+        $reportRepository = $this->em->getRepository('ReportBundle:Report');
 
-        $sent = $entityRepository->findByState(0);
-        $read = $entityRepository->findByState(1);
-        $handled = $entityRepository->findByState(2);
+        $sent = $reportRepository->getReportByState(0);
+        $read = $reportRepository->getReportByState(1);
+        $handled = $reportRepository->getReportByState(2);
 
         return $this->render('ReportBundle:Report:index.html.twig',
             array(
