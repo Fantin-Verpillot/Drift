@@ -138,7 +138,7 @@ class BottleController extends Controller
         $success = false;
 
         if ($bottle != null) {
-            if ($bottle->getSourceRole === 'ROLE_USER') {
+            if ($bottle->getSourceRole() === 'ROLE_USER') {
                 $mark = $request->request->get('mark');
                 $idEmoji = $request->request->get('emoji');
                 $success = $this->manageUserBottle($bottle, $mark, $idEmoji);
