@@ -2,6 +2,7 @@ html, body {
     background-color: #ededed;
     height: 100%;
     width: 100%;
+    overflow-x: hidden;
 }
 
 .content-page {
@@ -166,13 +167,14 @@ html, body {
 .bottle-open .title {
     text-align: center;
     font-weight: 500;
-    font-size: 25px;
+    font-size: 24px;
 }
 
 .bottle-open .text {
     font-style: italic;
-    font-size: 16px;
-
+    font-size: 15px;
 }
+
+
 
 
