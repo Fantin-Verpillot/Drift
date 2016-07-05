@@ -65,7 +65,7 @@ class BottleController extends Controller
                     $this->em->flush();
 
                     if ($userRepository->earnExperience($user, 5)) {
-                        $this->get('session')->getFlashBag()->add('success', 'Congrats! Level up to ' . $user->getLevel() . '!');
+                        $this->get('session')->getFlashBag()->add('notice', 'Congratulation, you are now level' . $user->getLevel() . '!');
                     }
                 } else {
                     $bottle->setReceivedDate(new DateTime('NOW', new DateTimeZone('Europe/Paris')));
@@ -91,7 +91,8 @@ class BottleController extends Controller
     /**
      * @Secure(roles="ROLE_USER, ROLE_ADMIN")
      */
-    public function writeBottleAction() {
+    public function writeBottleAction()
+    {
         $this->em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
@@ -106,7 +107,8 @@ class BottleController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function createBottleAction(Request $request) {
+    public function createBottleAction(Request $request)
+    {
         $this->em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $userRepository = $this->em->getRepository('MainBundle:User');
@@ -123,16 +125,18 @@ class BottleController extends Controller
 
             if ($state === 1) {
                 if ($userRepository->earnExperience($user, 10)) {
-                    $this->get('session')->getFlashBag()->add('success', 'Congrats! Level up to ' . $user->getLevel() . '!');
+                    $this->get('session')->getFlashBag()->add('notice', 'Congratulation, you are now level' . $user->getLevel() . '!');
                 }
+                $this->get('session')->getFlashBag()->add('success', 'You closed the bottle and thrown it into the sea.');
+            } else {
+                $this->get('session')->getFlashBag()->add('success', 'You closed the bottle but didn\'t throw it yet.');
             }
             $this->em->flush();
 
-            $this->get('session')->getFlashBag()->add('success', 'Bottle successfully sent.');
             return $this->redirectToRoute('bottle_home');
         }
 
-        $this->get('session')->getFlashBag()->add('error', 'Some fields had bad format.'); //TODO : rewrite fields
+        $this->get('session')->getFlashBag()->add('error', 'You failed, please try again.'); // TODO : rewrite fields
         return $this->redirectToRoute('bottle_write');
     }
 
@@ -141,33 +145,39 @@ class BottleController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function evaluateBottleAction(Request $request) {
+    public function evaluateBottleAction(Request $request)
+    {
         $this->em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
         $bottle = $bottleRepository->getPendingBottle($user);
         $success = false;
+        $save = $request->request->get('saveBottle') === 'save';
 
         if ($bottle != null) {
             if ($bottle->getSourceRole() === 'ROLE_USER') {
                 $mark = $request->request->get('mark');
                 $idEmoji = $request->request->get('emoji');
-                $success = $this->manageUserBottle($bottle, $mark, $idEmoji);
+                $success = $this->manageUserBottle($bottle, $mark, $idEmoji, $save);
             } else {
-                $success = $this->manageAdminBottle($bottle);
+                $success = $this->manageAdminBottle($bottle, $save);
             }
         }
 
         if ($success) {
-            $this->get('session')->getFlashBag()->add('success', 'Bottle successfully saved.');
+            if ($save) {
+                $this->get('session')->getFlashBag()->add('success', 'You placed the bottle on the shelf of your collection.');
+            } else {
+                $this->get('session')->getFlashBag()->add('success', 'You got rid of the bottle.');
+            }
         } else {
-            $this->get('session')->getFlashBag()->add('success', 'Some fields had bad format.');
+            $this->get('session')->getFlashBag()->add('error', 'You failed, please try again.');
         }
 
         return $this->redirectToRoute('bottle_home');
     }
 
-    private function manageUserBottle($bottle, $mark, $idEmoji) {
+    private function manageUserBottle($bottle, $mark, $idEmoji, $save) {
         $this->em = $this->getDoctrine()->getManager();
         $userRepository = $this->em->getRepository('MainBundle:User');
         $emojiRepository = $this->em->getRepository('BottleBundle:Emoji');
@@ -176,7 +186,7 @@ class BottleController extends Controller
             if ($emoji != null) {
                 $bottle->setMark($mark);
                 $bottle->setFkEmoji($emoji);
-                $bottle->setState(3);
+                $bottle->setState($save ? 3 : 4);
                 $this->em->persist($bottle);
                 $this->em->flush();
 
@@ -189,9 +199,9 @@ class BottleController extends Controller
         return false;
     }
 
-    private function manageAdminBottle($bottle) {
+    private function manageAdminBottle($bottle, $save) {
         $this->em = $this->getDoctrine()->getManager();
-        $bottle->setState(3);
+        $bottle->setState($save ? 3 : 4);
         $this->em->persist($bottle);
         $this->em->flush();
         return true;
