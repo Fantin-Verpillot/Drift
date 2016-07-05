@@ -86,7 +86,7 @@ class LoadBottleAdminData extends AbstractFixture implements OrderedFixtureInter
                 'message'           => $faker->realText(500),
                 'image'             => null,
                 'type'              => 'info',
-                'received_date'     => new DateTime('NOW', new DateTimeZone('Europe/Paris')),
+                'received_date'     => (new DateTime('NOW', new DateTimeZone('Europe/Paris')))->modify("1 month"),
             ),
             array(
                 'fkReceiver'        => $this->getReference('User1'),
@@ -122,7 +122,7 @@ class LoadBottleAdminData extends AbstractFixture implements OrderedFixtureInter
                 'message'           => $faker->realText(500),
                 'image'             => null,
                 'type'              => 'warning',
-                'received_date'     => new DateTime('NOW', new DateTimeZone('Europe/Paris')),
+                'received_date'     => (new DateTime('NOW', new DateTimeZone('Europe/Paris')))->modify("2 years"),
             ),
         );
 

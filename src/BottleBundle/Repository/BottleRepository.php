@@ -30,14 +30,15 @@ class BottleRepository extends EntityRepository
     }
 
 
-   public static function cmp($b1, $b2)
+   public static function dateCompare($b1, $b2)
     {
         $r1 = $b1->getReceivedDate();
         $r2 = $b2->getReceivedDate();
+
         if ($r1 === $r2) {
             return 0;
         }
-        return ( $r1 < $r2) ? -1 : 1;
+        return ( $r1 > $r2) ? -1 : 1;
     }
 
     /*
@@ -55,7 +56,7 @@ class BottleRepository extends EntityRepository
         // get all user's bottles
         $userBottles = [];
         foreach ($bottles as $bottle) {
-            if ($bottle->getFkTransmitter()->getId() !== $userConnected->getId() && $bottle->getState() == 3) {
+            if ($bottle->getFkTransmitter()->getId() !== $userConnected->getId() && $bottle->getState() === 3) {
                 $userBottles[] = $bottle;
             }
         }
@@ -66,14 +67,14 @@ class BottleRepository extends EntityRepository
         $allBottles = $userBottles;
 
         foreach ($adminBottles as $bottle) {
-            if ($bottle->getFkTransmitter()->getId() !== $userConnected->getId() && $bottle->getState() == 3) {
+            if ($bottle->getFkTransmitter()->getId() !== $userConnected->getId() && $bottle->getState() === 3) {
                 $allBottles[] = $bottle;
             }
         }
 
         // return the sorted array
-       return usort($allBottles, array('BottleBundle\Repository\BottleRepository','cmp'));
-        //return $allBottles;
+       usort($allBottles, array('BottleBundle\Repository\BottleRepository','dateCompare'));
+       return $allBottles;
     }
 
     public function getAverageMark($userConnected){
