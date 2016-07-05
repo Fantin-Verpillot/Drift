@@ -39,7 +39,7 @@ class Report
     /**
      * @var string
      *
-     * @ORM\Column(name="message", type="string", length=1024)
+     * @ORM\Column(name="message", type="string", length=1024, nullable=true)
      */
     private $message;
 

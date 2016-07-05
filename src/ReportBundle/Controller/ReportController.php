@@ -46,17 +46,19 @@ class ReportController extends Controller
      */
     public function createReportAction(Request $request) {
         $this->em = $this->getDoctrine()->getManager();
-
-        // TODO : Get bottle
+        $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $bottle = $bottleRepository->getPendingBottle($user);
         $message = $request->request->get('message');
         $send = $request->request->get('send');
 
         if ($send !== null) {
             $report = new Report();
-            $report->constructReport(/* TODO : $bottle */null, 0, $message);
+            $report->constructReport($bottle, 0, $message);
             $this->em->persist($report);
             $this->em->flush();
-            return $this->redirectToRoute('main_home');
+            $this->get('session')->getFlashBag()->add('success', 'Thanks for reporting this bottle');
+            return $this->redirectToRoute('bottle_open');
         }
 
         return $this->redirectToRoute('report_write');
