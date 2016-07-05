@@ -14,8 +14,8 @@
                 <div class="row">
                     <div class="col-md-12 no-padding">
                         <div class="panel panel-default user-panel animated fadeIn">
-                            <div class="panel-heading heading">
-                                <i class="fa fa-info-circle" aria-hidden="true"></i> My information
+                            <div class="panel-heading heading text-center">
+                                <i class="fa fa-user" aria-hidden="true"></i> My profile
                             </div>
                             <div class="panel-body">
                                 <div class="text">
@@ -27,8 +27,7 @@
                                 </div>
 
                                 <div class="text">
-                                    <i class="fa fa-star" aria-hidden="true"></i> XP ({{ user.experience }}
-                                    /{{ (user.level * user.level) * 50 }})
+                                    <i class="fa fa-star" aria-hidden="true"></i> XP ({{ user.experience }}/{{ (user.level * user.level) * 50 }})
                                     <div class="progress">
                                         <div class="progress-bar"
                                              style="width: {{ (user.experience / (user.level * user.level * 50)) * 100 }}%;"></div>
@@ -63,33 +62,38 @@
                                             <div class="row" style="padding: 0;">
                                                 <div class="col-md-1">
                                                     <div class="sub-text"><i class="fa fa-heart" aria-hidden="true"></i>
-                                                        10
+                                                        {{ emojis['In love'] }}
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-1">
-                                                    <div class="sub-text"><i class="fa fa-smile-o"
-                                                                             aria-hidden="true"></i>
-                                                        10
+                                                    <div class="sub-text">
+                                                        <i class="fa fa-smile-o" aria-hidden="true"></i>
+                                                        {{ emojis['Happy'] }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-1">
+                                                    <div class="sub-text"><i class="fa fa-hand-peace-o" aria-hidden="true"></i>
+                                                        {{ emojis['Amused'] }}
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-1">
                                                     <div class="sub-text"><i class="fa fa-meh-o" aria-hidden="true"></i>
-                                                        10
+                                                        {{ emojis['Smitten'] }}
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-1">
-                                                    <div class="sub-text"><i class="fa fa-frown-o"
-                                                                             aria-hidden="true"></i>
-                                                        10
+                                                    <div class="sub-text"><i class="fa fa-frown-o" aria-hidden="true"></i>
+                                                        {{ emojis['Sad'] }}
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-1">
                                                     <div class="sub-text"><i class="fa fa-fire" aria-hidden="true"></i>
-                                                        10
+                                                        {{ emojis['Angry'] }}
                                                     </div>
                                                 </div>
                                             </div>

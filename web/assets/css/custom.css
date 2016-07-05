@@ -37,17 +37,17 @@ html, body {
 }
 
 .user-panel .heading {
-    font-size: 25px;
-    font-weight: 500;
+    font-size: 28px;
+    font-weight: 400;
 }
 
 .user-panel .text {
-    font-size : 18px;
+    font-size : 20px;
     margin-bottom: 8px;
 }
 
 .user-panel .text .sub-text {
-    font-size: 15px;
+    font-size: 16px;
     margin-left: 18px;
 }
 
@@ -92,6 +92,8 @@ html, body {
 .grow { transition: all .2s ease-in-out; }
 .grow:hover { transform: scale(1.05); }
 
+/* Bottle actions page */
+
 .container-button {
     text-align: center;
     padding: 20px;
@@ -120,4 +122,34 @@ html, body {
     -webkit-animation-delay: 0.8s;
     -webkit-animation-iteration-count: 1;
 }
+
+.back-profile {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.back-profile a {
+    color: #666666;
+    font-weight: 500;
+    font-size: 22px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* Write bottle page */
+
+.container-write-bottle {
+    padding: 20px;
+}
+
+.container-write-bottle .title {
+    text-align: center;
+    font-size: 35px;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* Override form-control bootstrap */
+
 
