@@ -1,26 +1,109 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}
+    Open a bottle
+{% endblock %}
+
 {% block body %}
-    {% if bottle is not null %}
 
-        <h3>You open the bottle... it contains a message!</h3>
-        <div>It's a bottle from {{ bottle.sourceRole }}</div>
-        <div>{{ bottle.message }}</div><br/><br/>
+    <div style="display: table; width: 100%; height: 100%;">
+        <div style="display: table-cell; vertical-align: middle">
 
-        <h3>Please evaluate this bottle</h3>
+            <div class="row">
 
-        <form action="{{ path('bottle_evaluate') }}" method="post">
-            Mark (/5) <input type="text" name="mark" value=""/><br/><br/>
-            Emoji <select name="emoji">
-                {% for emoji in emojis %}
-                    <option value="{{ emoji.id }}">{{ emoji.name }}</option>
-                {% endfor %}
-            </select><br/><br/>
+                <div class="col-md-6 col-md-offset-3">
 
-            <input type="submit" name="write" value="Save and evaluate"/>
-        </form>
+                    {% if bottle is not null %}
+                        <div class="panel panel-default bottle-open animated zoomIn" style="background-color: white">
+                            <p class="title">
+                                A new bottle has been received ..
+                            </p>
+                            <p class="text">{{ bottle.message }}</p>
+                            <p class="sender pull-right">Written by {{ bottle.fkTransmitter.username }}</p>
 
-    {% else %}
-        There is no bottle available for you, come back later!
-    {% endif %}
+                            <div style="margin-top: 50px;">
+
+                                    <form action="{{ path('bottle_evaluate') }}" method="post">
+
+                                        <div class="row" style="margin-top: 20px;">
+                                            <div class="col-md-4">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" name="saveBottle"> Save bottle
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-2"></div>
+
+                                            <div class="col-md-2">
+                                                <select class="form-control" name="emoji" style="text-align: center; text-align-last: center; font-size: 13px;">
+                                                    <option selected>Emoji</option>
+
+                                                    {% for emoji in emojis %}
+                                                        <option value="{{ emoji.id }}">{{ emoji.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <select class="form-control" name="mark" style="text-align: center; text-align-last: center; font-size: 13px;">
+                                                    <option selected>Mark (/5)</option>
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button type="submit" name="write" class="btn btn-primary pull-right grow">
+                                                   Evaluate
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                            </div>
+
+                        </div>
+
+                    {% else %}
+                        <div class="panel panel-default bottle-open animated zoomIn" style="background-color: white">
+                            <p class="title">
+                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                No bottle available for you, please come back later !
+                            </p>
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    {#{% if bottle is not null %}#}
+
+        {#<h3>You open the bottle... it contains a message!</h3>#}
+        {#<div>It's a bottle from {{ bottle.sourceRole }}</div>#}
+        {#<div>{{ bottle.message }}</div><br/><br/>#}
+
+        {#<h3>Please evaluate this bottle</h3>#}
+
+        {#<form action="{{ path('bottle_evaluate') }}" method="post">#}
+            {#Mark (/5) <input type="text" name="mark" value=""/><br/><br/>#}
+            {#Emoji <select name="emoji">#}
+                {#{% for emoji in emojis %}#}
+                    {#<option value="{{ emoji.id }}">{{ emoji.name }}</option>#}
+                {#{% endfor %}#}
+            {#</select><br/><br/>#}
+
+            {#<input type="submit" name="write" value="Save and evaluate"/>#}
+        {#</form>#}
+
+    {#{% else %}#}
+        {#There is no bottle available for you, come back later!#}
+    {#{% endif %}#}
 {% endblock %}

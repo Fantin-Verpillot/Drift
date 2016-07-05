@@ -90,6 +90,15 @@ html, body {
     left: 20px;
 }
 
+.bottle .admin {
+    position: absolute;
+    bottom: -5px;
+    left: 20px;
+    font-size: 11px;
+
+}
+
+
 .grow { transition: all .2s ease-in-out; }
 .grow:hover { transform: scale(1.05); }
 
@@ -173,6 +182,13 @@ html, body {
 .bottle-open .text {
     font-style: italic;
     font-size: 15px;
+}
+
+.bottle-open .sender {
+    font-style: italic;
+    font-size: 12px;
+    margin-top: 10px;
+    font-weight: 500;
 }
 
 

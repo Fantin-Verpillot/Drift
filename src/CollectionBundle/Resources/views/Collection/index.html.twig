@@ -57,10 +57,22 @@
                             {% endif %}
                         </p>
 
-                        {% if (bottle.image is not null) %}
-                            <p class="image-icon">
-                                <i class="fa fa-picture-o" aria-hidden="true"></i>
+                        {% if (bottle.image is defined) %}
+                            {% if (bottle.image is not null) %}
+                                <p class="image-icon">
+                                    <i class="fa fa-picture-o" aria-hidden="true"></i>
+                                    <span style="font-size: 11px">{{ bottle.fkTransmitter.username }}</span>
+                                </p>
+                            {% else %}
+                                <p class="image-icon" style="font-size: 11px;">
+                                    {{ bottle.fkTransmitter.username }}
+                                </p>
+                            {% endif %}
+                        {% else %}
+                            <p class="admin">
+                                Administrator
                             </p>
+
                         {% endif %}
 
                     </div>
