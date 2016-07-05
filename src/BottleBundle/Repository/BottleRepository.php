@@ -6,6 +6,8 @@ use Doctrine\ORM\EntityRepository;
 
 class BottleRepository extends EntityRepository
 {
+    private $em;
+
     public function getPendingBottle($userConnected) {
         $bottles = $this->findByFkReceiver($userConnected);
         foreach ($bottles as $bottle) {
@@ -27,17 +29,52 @@ class BottleRepository extends EntityRepository
         return null;
     }
 
-    public function getArchivedBottles($userConnected)
+
+   public static function dateCompare($b1, $b2)
     {
+        $r1 = $b1->getReceivedDate();
+        $r2 = $b2->getReceivedDate();
+
+        if ($r1 === $r2) {
+            return 0;
+        }
+        return ( $r1 > $r2) ? -1 : 1;
+    }
+
+    /*
+     * Get all users bottles and the ones sent by the admin
+     *
+     * return an array sorted by received_date of all collected bottles
+     * */
+    public function getCollectedBottles($userConnected)
+    {
+        $this->em = $this->getEntityManager();
+        $bottleAdminRepository = $this->em->getRepository('BottleBundle:BottleAdmin');
+
         $bottles = $this->findByFkReceiver($userConnected);
-        $bottlesFilter = [];
+
+        // get all user's bottles
+        $userBottles = [];
         foreach ($bottles as $bottle) {
-            if ($bottle->getFkTransmitter()->getId() !== $userConnected->getId() && $bottle->getState() == 3) {
-                $bottlesFilter[] = $bottle;
+            if ($bottle->getFkTransmitter()->getId() !== $userConnected->getId() && $bottle->getState() === 3) {
+                $userBottles[] = $bottle;
             }
         }
 
-        return $bottlesFilter;
+        // then we merge the user's bottle + the one he received from the admin
+        $adminBottles = $bottleAdminRepository->getSavedAdminBottles($userConnected);
+
+        $allBottles = $userBottles;
+
+        foreach ($adminBottles as $bottle) {
+            if ($bottle->getFkTransmitter()->getId() !== $userConnected->getId() && $bottle->getState() === 3) {
+                $allBottles[] = $bottle;
+            }
+        }
+
+        // return the sorted array
+       usort($allBottles, array('BottleBundle\Repository\BottleRepository','dateCompare'));
+       return $allBottles;
     }
 
     public function getAverageMark($userConnected){
@@ -82,10 +119,11 @@ class BottleRepository extends EntityRepository
         $result = $qb->getQuery()->getResult();
         $emojiRepository = $this->getEntityManager()->getRepository('BottleBundle:Emoji');
         $emojis = $emojiRepository->findAll();
+        $allEmoji = array();
+
         foreach ($emojis as $emoji) {
             $allEmoji[$emoji->getName()] = 0;
         }
-
         foreach ($result as $e) {
             $allEmoji[$e['name']] = (int) $e['countEmoji'];
         }

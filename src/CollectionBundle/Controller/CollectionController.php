@@ -20,7 +20,7 @@ class CollectionController extends Controller
         // TODO : take connected one
         $user = $userRepository->findAll()[1];
 
-        $archived = $bottleRepository->getArchivedBottles($user);
+        $archived = $bottleRepository->getCollectedBottles($user);
 
         return $this->render('CollectionBundle:Collection:index.html.twig',
             array('archived' => $archived)
@@ -36,7 +36,7 @@ class CollectionController extends Controller
         // TODO : take connected one
         $user = $userRepository->findAll()[1];
 
-        $archived = $bottleRepository->getArchivedBottles($user);
+        $archived = $bottleRepository->getCollectedBottles($user);
 
         $idBottle = $request->request->get('idBottle');
 
