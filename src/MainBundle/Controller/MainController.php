@@ -43,12 +43,21 @@ class MainController extends Controller
         ));
     }
 
+
     public function showGmapAction(Request $request)
     {
+        $this->em = $this->getDoctrine()->getManager();
+        $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
+        $userRepository = $this->em->getRepository('MainBundle:User');
+
+        // TODO : take connected one
+        $user = $userRepository->findAll()[1];
+
+        $bottles = $bottleRepository->getBottlesSentByUser($user);
 
         return $this->render('MainBundle:Main:gmap.html.twig', array(
-            'last_username' => $request));
-
+            'bottles' => $bottles, 'toto' => "HELLO"));
     }
+
 
 }

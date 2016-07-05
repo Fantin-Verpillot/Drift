@@ -55,4 +55,5 @@ class CollectionController extends Controller
             array('res' => $res, 'archived' => $archived)
         );
     }
+    
 }

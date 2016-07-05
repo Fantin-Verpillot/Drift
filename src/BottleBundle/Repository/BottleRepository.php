@@ -44,6 +44,20 @@ class BottleRepository extends EntityRepository
     }
 
 
+
+    public function getBottlesSentByUser($userConnected)
+    {
+        $sent = [];
+        $bottles = $this->findByState(2);
+        foreach ($bottles as $bottle) {
+            if ($bottle->getFkTransmitter()->getId() === $userConnected->getId()) {
+                $sent[] = $bottle;
+            }
+        }
+        return $bottles;
+    }
+
+
    public static function dateCompare($b1, $b2)
     {
         $r1 = $b1->getReceivedDate();
