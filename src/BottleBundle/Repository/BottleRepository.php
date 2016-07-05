@@ -114,6 +114,17 @@ class BottleRepository extends EntityRepository
         return $bottlesFilter;
     }
 
+    public function getSentBottle($userConnected){
+        $bottles = $this->findByFkTransmitter($userConnected);
+        $bottlesFilter = array();
+        foreach ($bottles as $bottle) {
+            if ($bottle->getState() >= 1){
+                $bottlesFilter[] = $bottle;
+            }
+        }
+        return $bottlesFilter;
+    }
+
     public function countTransmittedBottle($userConnected) {
         return count($this->getTransmittedBottle($userConnected));
     }
@@ -134,22 +145,22 @@ class BottleRepository extends EntityRepository
         $emojiRepository = $this->getEntityManager()->getRepository('BottleBundle:Emoji');
         $emojis = $emojiRepository->findAll();
 
-        $allEmoji = array();
+        $emojiResults = array();
         foreach ($emojis as $emoji) {
-            $allEmoji[] = array(
+            $emojiResults[] = array(
                 'name' => $emoji->getName(),
                 'count' => 0,
                 'image' => $emoji->getImage()
             );
         }
         foreach ($result as $e) {
-            $allEmoji[] = array(
+            $emojiResults[] = array(
                 'name' => $e['name'],
                 'count' => $e['countEmoji'],
                 'image' => $e['image']
             );
         }
 
-        return $allEmoji;
+        return $emojiResults;
     }
 }

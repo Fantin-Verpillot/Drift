@@ -20,7 +20,7 @@ class MainController extends Controller
             array(
                 'user'              => $user,
                 'mark'              => $bottleRepository->getAverageMark($user),
-                'bottleTransmitted' => $bottleRepository->countTransmittedBottle($user),
+                'bottleTransmitted' => count($bottleRepository->getSentBottle($user)),
                 'bottleReceived'    => $bottleRepository->countReceivedBottle($user),
                 'emojis'            => $bottleRepository->countEmojiByBottle($user),
                 )
