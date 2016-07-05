@@ -3,6 +3,7 @@
 namespace BottleBundle\Controller;
 
 use BottleBundle\Entity\Bottle;
+use BottleBundle\Entity\BottleAdmin;
 use DateTime;
 use DateTimeZone;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -106,6 +107,65 @@ class BottleController extends Controller
     }
 
     /**
+     * @Secure(roles="ROLE_ADMIN")
+     */
+    public function writeBottleAdminAction()
+    {
+        $this->em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $userRepository = $this->em->getRepository('MainBundle:User');
+        $users = $userRepository->getAllOtherUsers($user);
+
+        return $this->render('BottleBundle:Bottle:writeAdmin.html.twig', array('users' => $users));
+    }
+
+    /**
+     * @Secure(roles="ROLE_ADMIN")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function createBottleAdminAction(Request $request)
+    {
+        $this->em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $userRepository = $this->em->getRepository('MainBundle:User');
+
+        $message = $request->request->get('message');
+        $type = $request->request->get('type');
+        $receiverId = $request->request->get('receiverId');
+
+        if (!empty($type) && !empty($message) && !empty($receiverId) &&
+            ($type == 'warning' || $type == 'info' || $type == 'help')
+        ) {
+            $fkReceiver = $userRepository->find($receiverId);
+            if ($fkReceiver != null) {
+                $bottleAdmin = new BottleAdmin();
+                $bottleAdmin->setFkReceiver($fkReceiver);
+                $bottleAdmin->setFkTransmitter($user);
+                $bottleAdmin->setMessage($message);
+                $bottleAdmin->setState(1);
+                $bottleAdmin->setType($type);
+
+                $this->em->persist($bottleAdmin);
+                $this->em->flush();
+                $this->get('session')->getFlashBag()->add('success', 'You closed the special bottle and thrown it toward someone.');
+                return $this->redirectToRoute('bottle_home_admin');
+            }
+        }
+
+        $this->get('session')->getFlashBag()->add('error', 'You failed, please try again.');
+        return $this->redirectToRoute('bottle_write_admin');
+    }
+
+    /**
+     * @Secure(roles="ROLE_ADMIN")
+     */
+    public function indexAdminAction()
+    {
+        return $this->render('BottleBundle:Bottle:indexAdmin.html.twig');
+    }
+
+    /**
      * @Secure(roles="ROLE_USER, ROLE_ADMIN")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -140,10 +200,7 @@ class BottleController extends Controller
         }
 
         $this->get('session')->getFlashBag()->add('error', 'You failed, please try again.');
-        return $this->redirectToRoute('bottle_write', array(
-            'message' => $message,
-            'image' => $image
-        ));
+        return $this->redirectToRoute('bottle_write');
     }
 
     /**

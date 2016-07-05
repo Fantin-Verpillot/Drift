@@ -29,4 +29,16 @@ class UserRepository extends EntityRepository
         $this->em->flush();
         return $changed;
     }
+
+    public function getAllOtherUsers($userConnected)
+    {
+        $users = $this->findAll();
+        for ($i = 0; $i < count($users); ++$i) {
+            if ($users[$i].getId() === $userConnected.getId()) {
+                unset($users[$i]);
+            }
+            break;
+        }
+        return $users;
+    }
 }

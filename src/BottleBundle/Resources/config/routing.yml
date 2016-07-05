@@ -17,3 +17,17 @@ bottle_evaluate:
 bottle_create:
   path:        /bottle/create
   defaults: { _controller: BottleBundle:Bottle:createBottle }
+
+# ----------
+
+bottle_home_admin:
+  path:        /admin
+  defaults: { _controller: BottleBundle:Bottle:indexAdmin }
+
+bottle_write_admin:
+  path:        /admin/bottle/write
+  defaults: { _controller: BottleBundle:Bottle:writeAdminBottle }
+
+bottle_create_admin:
+  path:        /admin/bottle/create
+  defaults: { _controller: BottleBundle:Bottle:createAdminBottle }
