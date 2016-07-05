@@ -60,42 +60,14 @@
                                             <i class="fa fa-asterisk" aria-hidden="true"></i> <span
                                                     style="font-weight: 500;">Bottles order by mood</span>
                                             <div class="row" style="padding: 0;">
-                                                <div class="col-md-1">
-                                                    <div class="sub-text"><i class="fa fa-heart" aria-hidden="true"></i>
-                                                        {{ emojis['In love'] }}
-                                                    </div>
-                                                </div>
 
+                                                {% for emoji in emojis %}
                                                 <div class="col-md-1">
-                                                    <div class="sub-text">
-                                                        <i class="fa fa-smile-o" aria-hidden="true"></i>
-                                                        {{ emojis['Happy'] }}
+                                                    <div class="sub-text"><i class="fa {{ emoji['image'] }}" aria-hidden="true"></i>
+                                                        {{ emoji['count'] }}
                                                     </div>
                                                 </div>
-
-                                                <div class="col-md-1">
-                                                    <div class="sub-text"><i class="fa fa-hand-peace-o" aria-hidden="true"></i>
-                                                        {{ emojis['Amused'] }}
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-1">
-                                                    <div class="sub-text"><i class="fa fa-meh-o" aria-hidden="true"></i>
-                                                        {{ emojis['Smitten'] }}
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-1">
-                                                    <div class="sub-text"><i class="fa fa-frown-o" aria-hidden="true"></i>
-                                                        {{ emojis['Sad'] }}
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-1">
-                                                    <div class="sub-text"><i class="fa fa-fire" aria-hidden="true"></i>
-                                                        {{ emojis['Angry'] }}
-                                                    </div>
-                                                </div>
+                                                {% endfor %}
                                             </div>
                                         </div>
 

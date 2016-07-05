@@ -15,37 +15,37 @@ class LoadEmojiData extends AbstractFixture implements OrderedFixtureInterface
             array(
                 'name'      => 'Happy',
                 'weight'    => 30,
-                'image'     => 'toto.png'
+                'image'     => 'fa-smile-o'
             ),
             array(
                 'name'      => 'Angry',
                 'weight'    => 0,
-                'image'     => 'toto.png'
+                'image'     => 'fa-fire'
             ),
             array(
                 'name'      => 'Sad',
                 'weight'    => 0,
-                'image'     => 'toto.png'
+                'image'     => 'fa-frown-o'
             ),
             array(
                 'name'      => 'Shocked',
                 'weight'    => 0,
-                'image'     => 'toto.png'
+                'image'     => 'fa-???'
             ),
             array(
                 'name'      => 'In love',
                 'weight'    => 50,
-                'image'     => 'toto.png'
+                'image'     => 'fa-heart'
             ),
             array(
                 'name'      => 'Smitten',
                 'weight'    => 40,
-                'image'     => 'toto.png'
+                'image'     => 'fa-meh-o'
             ),
             array(
                 'name'      => 'Amused',
                 'weight'    => 30,
-                'image'     => 'toto.png'
+                'image'     => 'fa-hand-peace-o'
             ),
         );
 
