@@ -96,10 +96,10 @@ class Bottle
 
 
 
-    public function constructBottle($fkTransmitter, $message, $state, $image = null) {
+    public function constructBottle($fkTransmitter, $message, $image = null) {
         $fkReceiver = null;
         $this->fkTransmitter = $fkTransmitter;
-        $this->state = $state;
+        $this->state = 1;
         $mark = null;
         $fkEmoji = null;
         $latitude = null;
