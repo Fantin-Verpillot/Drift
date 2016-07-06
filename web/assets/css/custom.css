@@ -213,6 +213,34 @@ html, body {
     text-decoration: none;
 }
 
+.bottle-full {
+    padding: 30px;
+    color: #333;
+}
+
+.bottle-full .title {
+    font-size: 28px;
+    font-weight: 500;
+    margin: 5px;
+    text-align: center;
+}
+
+.bottle-full hr {
+    background-color: #333;
+    border-color: #333;
+    color: #333;
+    width: 5%;
+    margin-top: 0;
+    height: 5px;
+}
+
+.bottle-full .message {
+    font-style: italic;
+    font-size: 13px;
+    margin: 0;
+
+}
+
 
 
 
