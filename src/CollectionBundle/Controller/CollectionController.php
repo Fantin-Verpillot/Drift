@@ -2,8 +2,6 @@
 
 namespace CollectionBundle\Controller;
 
-use BottleBundle\Entity\Bottle;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -15,15 +13,11 @@ class CollectionController extends Controller
     {
         $this->em = $this->getDoctrine()->getManager();
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
-        $userRepository = $this->em->getRepository('MainBundle:User');
-
-        // TODO : take connected one
-        $user = $userRepository->findAll()[1];
-
-        $archived = $bottleRepository->getCollectedBottles($user);
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $bottles = $bottleRepository->getCollectedBottles($user);
 
         return $this->render('CollectionBundle:Collection:index.html.twig',
-            array('archived' => $archived)
+            array('bottles' => $bottles)
         );
     }
 
@@ -31,29 +25,20 @@ class CollectionController extends Controller
     {
         $this->em = $this->getDoctrine()->getManager();
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
-        $userRepository = $this->em->getRepository('MainBundle:User');
-
-        // TODO : take connected one
-        $user = $userRepository->findAll()[1];
-
-        $archived = $bottleRepository->getCollectedBottles($user);
-
         $idBottle = $request->request->get('idBottle');
-
-        $res = "no corresponding bottle";
-        foreach ($archived as $bottle)
-        {
-            if ($bottle->getId() == $idBottle)
-            {
+        if (!empty($idBottle)) {
+            $bottle = $bottleRepository->find($idBottle);
+            if ($bottle !== null) {
                 $bottle->setState(4);
                 $this->em->persist($bottle);
                 $this->em->flush();
+                return $this->redirectToRoute('bottle_home');
             }
         }
 
-        return $this->render('CollectionBundle:Collection:index.html.twig',
-            array('res' => $res, 'archived' => $archived)
-        );
+        $this->get('session')->getFlashBag()->add('error', 'You failed, please try again.');
+        return $this->redirectToRoute('bottle_home');
+
     }
     
 }
