@@ -18,7 +18,7 @@
         </a>
     </div>
 
-    <div class="container" style="margin-top: 80px;">
+    <div class="container" style="margin-top: 50px;">
 
 
         <div class="row">
@@ -108,47 +108,6 @@
                 </div>
             {% endfor %}
         </div>
-        <br/>
-
-        <div class="row">
-            <div class="col-md-6">
-                <h3 class="animated fadeIn" style="margin: 0;">Handled ({{ handled|length }})</h3>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            {% for report in handled %}
-                <div class="col-md-3">
-                    <div class="panel panel-default bottle grow animated fadeIn">
-                        <p class="text">
-                            {{ report.reportId ~ '.' }}
-                            {% if report.reportMessage is not null %}
-                                reported message :
-                                {{ report.reportMessage|length > 200 ? report.reportMessage | slice(0, 200) ~ ' ...' : report.reportMessage }}
-                            {% else %}
-                                original message :
-                                {{ report.message|length > 200 ? report.message | slice(0, 200) ~ ' ...' : report.message }}
-                            {% endif %}
-                        </p>
-                        {% if (report.image is not null) %}
-                            <p class="image-icon">
-                                <i class="fa fa-picture-o" aria-hidden="true"></i>
-                                <span style="font-size: 11px">{{ report.username }}</span>
-                            </p>
-                        {% else %}
-                            <p class="image-icon" style="font-size: 11px;">
-                                {{ report.username }}
-                            </p>
-                        {% endif %}
-                    </div>
-                </div>
-            {% else %}
-                <div class="col-md-12">
-                    <h3>No reports handled</h3>
-                </div>
-            {% endfor %}
-        </div>
-
 
     </div>
 {% endblock %}
