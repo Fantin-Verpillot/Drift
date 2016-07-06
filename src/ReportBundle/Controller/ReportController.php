@@ -15,7 +15,6 @@ class ReportController extends Controller
      * @Secure(roles="ROLE_ADMIN")
      */
     public function indexAction() {
-
         $this->em = $this->getDoctrine()->getManager();
         $reportRepository = $this->em->getRepository('ReportBundle:Report');
 
@@ -33,7 +32,6 @@ class ReportController extends Controller
      * @Secure(roles="ROLE_USER, ROLE_ADMIN")
      */
     public function writeReportAction() {
-
         return $this->render('ReportBundle:Report:write.html.twig');
     }
 

@@ -149,7 +149,7 @@ class BottleRepository extends EntityRepository
 
     public function countEmojiByBottle($userConnected) {
         $qb = $this->createQueryBuilder('b')
-            ->select('count(b.fkEmoji) as countEmoji, e.name, e.image')
+            ->select('count(b.fkEmoji) as countEmoji, e.name, e.image, e.id')
             ->join('b.fkEmoji', 'e')
             ->Where('b.fkTransmitter = :userId')
             ->setParameter(':userId', $userConnected->getId())
@@ -161,18 +161,14 @@ class BottleRepository extends EntityRepository
 
         $emojiResults = array();
         foreach ($emojis as $emoji) {
-            $emojiResults[] = array(
+            $emojiResults[$emoji->getId()] = array(
                 'name' => $emoji->getName(),
                 'count' => 0,
                 'image' => $emoji->getImage()
             );
         }
         foreach ($result as $e) {
-            $emojiResults[] = array(
-                'name' => $e['name'],
-                'count' => $e['countEmoji'],
-                'image' => $e['image']
-            );
+            $emojiResults[$e['id']]['count'] = $e['countEmoji'];
         }
 
         return $emojiResults;
