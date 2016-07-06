@@ -48,6 +48,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
             $user->setRoles($value['roles']);
             $user->setExperience($value['experience']);
             $user->setLevel($value['level']);
+            $user->setIsActive(true);
 
             $em->persist($user);
             $this->addReference('User'.$key, $user);

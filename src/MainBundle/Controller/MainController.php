@@ -28,6 +28,7 @@ class MainController extends Controller
                 'bottleTransmitted' => count($bottleRepository->getSentBottle($user)),
                 'bottleReceived'    => $bottleRepository->countReceivedBottle($user),
                 'emojis'            => $bottleRepository->countEmojiByBottle($user),
+                'bottles'           => $bottleRepository->getBottlesSentByUser($user)
             )
         );
     }
@@ -46,21 +47,6 @@ class MainController extends Controller
             'last_username' => $session->get(Security::LAST_USERNAME),
             'error'         => $error,
         ));
-    }
-
-
-    /**
-     * @Secure(roles="ROLE_USER, ROLE_ADMIN")
-     */
-    public function showGmapAction()
-    {
-        $this->em = $this->getDoctrine()->getManager();
-        $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        $bottles = $bottleRepository->getBottlesSentByUser($user);
-
-        return $this->render('MainBundle:Main:gmap.html.twig', array(
-            'bottles' => $bottles, 'toto' => "HELLO"));
     }
 
     public function registerAction()
@@ -93,6 +79,7 @@ class MainController extends Controller
             $user->setEmail($email);
             $user->setExperience(0);
             $user->setLevel(1);
+            $user->setIsActive(true);
             $user->setRoles(array('ROLE_USER'));
             $this->em->persist($user);
             $this->em->flush();
