@@ -14,15 +14,20 @@ class MainController extends Controller
 
     /**
      * @Secure(roles="ROLE_USER, ROLE_ADMIN")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $this->em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
-
+        $locationService = $this->container->get('bottle_location');
+        $location = $locationService->getLocationByIP($request->getClientIp());
+        var_dump($location);
         return $this->render('MainBundle:Main:index.html.twig',
             array (
+                'location'          => $location,
                 'user'              => $user,
                 'mark'              => $bottleRepository->getAverageMark($user),
                 'bottleTransmitted' => count($bottleRepository->getSentBottle($user)),
