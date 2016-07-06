@@ -6,14 +6,28 @@
 
 {% block body %}
 
+    <a href="{{ path('bottle_home_admin') }}"
+       class="animated fadeIn grow"
+       style="position: relative; left: 10px; top: 10px; font-weight: 500; font-size: 22px; cursor: pointer; color: #666666; text-decoration: none;">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i> Administration
+    </a>
+
+    <div class="logout-button grow">
+        <a href="{{ path('logout') }}">
+            Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
+        </a>
+    </div>
+
     <div class="container" style="margin-top: 80px;">
+
+
         <div class="row">
             <div class="col-md-6">
                 <h1 class="animated fadeIn" style="margin: 0;">Reports</h1>
             </div>
         </div>
-        <br/>
-        <br/>
+
+        <hr style="border-color: #444444;">
 
         <div class="row">
             <div class="col-md-6">

@@ -6,6 +6,12 @@
 
 {% block body %}
 
+    <div class="logout-button grow">
+        <a href="{{ path('logout') }}">
+            Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
+        </a>
+    </div>
+
     <a href="{{ path('bottle_home') }}"
        class="animated fadeIn grow"
        style="position: absolute; left: 10px; top: 10px; font-weight: 500; font-size: 22px; cursor: pointer; color: #666666; text-decoration: none;">
@@ -32,7 +38,7 @@
                                     {#<span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>#}
                                 </div>
                                 <div style="margin-top: 30px;">
-                                    <button type="submit" name="draft"
+                                    <button type="submit" name="send"
                                             class="btn btn-primary btn-lg grow">
                                         <i class="fa fa-paper-plane-o" aria-hidden="true"></i> Send
                                     </button>
@@ -45,10 +51,4 @@
         </div>
     </div>
 
-    {#<form method="post" action="{{ path('bottle_create') }}">#}
-    {#<input placeholder="Image (optional)" name="image" type="text"/><br/>#}
-    {#<textarea style="width: 800px; height:300px;" placeholder="Message" name="message"></textarea><br/>#}
-    {#<input type="submit" name="draft" value="Save it as a Draft"/>#}
-    {#<input type="submit" name="send" value="Send it in a bottle"/>#}
-    {#</form>#}
 {% endblock %}

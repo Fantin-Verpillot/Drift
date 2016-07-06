@@ -114,7 +114,7 @@ html, body {
 
 .container-button {
     text-align: center;
-    padding: 20px;
+    padding: 30px;
 }
 
 .container-button .info-text {
@@ -201,7 +201,7 @@ html, body {
 
 .logout-button {
     position: absolute;
-    top: 10px;
+    bottom: 10px;
     right: 10px;
 }
 

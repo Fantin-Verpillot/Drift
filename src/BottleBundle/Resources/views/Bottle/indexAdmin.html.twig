@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Admin actions
+{% endblock %}
+
+{% block body %}
+
+    <div class="back-profile grow animated fadeIn">
+        <a href="{{ path('main_home') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> My profile</a>
+    </div>
+
+    <div class="logout-button grow">
+        <a href="{{ path('logout') }}">
+            Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
+        </a>
+    </div>
+
+    <div style="display: table; width: 100%; height: 100%">
+        <div style="display: table-cell; vertical-align: middle">
+            <div class="panel panel-default container-button">
+                <p id="title" class="info-text">Administrator, what do you want to do<i class="fa fa-question" aria-hidden="true"></i>
+                </p>
+                <div id="button-group">
+                    <a href="{{ path('report_homepage') }}" class="button btn btn-primary  grow btn-lg">Check user reports</a>
+                    <a href="{{ path('bottle_write_admin') }}" class="button btn btn-primary grow btn-lg">Send a special bottle</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script type="text/javascript">
+        $('#title').animateCss('fadeIn');
+        $('#button-group').animateCss('fadeIn');
+    </script>
+
+{% endblock %}
