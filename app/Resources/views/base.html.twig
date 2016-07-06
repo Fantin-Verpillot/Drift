@@ -77,13 +77,10 @@
             $("#alert-" + i).alert('close');
         });
         if (i < {{ countMessages }}) {
-            window.setTimeout(disableMessage(i + 1), 2000);
+            window.setTimeout(disableMessage.bind(null, i + 1), 800);
         }
     }
-
-    window.setTimeout(disableMessage(0), 2000);
-
-
+    window.setTimeout(disableMessage.bind(null, 0), 2000);
 </script>
 
 

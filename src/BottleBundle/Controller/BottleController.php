@@ -23,12 +23,6 @@ class BottleController extends Controller
          * $this->get('security.token_storage')->getToken()->getUser();
          * $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')
         */
-        $this->get('session')->getFlashBag()->add('notice', 'toto1');
-        $this->get('session')->getFlashBag()->add('notice', 'toto2');
-        $this->get('session')->getFlashBag()->add('error', 'toto3');
-        $this->get('session')->getFlashBag()->add('error', 'toto4');
-        $this->get('session')->getFlashBag()->add('notice', 'toto5');
-        $this->get('session')->getFlashBag()->add('notice', 'toto6');
 
         $this->em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
