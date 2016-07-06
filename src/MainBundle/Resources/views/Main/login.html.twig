@@ -18,7 +18,7 @@
                     </div>
                 </div>
 
-                <hr style="background-color: #666666; border-color: #666666; color: #666666; width: 5%; margin-top: 0; height: 4px; "/>
+                <hr style="background-color: #666666; border-color: #666666; color: #666666; width: 5%; margin-top: 0; height: 7px; "/>
             </div>
 
             <div class="row" style="margin-top: 35px;">
@@ -34,7 +34,7 @@
                             <form action="{{ path('login_check') }}" method="post">
                                 <fieldset>
                                     <div class="form-group">
-                                        <input class="form-control" placeholder="Email" type="text" id="username"
+                                        <input class="form-control" placeholder="Login" type="text" id="username"
                                                name="_username" value="{{ last_username }}"
                                                style="padding-left: 3px; padding-right: 3px;"/>
                                     </div>
@@ -47,7 +47,7 @@
 
                                     <!-- Need ENTER KEY -->
                                     <input type="submit" class="btn btn-lg btn-primary btn-block" value="Login">
-                                    <p>
+                                    <p class="text-center">
                                         <small>Don't have an account ? <a href={{ path('register') }}><strong
                                                         style="cursor:pointer;">Register here</strong></a></small>
                                     </p>
