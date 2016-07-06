@@ -19,7 +19,3 @@ register:
 register_check:
     pattern:   /register_check
     defaults:  { _controller: MainBundle:Main:registerCheck }
-
-gmap:
-    pattern:   /gmap
-    defaults:  { _controller: MainBundle:Main:showGmap }
