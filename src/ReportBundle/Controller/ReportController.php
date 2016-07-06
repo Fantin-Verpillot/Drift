@@ -33,7 +33,6 @@ class ReportController extends Controller
 
         $this->em = $this->getDoctrine()->getManager();
         $reportRepository = $this->em->getRepository('ReportBundle:Report');
-        //$userRepository = $this->em->getRepository('MainBundle:User');
 
         $report = $reportRepository->getReportById($id);
         if ($report !== null)
@@ -47,26 +46,18 @@ class ReportController extends Controller
 
     /**
      * @Secure(roles="ROLE_USER, ROLE_ADMIN")
-     */
-    public function writeReportAction() {
-        return $this->render('ReportBundle:Report:write.html.twig');
-    }
-
-    /**
-     * @Secure(roles="ROLE_USER, ROLE_ADMIN")
-     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @internal param Request $request
      */
-    public function createReportAction(Request $request) {
+    public function createReportAction() {
         $this->em = $this->getDoctrine()->getManager();
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $bottle = $bottleRepository->getPendingBottle($user);
-        $message = $request->request->get('message');
 
         if (!empty($bottle)) {
             $report = new Report();
-            $report->constructReport($bottle, 0, $message);
+            $report->constructReport($bottle, 0);
             $this->em->persist($report);
             $this->em->flush();
             $this->get('session')->getFlashBag()->add('success', 'The bottle has been reported to an administrator');

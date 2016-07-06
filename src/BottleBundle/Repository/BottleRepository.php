@@ -84,20 +84,17 @@ class BottleRepository extends EntityRepository
         // get all user's bottles
         $userBottles = [];
         foreach ($bottles as $bottle) {
-            if ($bottle->getFkTransmitter()->getId() !== $userConnected->getId() && $bottle->getState() === 3) {
+            if ($bottle->getState() === 3) {
                 $userBottles[] = $bottle;
             }
         }
 
         // then we merge the user's bottle + the one he received from the admin
         $adminBottles = $bottleAdminRepository->getSavedAdminBottles($userConnected);
-
         $allBottles = $userBottles;
 
         foreach ($adminBottles as $bottle) {
-            if ($bottle->getFkTransmitter()->getId() !== $userConnected->getId() && $bottle->getState() === 3) {
-                $allBottles[] = $bottle;
-            }
+            $allBottles[] = $bottle;
         }
 
         // return the sorted array

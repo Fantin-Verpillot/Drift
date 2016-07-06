@@ -16,6 +16,11 @@ class CollectionController extends Controller
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $bottles = $bottleRepository->getCollectedBottles($user);
 
+        if (count($bottles) === 0) {
+            $this->get('session')->getFlashBag()->add('error', 'Your collection is empty');
+            return $this->redirectToRoute('main_home');
+        }
+
         return $this->render('CollectionBundle:Collection:index.html.twig',
             array('bottles' => $bottles)
         );

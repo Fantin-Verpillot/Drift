@@ -36,18 +36,10 @@ class Report
      */
     private $state;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="message", type="string", length=1024, nullable=true)
-     */
-    private $message;
-
-    public function constructReport($fkBottle, $state, $message)
+    public function constructReport($fkBottle, $state)
     {
         $this->fkBottle = $fkBottle;
         $this->state = $state;
-        $this->message = $message;
     }
 
 
@@ -105,28 +97,5 @@ class Report
     public function getState()
     {
         return $this->state;
-    }
-
-    /**
-     * Set message
-     *
-     * @param string $message
-     * @return Report
-     */
-    public function setMessage($message)
-    {
-        $this->message = $message;
-
-        return $this;
-    }
-
-    /**
-     * Get message
-     *
-     * @return string 
-     */
-    public function getMessage()
-    {
-        return $this->message;
     }
 }
