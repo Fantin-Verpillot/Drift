@@ -21,6 +21,22 @@ class CollectionController extends Controller
         );
     }
 
+    public function displaySavedBottleAction($id)
+    {
+        $this->em = $this->getDoctrine()->getManager();
+        $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
+
+        $bottle = $bottleRepository->find($id);
+        if ($bottle === null || $bottle->getState() != 3) {
+            $this->get('session')->getFlashBag()->add('error', 'This bottle doesn\'t exists in your collection, please try again.');
+            return $this->redirectToRoute('collection_home');
+        }
+
+        return $this->render('CollectionBundle:Collection:display.html.twig',
+            array('bottle' => $bottle)
+        );
+    }
+
     public function deleteAction(Request $request)
     {
         $this->em = $this->getDoctrine()->getManager();
@@ -32,13 +48,13 @@ class CollectionController extends Controller
                 $bottle->setState(4);
                 $this->em->persist($bottle);
                 $this->em->flush();
-                return $this->redirectToRoute('bottle_home');
+                $this->get('session')->getFlashBag()->add('success', 'You thrown this bottle away from your collection.');
+                return $this->redirectToRoute('collection_home');
             }
         }
 
-        $this->get('session')->getFlashBag()->add('error', 'You failed, please try again.');
+        $this->get('session')->getFlashBag()->add('error', 'This bottle doesn\'t exists in your collection, please try again.');
         return $this->redirectToRoute('bottle_home');
-
     }
     
 }

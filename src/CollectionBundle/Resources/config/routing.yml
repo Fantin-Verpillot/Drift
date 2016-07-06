@@ -2,6 +2,12 @@ collection_home:
     path:     /collection
     defaults: { _controller: CollectionBundle:Collection:index }
 
+collection_display:
+    path:     /collection/display/{id}
+    defaults: { _controller: CollectionBundle:Collection:displaySavedBottle }
+    requirements:
+        id: \d+
+
 collection_delete:
     path:     /collection/delete
     defaults: { _controller: CollectionBundle:Collection:delete }
