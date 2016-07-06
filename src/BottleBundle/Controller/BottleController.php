@@ -66,7 +66,7 @@ class BottleController extends Controller
                     $this->em->flush();
 
                     if ($userRepository->earnExperience($user, 5)) {
-                        $this->get('session')->getFlashBag()->add('notice', 'Congratulation, you are now level ' . $user->getLevel() . '!');
+                        $this->get('session')->getFlashBag()->add('notice', 'Congratulation, you are now level ' . $user->getLevel());
                     }
                 } else {
                     $bottle->setReceivedDate(new DateTime('NOW', new DateTimeZone('Europe/Paris')));
@@ -75,7 +75,7 @@ class BottleController extends Controller
                     $this->em->flush();
                 }
             } else {
-                $this->get('session')->getFlashBag()->add('notice', 'There is no bottle visible on the horizon.');
+                $this->get('session')->getFlashBag()->add('notice', 'There is no bottle visible on the horizon');
                 return $this->redirectToRoute('bottle_home');
             }
         }
@@ -148,12 +148,12 @@ class BottleController extends Controller
 
                 $this->em->persist($bottleAdmin);
                 $this->em->flush();
-                $this->get('session')->getFlashBag()->add('success', 'You closed the special bottle and thrown it toward someone.');
+                $this->get('session')->getFlashBag()->add('success', 'You closed the special bottle and thrown it toward someone');
                 return $this->redirectToRoute('bottle_home_admin');
             }
         }
 
-        $this->get('session')->getFlashBag()->add('error', 'You failed, please try again.');
+        $this->get('session')->getFlashBag()->add('error', 'You failed, please try again');
         return $this->redirectToRoute('bottle_write_admin');
     }
 
@@ -185,15 +185,15 @@ class BottleController extends Controller
             $this->em->persist($bottle);
 
             if ($userRepository->earnExperience($user, 10)) {
-                $this->get('session')->getFlashBag()->add('notice', 'Congratulation, you are now level ' . $user->getLevel() . '!');
+                $this->get('session')->getFlashBag()->add('notice', 'Congratulation, you are now level ' . $user->getLevel());
             }
-            $this->get('session')->getFlashBag()->add('success', 'You closed the bottle and thrown it into the sea.');
+            $this->get('session')->getFlashBag()->add('success', 'You closed the bottle and thrown it into the sea');
             $this->em->flush();
 
             return $this->redirectToRoute('bottle_home');
         }
 
-        $this->get('session')->getFlashBag()->add('error', 'You failed, please try again.');
+        $this->get('session')->getFlashBag()->add('error', 'You failed, please try again');
         return $this->redirectToRoute('bottle_write');
     }
 
@@ -223,12 +223,12 @@ class BottleController extends Controller
 
         if ($success) {
             if ($save) {
-                $this->get('session')->getFlashBag()->add('success', 'You placed the bottle on the shelf of your collection.');
+                $this->get('session')->getFlashBag()->add('success', 'You placed the bottle on the shelf of your collection');
             } else {
-                $this->get('session')->getFlashBag()->add('success', 'You got rid of the bottle.');
+                $this->get('session')->getFlashBag()->add('success', 'You got rid of the bottle');
             }
         } else {
-            $this->get('session')->getFlashBag()->add('error', 'You failed, please try again.');
+            $this->get('session')->getFlashBag()->add('error', 'You failed, please try again');
         }
         return $this->redirectToRoute('bottle_home');
     }

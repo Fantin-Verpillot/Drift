@@ -21,13 +21,11 @@ class ReportController extends Controller
 
         $sent = $reportRepository->getReportByState(0);
         $read = $reportRepository->getReportByState(1);
-        $handled = $reportRepository->getReportByState(2);
 
         return $this->render('ReportBundle:Report:index.html.twig',
             array(
                 'sent'      => $sent,
-                'read'      => $read,
-                'handled'   => $handled,
+                'read'      => $read
             ));
     }
 
@@ -50,17 +48,17 @@ class ReportController extends Controller
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $bottle = $bottleRepository->getPendingBottle($user);
         $message = $request->request->get('message');
-        $send = $request->request->get('send');
 
-        if ($send !== null) {
+        if (!empty($bottle)) {
             $report = new Report();
             $report->constructReport($bottle, 0, $message);
             $this->em->persist($report);
             $this->em->flush();
-            $this->get('session')->getFlashBag()->add('success', 'Thanks for reporting this bottle');
+            $this->get('session')->getFlashBag()->add('success', 'The bottle has been reported to an administrator');
             return $this->redirectToRoute('bottle_open');
         }
 
+        $this->get('session')->getFlashBag()->add('error', 'You failed, please try again');
         return $this->redirectToRoute('report_write');
     }
 }

@@ -45,12 +45,12 @@ class MainController extends Controller
         if ($request->attributes->has(Security::AUTHENTICATION_ERROR)) {
             $error = $request->attributes->get(Security::AUTHENTICATION_ERROR);
             if ($error !== null) {
-                $this->get('session')->getFlashBag()->add('error', 'You failed, please try again.');
+                $this->get('session')->getFlashBag()->add('error', 'You failed, please try again');
             }
         } else {
             $error = $session->get(Security::AUTHENTICATION_ERROR);
             if ($error !== null) {
-                $this->get('session')->getFlashBag()->add('error', 'You failed, please try again.');
+                $this->get('session')->getFlashBag()->add('error', 'You failed, please try again');
             }
             $session->remove(Security::AUTHENTICATION_ERROR);
         }
@@ -75,11 +75,11 @@ class MainController extends Controller
         if ($username !== null && $password !== null && $email !== null
             && $username !== '' && $password !== '' && $email !== '') {
             if ($userRepository->findOneByUsername($username) !== null) {
-                $this->get('session')->getFlashBag()->add('error', 'This username is already taken.');
+                $this->get('session')->getFlashBag()->add('error', 'This username is already taken');
                 return $this->redirectToRoute('register');
             }
             if ($userRepository->findOneByEmail($email) !== null) {
-                $this->get('session')->getFlashBag()->add('error', 'You already created an account with this email.');
+                $this->get('session')->getFlashBag()->add('error', 'You already created an account with this email');
                 return $this->redirectToRoute('register');
             }
 
@@ -95,11 +95,11 @@ class MainController extends Controller
             $this->em->flush();
 
         } else {
-            $this->get('session')->getFlashBag()->add('error', 'You left some fields blank.');
+            $this->get('session')->getFlashBag()->add('error', 'You left some fields blank');
             return $this->redirectToRoute('register');
         }
 
-        $this->get('session')->getFlashBag()->add('success', 'Your registration succeed, please connect.');
+        $this->get('session')->getFlashBag()->add('success', 'Your registration succeed, please connect');
         return $this->redirectToRoute('login');
     }
 }

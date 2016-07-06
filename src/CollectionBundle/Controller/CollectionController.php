@@ -28,7 +28,7 @@ class CollectionController extends Controller
 
         $bottle = $bottleRepository->find($id);
         if ($bottle === null || $bottle->getState() != 3) {
-            $this->get('session')->getFlashBag()->add('error', 'This bottle doesn\'t exists in your collection, please try again.');
+            $this->get('session')->getFlashBag()->add('error', 'This bottle doesn\'t exists in your collection, please try again');
             return $this->redirectToRoute('collection_home');
         }
 
@@ -48,7 +48,7 @@ class CollectionController extends Controller
                 $bottle->setState(4);
                 $this->em->persist($bottle);
                 $this->em->flush();
-                $this->get('session')->getFlashBag()->add('success', 'You thrown this bottle away from your collection.');
+                $this->get('session')->getFlashBag()->add('success', 'You thrown this bottle away from your collection');
                 return $this->redirectToRoute('collection_home');
             }
         }
