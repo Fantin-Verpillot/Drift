@@ -18,8 +18,8 @@ class ReportController extends Controller
         $this->em = $this->getDoctrine()->getManager();
         $reportRepository = $this->em->getRepository('ReportBundle:Report');
 
-        $sent = $reportRepository->getReportByState(0);
-        $read = $reportRepository->getReportByState(1);
+        $sent = $reportRepository->findByState(0);
+        $read = $reportRepository->findByState(1);
 
         return $this->render('ReportBundle:Report:index.html.twig',
             array(
@@ -35,7 +35,6 @@ class ReportController extends Controller
         $reportRepository = $this->em->getRepository('ReportBundle:Report');
 
         $report = $reportRepository->find($id);
-        var_dump($report->getFkBottle()->getMessage());
         if ($report !== null)
         {
             return $this->render('ReportBundle:Report:display.html.twig',

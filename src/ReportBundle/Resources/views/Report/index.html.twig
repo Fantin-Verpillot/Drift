@@ -37,34 +37,28 @@
         <div class="row" style="margin-top: 30px;">
 
             {% for report in sent %}
-                <a href="{{ path('report_display', { 'id': report.reportId }) }}" style="color: #333;">
+                <a href="{{ path('report_display', { 'id': report.id }) }}" style="color: #333;">
                     <div class="col-md-3">
                         <div class="panel panel-default bottle grow animated fadeIn">
                             <p class="text">
-                                {{ report.reportId ~ '.' }}
-                                {% if report.reportMessage is not null %}
-                                    reported message :
-                                    {{ report.reportMessage|length > 200 ? report.reportMessage | slice(0, 200) ~ ' ...' : report.reportMessage }}
-                                {% else %}
-                                    original message :
-                                    {{ report.message|length > 200 ? report.message | slice(0, 200) ~ ' ...' : report.message }}
-                                {% endif %}
+                                {#{{ report.id ~ '.' }}#}
+                                {{ report.fkBottle.message|length > 200 ? report.fkBottle.message | slice(0, 200) ~ ' ...' : report.fkBottle.message }}
                             </p>
-                            {% if (report.image is not null) %}
+                            {% if (report.fkBottle.image is not null) %}
                                 <p class="image-icon">
                                     <i class="fa fa-picture-o" aria-hidden="true"></i>
-                                    <span style="font-size: 11px">{{ report.username }}</span>
+                                    <span style="font-size: 11px">{{ report.fkBottle.fkReceiver.username }}</span>
                                 </p>
                             {% else %}
                                 <p class="image-icon" style="font-size: 11px;">
-                                    {{ report.username }}
+                                    {{ report.fkBottle.fkReceiver.username }}
                                 </p>
                             {% endif %}
                         </div>
                     </div>
                 {% else %}
                     <div class="col-md-12">
-                        <h3>There is no new reports.</h3>
+                        <h3>There is no new report.</h3>
                     </div>
                 </a>
             {% endfor %}
@@ -79,37 +73,31 @@
         <br>
         <div class="row">
             {% for report in read %}
-            <a href="{{ path('report_display', { 'id': report.reportId }) }}" style="color: #333;">
+            <a href="{{ path('report_display', { 'id': report.id }) }}" style="color: #333;">
                 <div class="col-md-3">
                     <div class="panel panel-default bottle grow animated fadeIn">
                         <p class="text">
-                            {{ report.reportId ~ '.' }}
-                            {% if report.reportMessage is not null %}
-                                reported message :
-                                {{ report.reportMessage|length > 200 ? report.reportMessage | slice(0, 200) ~ ' ...' : report.reportMessage }}
-                            {% else %}
-                                original message :
-                                {{ report.message|length > 200 ? report.message | slice(0, 200) ~ ' ...' : report.message }}
-                            {% endif %}
+                            {#{{ report.id ~ '.' }}#}
+                            {{ report.fkBottle.message|length > 200 ? report.fkBottle.message | slice(0, 200) ~ ' ...' : report.fkBottle.message }}
                         </p>
-                        {% if (report.image is not null) %}
+                        {% if (report.fkBottle.image is not null) %}
                             <p class="image-icon">
                                 <i class="fa fa-picture-o" aria-hidden="true"></i>
-                                <span style="font-size: 11px">{{ report.username }}</span>
+                                <span style="font-size: 11px">{{ report.fkBottle.fkReceiver.username }}</span>
                             </p>
                         {% else %}
                             <p class="image-icon" style="font-size: 11px;">
-                                {{ report.username }}
+                                {{ report.fkBottle.fkReceiver.username }}
                             </p>
                         {% endif %}
                     </div>
                 </div>
             {% else %}
                 <div class="col-md-12">
-                    <h3>There is no read reports.</h3>
+                    <h3>There is no read report.</h3>
                 </div>
+            </a>
             {% endfor %}
-                </a>
         </div>
     </div>
 {% endblock %}

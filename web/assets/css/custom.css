@@ -241,6 +241,17 @@ html, body {
 
 }
 
+.bottle-full .image {
+}
+
+.bottle-full .user-info {
+    text-align: right;
+    font-style: italic;
+    font-size: 12px;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
 
 
 
