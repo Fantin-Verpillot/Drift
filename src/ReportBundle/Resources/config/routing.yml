@@ -2,10 +2,6 @@ report_homepage:
     path:     /report
     defaults: { _controller: ReportBundle:Report:index }
 
-report_write:
-    path:      /report/write
-    defaults:  { _controller: ReportBundle:Report:writeReport }
-
 report_create:
     path:      /report/create
     defaults:  { _controller: ReportBundle:Report:createReport }

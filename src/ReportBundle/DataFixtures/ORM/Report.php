@@ -15,31 +15,26 @@ class LoadReportData extends AbstractFixture implements OrderedFixtureInterface
         $faker = Faker::create();
         $reports = array(
             array(
-                'fkBottle'  => $this->getReference('Bottle0'),
+                'fkBottle'  => $this->getReference('Bottle5'),
                 'state'     => 0,
-                'message'   => null,
-            ),
-            array(
-                'fkBottle'  => $this->getReference('Bottle3'),
-                'state'     => 0,
-                'message'   => $faker->realText(100),
-            ),
-            array(
-                'fkBottle'  => $this->getReference('Bottle2'),
-                'state'     => 1,
-                'message'   => $faker->realText(100),
             ),
             array(
                 'fkBottle'  => $this->getReference('Bottle6'),
+                'state'     => 0,
+            ),
+            array(
+                'fkBottle'  => $this->getReference('Bottle7'),
+                'state'     => 1,
+            ),
+            array(
+                'fkBottle'  => $this->getReference('Bottle8'),
                 'state'     => 2,
-                'message'   => $faker->realText(100),
             ),
         );
 
         foreach ($reports as $key => $value) {
             $report = new Report();
             $report->setFkBottle($value['fkBottle']);
-            $report->setMessage($value['message']);
             $report->setState($value['state']);
 
             $em->persist($report);
