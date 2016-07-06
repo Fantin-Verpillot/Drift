@@ -24,7 +24,7 @@ class MainController extends Controller
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
         $locationService = $this->container->get('bottle_location');
         $location = $locationService->getLocationByIP($request->getClientIp());
-        var_dump($location);
+
         return $this->render('MainBundle:Main:index.html.twig',
             array (
                 'location'          => $location,
@@ -44,13 +44,18 @@ class MainController extends Controller
         // get the login error if there is one
         if ($request->attributes->has(Security::AUTHENTICATION_ERROR)) {
             $error = $request->attributes->get(Security::AUTHENTICATION_ERROR);
+            if ($error !== null) {
+                $this->get('session')->getFlashBag()->add('error', 'You failed, please try again.');
+            }
         } else {
             $error = $session->get(Security::AUTHENTICATION_ERROR);
+            if ($error !== null) {
+                $this->get('session')->getFlashBag()->add('error', 'You failed, please try again.');
+            }
             $session->remove(Security::AUTHENTICATION_ERROR);
         }
         return $this->render('MainBundle:Main:login.html.twig', array(
             'last_username' => $session->get(Security::LAST_USERNAME),
-            'error'         => $error,
         ));
     }
 
