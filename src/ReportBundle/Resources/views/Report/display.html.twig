@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Display report
+{% endblock %}
+
+{% block body %}
+    <div>
+        <p>Report message : {{ report.reportMessage }} </p>
+        <p>Original message : </p>
+        <p> {{ report.message }} </p>
+        <p> Written by : {{ report.username }} </p>
+    </div>
+{% endblock %}

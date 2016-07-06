@@ -9,3 +9,9 @@ report_write:
 report_create:
     path:      /report/create
     defaults:  { _controller: ReportBundle:Report:createReport }
+
+report_display:
+    path:      /report/{id}
+    defaults:  { _controller: ReportBundle:Report:displayReport }
+    requirements:
+      id:    \d+

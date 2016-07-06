@@ -38,34 +38,36 @@
         <div class="row">
 
             {% for report in sent %}
-                <div class="col-md-3">
-                    <div class="panel panel-default bottle grow animated fadeIn">
-                        <p class="text">
-                            {{ report.reportId ~ '.' }}
-                            {% if report.reportMessage is not null %}
-                                reported message :
-                                {{ report.reportMessage|length > 200 ? report.reportMessage | slice(0, 200) ~ ' ...' : report.reportMessage }}
+                <a href="{{ path('report_display', { 'id': report.reportId }) }}">
+                    <div class="col-md-3">
+                        <div class="panel panel-default bottle grow animated fadeIn">
+                            <p class="text">
+                                {{ report.reportId ~ '.' }}
+                                {% if report.reportMessage is not null %}
+                                    reported message :
+                                    {{ report.reportMessage|length > 200 ? report.reportMessage | slice(0, 200) ~ ' ...' : report.reportMessage }}
+                                {% else %}
+                                    original message :
+                                    {{ report.message|length > 200 ? report.message | slice(0, 200) ~ ' ...' : report.message }}
+                                {% endif %}
+                            </p>
+                            {% if (report.image is not null) %}
+                                <p class="image-icon">
+                                    <i class="fa fa-picture-o" aria-hidden="true"></i>
+                                    <span style="font-size: 11px">{{ report.username }}</span>
+                                </p>
                             {% else %}
-                                original message :
-                                {{ report.message|length > 200 ? report.message | slice(0, 200) ~ ' ...' : report.message }}
+                                <p class="image-icon" style="font-size: 11px;">
+                                    {{ report.username }}
+                                </p>
                             {% endif %}
-                        </p>
-                        {% if (report.image is not null) %}
-                            <p class="image-icon">
-                                <i class="fa fa-picture-o" aria-hidden="true"></i>
-                                <span style="font-size: 11px">{{ report.username }}</span>
-                            </p>
-                        {% else %}
-                            <p class="image-icon" style="font-size: 11px;">
-                                {{ report.username }}
-                            </p>
-                        {% endif %}
+                        </div>
                     </div>
-                </div>
-            {% else %}
-                <div class="col-md-12">
-                    <h3>No new report :)</h3>
-                </div>
+                {% else %}
+                    <div class="col-md-12">
+                        <h3>No new report :)</h3>
+                    </div>
+                </a>
             {% endfor %}
         </div>
         <br/>
@@ -78,6 +80,7 @@
         <br>
         <div class="row">
             {% for report in read %}
+            <a href="{{ path('report_display', { 'id': report.reportId }) }}">
                 <div class="col-md-3">
                     <div class="panel panel-default bottle grow animated fadeIn">
                         <p class="text">
@@ -107,7 +110,7 @@
                     <h3>No reports read</h3>
                 </div>
             {% endfor %}
+                </a>
         </div>
-
     </div>
 {% endblock %}

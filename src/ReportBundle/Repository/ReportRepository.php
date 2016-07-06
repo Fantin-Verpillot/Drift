@@ -24,4 +24,19 @@ class ReportRepository extends EntityRepository
 
         return $result;
     }
+
+    public function getReportById($id) {
+        $qb = $this->createQueryBuilder('r')
+            ->select('r.id as reportId, r.message as reportMessage, b.message, b.image, u.id as userId, u.username')
+            ->join('r.fkBottle', 'b')
+            ->join('b.fkTransmitter', 'u')
+            ->where('r.id = :id')
+            ->setParameter(':id', $id);
+
+        $result = $qb->getQuery()->getResult();
+        if (count($result) == 1)
+            return $result[0];
+        else
+            return null;
+    }
 }

@@ -28,6 +28,23 @@ class ReportController extends Controller
             ));
     }
 
+
+    public function displayReportAction($id) {
+
+        $this->em = $this->getDoctrine()->getManager();
+        $reportRepository = $this->em->getRepository('ReportBundle:Report');
+        //$userRepository = $this->em->getRepository('MainBundle:User');
+
+        $report = $reportRepository->getReportById($id);
+        if ($report !== null)
+        {
+            return $this->render('ReportBundle:Report:display.html.twig',
+                array(
+                    'report'    => $report,
+                 ));
+        }
+    }
+
     /**
      * @Secure(roles="ROLE_USER, ROLE_ADMIN")
      */
