@@ -74,7 +74,7 @@ class User implements AdvancedUserInterface
     /**
      * @var bool
      *
-     * @ORM\Column(name="isActive", type="boolean", nullable="false")
+     * @ORM\Column(name="isActive", type="boolean")
      */
     private $isActive;
 
