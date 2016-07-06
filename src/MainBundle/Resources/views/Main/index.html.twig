@@ -130,7 +130,6 @@
                                            class="btn btn-primary btn-lg pull-right">Bottles</a>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -158,8 +157,11 @@
         }
 
         function initialize() {
+            var latitude_init  = {{ latitude_init }};
+            var longitude_init = {{ longitude_init }};
+
             var mapProp = {
-                center:new google.maps.LatLng(51.508742,-0.120850),
+                center:new google.maps.LatLng(latitude_init, longitude_init),
                 zoom:5,
                 mapTypeId:google.maps.MapTypeId.ROADMAP,
                 mapTypeControl: false,

@@ -22,8 +22,21 @@ class MainController extends Controller
         $this->em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
+
         $locationService = $this->container->get('bottle_location');
         $location = $locationService->getLocationByIP($request->getClientIp());
+
+        if ($location === null || $location[0] === null || $location[1] === null)
+        {
+            // London position (for center the map)
+            $latitude_init  = 51.508742;
+            $longitude_init = -0.120850;
+        }
+        else
+        {
+            $latitude_init = $location[0];
+            $longitude_init = $location[1];
+        }
 
         return $this->render('MainBundle:Main:index.html.twig',
             array (
@@ -33,7 +46,9 @@ class MainController extends Controller
                 'bottleTransmitted' => count($bottleRepository->getSentBottle($user)),
                 'bottleReceived'    => $bottleRepository->countReceivedBottle($user),
                 'emojis'            => $bottleRepository->countEmojiByBottle($user),
-                'bottles'           => $bottleRepository->getBottlesSentByUser($user)
+                'bottles'           => $bottleRepository->getBottlesSentByUser($user),
+                'latitude_init'     => $latitude_init,
+                'longitude_init'    => $longitude_init,
             )
         );
     }
@@ -55,7 +70,8 @@ class MainController extends Controller
             $session->remove(Security::AUTHENTICATION_ERROR);
         }
         return $this->render('MainBundle:Main:login.html.twig', array(
-            'last_username' => $session->get(Security::LAST_USERNAME),
+            'last_username'      => $session->get(Security::LAST_USERNAME),
+            'error'              => $error,
         ));
     }
 
