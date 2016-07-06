@@ -26,8 +26,8 @@ bottle_home_admin:
 
 bottle_write_admin:
   path:        /admin/bottle/write
-  defaults: { _controller: BottleBundle:Bottle:writeAdminBottle }
+  defaults: { _controller: BottleBundle:Bottle:writeBottleAdmin }
 
 bottle_create_admin:
   path:        /admin/bottle/create
-  defaults: { _controller: BottleBundle:Bottle:createAdminBottle }
+  defaults: { _controller: BottleBundle:Bottle:createBottleAdmin }

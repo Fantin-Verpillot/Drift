@@ -5,5 +5,73 @@
 {% endblock %}
 
 {% block body %}
-    TODO :D
+
+    <div class="logout-button grow">
+        <a href="{{ path('logout') }}">
+            Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
+        </a>
+    </div>
+
+    <a href="{{ path('bottle_home') }}"
+       class="animated fadeIn grow"
+       style="position: absolute; left: 10px; top: 10px; font-weight: 500; font-size: 22px; cursor: pointer; color: #666666; text-decoration: none;">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i> Administration
+    </a>
+
+    <div style="display: table; width: 100%; height: 100%">
+        <div style="display: table-cell; vertical-align: middle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="panel panel-default animated fadeInDown container-write-bottle">
+                            <p class="title">Write a new special bottle</p>
+                            <form method="post" action="{{ path('bottle_create_admin') }}">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <select class="form-control" name="receiverId" style="width: 130px; text-align: center; text-align-last: center;">
+                                                <option selected>Username</option>
+                                                {% for user in users %}
+                                                    <option value="{{ user.id }}">{{ user.username }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-6"></div>
+
+                                        <div class="col-md-3">
+                                            <select class="form-control" name="type" style="text-align: center; text-align-last: center;">
+                                                <option selected>Type</option>
+                                                <option value="info">Info</option>
+                                                <option value="warning">Warning</option>
+                                                <option value="help>">Help</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group" style="margin-top: 20px;">
+                                    <label class="control-label" for="focusedInput">Message</label>
+                                    <textarea class="form-control" rows="4" name="message" style="resize: none;"></textarea>
+                                </div>
+
+                                <div style="margin-top: 30px;">
+                                    <div class="row no-padding">
+                                        <div class="pull-right">
+                                            <button type="submit" name="send" class="btn btn-primary btn-lg grow">
+                                                <i class="fa fa-paper-plane-o" aria-hidden="true"></i> Send
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

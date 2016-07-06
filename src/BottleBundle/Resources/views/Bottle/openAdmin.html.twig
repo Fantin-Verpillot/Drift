@@ -6,6 +6,12 @@
 
 {% block body %}
 
+    <div class="logout-button grow">
+        <a href="{{ path('logout') }}">
+            Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
+        </a>
+    </div>
+
     <div style="display: table; width: 100%; height: 100%;">
         <div style="display: table-cell; vertical-align: middle">
 
@@ -62,22 +68,5 @@
             </div>
         </div>
     </div>
-
-    {#<h3>You open the bottle... it contains a message!</h3>#}
-    {#<div>It's a bottle from {{ bottle.sourceRole }}</div>#}
-    {#<div>{{ bottle.message }}</div><br/><br/>#}
-    {#<p>{{ bottle.type }}</p>#}
-    {#<h3>Please evaluate this bottle</h3>#}
-
-    {#<form action="{{ path('bottle_evaluate') }}" method="post">#}
-    {#Mark (/5) <input type="text" name="mark" value=""/><br/><br/>#}
-    {#Emoji <select name="emoji">#}
-    {#{% for emoji in emojis %}#}
-    {#<option value="{{ emoji.id }}">{{ emoji.name }}</option>#}
-    {#{% endfor %}#}
-    {#</select><br/><br/>#}
-
-    {#<input type="submit" name="write" value="Save and evaluate"/>#}
-    {#</form>#}
 
 {% endblock %}

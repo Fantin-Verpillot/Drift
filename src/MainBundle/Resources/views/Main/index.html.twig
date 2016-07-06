@@ -34,7 +34,8 @@
 
                                     <div class="col-md-2">
                                         <div class="text">
-                                            <i class="fa fa-star-half-o" aria-hidden="true"></i> {{ mark }} / 5
+                                            <i class="fa fa-star-half-o" aria-hidden="true"></i> {{ mark | round(1, 'ceil' ) }} / 5
+
                                         </div>
                                     </div>
 
@@ -126,8 +127,14 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <a href="{{ path('bottle_home') }}"
-                                           class="btn btn-primary btn-lg pull-right">Bottles</a>
+                                        <div class="pull-right">
+                                            {% if user.isAdmin == 'ROLE_ADMIN' %}
+                                                <a href="{{ path('bottle_home_admin') }}" class="btn btn-primary btn-lg" style="pull-right: 10px;">Administrator</a>
+                                            {% endif %}
+
+                                            <a href="{{ path('bottle_home') }}"
+                                               class="btn btn-primary btn-lg">Bottles</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
