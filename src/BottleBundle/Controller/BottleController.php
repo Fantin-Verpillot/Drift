@@ -178,22 +178,16 @@ class BottleController extends Controller
 
         $message = $request->request->get('message');
         $image = $request->request->get('image');
-        $send = $request->request->get('send');
 
         if ($message !== '') {
             $bottle = new Bottle();
-            $state = $send !== null ? 1 : 0;
-            $bottle->constructBottle($user, $message, $state, $image === '' ? null : $image);
+            $bottle->constructBottle($user, $message, $image === '' ? null : $image);
             $this->em->persist($bottle);
 
-            if ($state === 1) {
-                if ($userRepository->earnExperience($user, 10)) {
-                    $this->get('session')->getFlashBag()->add('notice', 'Congratulation, you are now level ' . $user->getLevel() . '!');
-                }
-                $this->get('session')->getFlashBag()->add('success', 'You closed the bottle and thrown it into the sea.');
-            } else {
-                $this->get('session')->getFlashBag()->add('success', 'You closed the bottle but didn\'t throw it yet.');
+            if ($userRepository->earnExperience($user, 10)) {
+                $this->get('session')->getFlashBag()->add('notice', 'Congratulation, you are now level ' . $user->getLevel() . '!');
             }
+            $this->get('session')->getFlashBag()->add('success', 'You closed the bottle and thrown it into the sea.');
             $this->em->flush();
 
             return $this->redirectToRoute('bottle_home');
