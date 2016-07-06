@@ -1,70 +1,90 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 
-        <!-- Bootstrap -->
-        <link rel="stylesheet" href="https://bootswatch.com/paper/bootstrap.min.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://bootswatch.com/paper/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
 
-        <!-- Font awesome -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"/>
 
-        <!-- Own css -->
-        <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}?version={{ version }}" />
-    </head>
+    <!-- Own css -->
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}?version={{ version }}"/>
+</head>
 
-    <body>
+<body>
+
 <div class="flash-bag-message">
     {% for flashMessage in app.session.flashbag.get('notice') %}
 
-        <div class="alert alert-info alert-dismissable col-lg-10 col-lg-offset-1">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            {{ flashMessage }}
+        <div class="alert alert-info" id="alert">
+            <i class="fa fa-info-circle" aria-hidden="true"></i> {{ flashMessage }}
         </div>
 
     {% endfor %}
 
     {% for flashMessage in app.session.flashbag.get('error') %}
 
-        <div class="alert alert-danger alert-dismissable col-lg-10 col-lg-offset-1">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            {{ flashMessage }}
+        <div class="alert alert-danger" id="alert">
+            <i class="fa fa-times" aria-hidden="true"></i> {{ flashMessage }}
         </div>
 
     {% endfor %}
 
     {% for flashMessage in app.session.flashbag.get('warning') %}
 
-        <div class="alert alert-warning alert-dismissable col-lg-10 col-lg-offset-1">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            {{ flashMessage }}
+        <div class="alert alert-warning" id="alert">
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ flashMessage }}
         </div>
 
     {% endfor %}
 
     {% for flashMessage in app.session.flashbag.get('success') %}
 
-        <div class="alert alert-success alert-dismissable col-lg-10 col-lg-offset-1">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            {{ flashMessage }}
+        <div class="alert alert-success" id="alert">
+            <i class="fa fa-check" aria-hidden="true"></i> {{ flashMessage }}
         </div>
 
     {% endfor %}
 </div>
-        {#{% include 'navbar.html.twig' %}#}
 
-        {% block body %}{% endblock %}
+{#{% include 'navbar.html.twig' %}#}
 
-        <!-- Bootstrap -->
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+{% block body %}{% endblock %}
+
+<!-- Bootstrap -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 
-        {% block javascripts %}{% endblock %}
+<script type="text/javascript">
 
-    </body>
+    $.fn.extend({
+        animateCss: function (animationName) {
+            var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+            $(this).addClass('animated ' + animationName).one(animationEnd, function () {
+                $(this).removeClass('animated ' + animationName);
+            });
+        }
+    });
+
+    window.setTimeout(function() {
+        $("#alert").fadeOut(1000, function(){
+            $("#alert").alert('close');
+        });
+    }, 2000);
+
+
+
+</script>
+
+
+{% block javascripts %}{% endblock %}
+
+</body>
 </html>

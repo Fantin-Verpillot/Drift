@@ -1,9 +1,9 @@
 .flash-bag-message {
     position: absolute;
-    margin-top: 2%;
-    margin-left: 80%;
-    margin-right: 30%;
-    width: 20%;
+    top: 10px;
+    right: 10px;
+    text-align: center;
+    width: 300px;
 }
 
 html, body {
