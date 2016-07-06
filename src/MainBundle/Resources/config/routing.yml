@@ -17,7 +17,7 @@ register:
     defaults:  { _controller: MainBundle:Main:register }
 
 register_check:
-    pattern:   /registerCheck
+    pattern:   /register_check
     defaults:  { _controller: MainBundle:Main:registerCheck }
 
 gmap:

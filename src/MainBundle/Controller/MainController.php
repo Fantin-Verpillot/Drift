@@ -3,7 +3,7 @@
 namespace MainBundle\Controller;
 
 use MainBundle\Entity\User;
-use Symfony\Component\Config\Definition\Exception\Exception;
+use JMS\SecurityExtraBundle\Annotation\Secure; /* /!\ Don't remove, used by the annotations /!\ */
 use Symfony\Component\Security\Core\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,6 +12,9 @@ class MainController extends Controller
 {
     private $em;
 
+    /**
+     * @Secure(roles="ROLE_USER, ROLE_ADMIN")
+     */
     public function indexAction()
     {
         $this->em = $this->getDoctrine()->getManager();
@@ -19,18 +22,18 @@ class MainController extends Controller
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
 
         return $this->render('MainBundle:Main:index.html.twig',
-            array(
+            array (
                 'user'              => $user,
                 'mark'              => $bottleRepository->getAverageMark($user),
                 'bottleTransmitted' => count($bottleRepository->getSentBottle($user)),
                 'bottleReceived'    => $bottleRepository->countReceivedBottle($user),
                 'emojis'            => $bottleRepository->countEmojiByBottle($user),
-                )
+            )
         );
-
     }
 
-    public function loginAction(Request $request) {
+    public function loginAction(Request $request)
+    {
         $session = $request->getSession();
         // get the login error if there is one
         if ($request->attributes->has(Security::AUTHENTICATION_ERROR)) {
@@ -45,14 +48,22 @@ class MainController extends Controller
         ));
     }
 
-    public function showGmapAction(Request $request)
-    {
-        return $this->render('MainBundle:Main:gmap.html.twig', array(
-            'last_username' => $request));
 
+    /**
+     * @Secure(roles="ROLE_USER, ROLE_ADMIN")
+     */
+    public function showGmapAction()
+    {
+        $this->em = $this->getDoctrine()->getManager();
+        $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $bottles = $bottleRepository->getBottlesSentByUser($user);
+
+        return $this->render('MainBundle:Main:gmap.html.twig', array(
+            'bottles' => $bottles, 'toto' => "HELLO"));
     }
 
-    public function registerAction(Request $request)
+    public function registerAction()
     {
         return $this->render('MainBundle:Main:register.html.twig');
     }
@@ -65,7 +76,8 @@ class MainController extends Controller
         $password = $request->request->get('password');
         $email = $request->request->get('email');
 
-        if ($username !== '' && $password !== '' && $email !== '') {
+        if ($username !== null && $password !== null && $email !== null
+            && $username !== '' && $password !== '' && $email !== '') {
             if ($userRepository->findOneByUsername($username) !== null) {
                 $this->get('session')->getFlashBag()->add('error', 'This username is already taken.');
                 return $this->redirectToRoute('register');
@@ -93,5 +105,4 @@ class MainController extends Controller
         $this->get('session')->getFlashBag()->add('success', 'Your registration succeed, please connect.');
         return $this->redirectToRoute('login');
     }
-
 }
