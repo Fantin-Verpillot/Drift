@@ -20,36 +20,35 @@
 <body>
 
 <div class="flash-bag-message">
-    {% for flashMessage in app.session.flashbag.get('notice') %}
+    {% set countMessages = 0 %}
 
-        <div class="alert alert-info" id="alert">
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="alert alert-info" id="alert-{{ countMessages }}">
             <i class="fa fa-info-circle" aria-hidden="true"></i> {{ flashMessage }}
         </div>
-
+        {% set countMessages = countMessages + 1 %}
     {% endfor %}
 
     {% for flashMessage in app.session.flashbag.get('error') %}
-
-        <div class="alert alert-danger" id="alert">
+        <div class="alert alert-danger" id="alert-{{ countMessages }}">
             <i class="fa fa-times" aria-hidden="true"></i> {{ flashMessage }}
         </div>
-
+        {% set countMessages = countMessages + 1 %}
     {% endfor %}
 
     {% for flashMessage in app.session.flashbag.get('warning') %}
-
-        <div class="alert alert-warning" id="alert">
+        <div class="alert alert-warning" id="alert-{{ countMessages }}">
             <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ flashMessage }}
         </div>
-
+        {% set countMessages = countMessages + 1 %}
     {% endfor %}
 
     {% for flashMessage in app.session.flashbag.get('success') %}
-
-        <div class="alert alert-success" id="alert">
+        {% set countMessages = countMessages + 1 %}
+        <div class="alert alert-success" id="alert-{{ countMessages }}">
             <i class="fa fa-check" aria-hidden="true"></i> {{ flashMessage }}
         </div>
-
+        {% set countMessages = countMessages + 1 %}
     {% endfor %}
 </div>
 
@@ -73,12 +72,16 @@
         }
     });
 
-    window.setTimeout(function() {
-        $("#alert").fadeOut(1000, function(){
-            $("#alert").alert('close');
+    function disableMessage(i) {
+        $("#alert-" + i).fadeOut(1000, function () {
+            $("#alert-" + i).alert('close');
         });
-    }, 2000);
+        if (i < {{ countMessages }}) {
+            window.setTimeout(disableMessage(i + 1), 2000);
+        }
+    }
 
+    window.setTimeout(disableMessage(0), 2000);
 
 
 </script>
