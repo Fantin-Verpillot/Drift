@@ -5,13 +5,20 @@ main_home:
 login:
     pattern:   /login
     defaults:  { _controller: MainBundle:Main:login }
+
 login_check:
     pattern:   /login_check
 
 logout:
     pattern:   /logout
 
+register:
+    pattern:   /register
+    defaults:  { _controller: MainBundle:Main:register }
 
+register_check:
+    pattern:   /registerCheck
+    defaults:  { _controller: MainBundle:Main:registerCheck }
 
 gmap:
     pattern:   /gmap

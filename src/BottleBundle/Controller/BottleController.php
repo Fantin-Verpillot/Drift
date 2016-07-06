@@ -56,7 +56,7 @@ class BottleController extends Controller
                 if ($bottle->getSourceRole() === 'ROLE_USER') {
                     $locationService = $this->container->get('bottle_location');
                     $location = $locationService->getLocationByIP($request->getClientIp());
-                    var_dump($location);
+
                     $bottle->setFkReceiver($user);
                     $bottle->setReceivedDate(new DateTime('NOW', new DateTimeZone('Europe/Paris')));
                     $bottle->setLatitude($location[0]);
