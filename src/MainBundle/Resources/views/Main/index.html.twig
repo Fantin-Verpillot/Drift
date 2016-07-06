@@ -21,32 +21,61 @@
                     <div class="col-md-12 no-padding">
                         <div class="panel panel-primary user-panel animated fadeIn">
                             <div class="panel-heading heading text-center">
-                                <i class="fa fa-user" aria-hidden="true"></i> My profile
+                                Welcome {{ user.username }}
                             </div>
                             <div class="panel-body">
-                                <div class="text">
-                                    <i class="fa fa-user" aria-hidden="true"></i> {{ user.username }}
-                                </div>
+                                <div class="row">
 
-                                <div class="text">
-                                    <i class="fa fa-envelope" aria-hidden="true"></i> {{ user.email }}
-                                </div>
-
-                                <div class="text">
-                                    <i class="fa fa-star" aria-hidden="true"></i> XP ({{ user.experience }}/{{ (user.level * user.level) * 50 }})
-                                    <div class="progress">
-                                        <div class="progress-bar"
-                                             style="width: {{ (user.experience / (user.level * user.level * 50)) * 100 }}%;"></div>
+                                    <div class="col-md-3">
+                                        <div class="text">
+                                            <i class="fa fa-user" aria-hidden="true"></i> {{ user.username }}
+                                        </div>
                                     </div>
-                                    <div>
 
-                                        <div class="text">
-                                            <i class="fa fa-trophy" aria-hidden="true"></i> Level {{ user.level }}
+                                    <div class="col-md-3 no-padding">
+                                        <div class="text pull-right">
+                                            <i class="fa fa-star" aria-hidden="true"></i> XP
+                                            ({{ user.experience }}
+                                            /{{ (user.level * user.level) * 50 }})
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3" style="padding-left: 10px;">
+                                        <div class="progress" style="margin-top: 15px;">
+                                            <div class="progress-bar"
+                                                 style="width: {{ (user.experience / (user.level * user.level * 50)) * 100 }}%;"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="text pull-right">
+                                            <i class="fa fa-trophy" aria-hidden="true"></i> {{ user.level }}
                                         </div>
 
+                                    </div>
+
+                                </div>
+
+                                {#<div class="text">#}
+                                {#<i class="fa fa-envelope" aria-hidden="true"></i> {{ user.email }}#}
+                                {#</div>#}
+
+                                <div class="row">
+
+                                    <div class="col-md-3">
                                         <div class="text">
-                                            <i class="fa fa-star-half-o" aria-hidden="true"></i> {{ mark }} / 5 {# don't display mark when no bottle opened#}
+                                            <i class="fa fa-star-half-o" aria-hidden="true"></i> {{ mark }} / 5
+                                            {#don't display mark when no bottle opened#}
                                         </div>
+                                    </div>
+
+                                    <div class="col-md-3"></div>
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-5">
 
                                         <div class="text">
                                             <i class="fa fa-asterisk" aria-hidden="true"></i> <span
@@ -61,46 +90,90 @@
                                             </div>
                                         </div>
 
-
                                         <div class="text">
                                             <i class="fa fa-asterisk" aria-hidden="true"></i> <span
                                                     style="font-weight: 500;">Bottles order by mood</span>
                                             <div class="row" style="padding: 0;">
 
                                                 {% for emoji in emojis %}
-                                                <div class="col-md-1">
-                                                    <div class="sub-text"><i class="fa {{ emoji['image'] }}" aria-hidden="true"></i>
-                                                        {{ emoji['count'] }}
+                                                    <div class="col-md-2">
+                                                        <div class="sub-text"><i class="fa {{ emoji['image'] }}"
+                                                                                 aria-hidden="true"></i>
+                                                            {{ emoji['count'] }}
+                                                        </div>
                                                     </div>
-                                                </div>
                                                 {% endfor %}
                                             </div>
                                         </div>
 
+                                    </div>
 
-                                        <div class="row" style="margin-top: 40px;">
-                                            <div class="col-md-6">
-                                                <a href="{{ path('collection_home') }}" class="btn btn-primary btn-lg">My
-                                                    collection</a>
-                                            </div>
+                                    <div class="col-md-2"></div>
 
-                                            <div class="col-md-6">
-                                                <a href="{{ path('bottle_home') }}"
-                                                   class="btn btn-primary btn-lg pull-right">Bottles</a>
-                                            </div>
-                                        </div>
+                                    <div class="col-md-5">
+                                        <div id="googleMap" style="width:100%; height:300px;"></div>
+                                    </div>
 
+                                </div>
+
+
+
+                                <div class="row" style="margin-top: 40px;">
+                                    <div class="col-md-6">
+                                        <a href="{{ path('collection_home') }}" class="btn btn-primary btn-lg">My
+                                            collection</a>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <a href="{{ path('bottle_home') }}"
+                                           class="btn btn-primary btn-lg pull-right">Bottles</a>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
 
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCIBVHnATMK_k_XOuvHWpEoyj6GjdZtCAU"></script>
+
+    <script>
+
+        function insertLocs(lat, longi, map)
+        {
+            var myCenter=new google.maps.LatLng(lat,longi);
+            var marker=new google.maps.Marker({
+                position:myCenter,
+            });
+            marker.setMap(map);
+        }
+
+        function initialize() {
+            var mapProp = {
+                center:new google.maps.LatLng(51.508742,-0.120850),
+                zoom:5,
+                mapTypeId:google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false
+            };
+
+            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+            {% for bottle in bottles %}
+            var longi = {{ bottle.longitude }};
+            var lat   = {{ bottle.latitude }};
+            insertLocs(lat, longi, map);
+            {% endfor %}
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
 
 {% endblock %}

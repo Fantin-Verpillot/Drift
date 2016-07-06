@@ -23,7 +23,7 @@
     {% set countMessages = 0 %}
 
     {% for flashMessage in app.session.flashbag.get('notice') %}
-        <div class="alert alert-info" id="alert-{{ countMessages }}">
+        <div class="alert alert-info" style="background-color: #2196f3;" id="alert-{{ countMessages }}">
             <i class="fa fa-info-circle" aria-hidden="true"></i> {{ flashMessage }}
         </div>
         {% set countMessages = countMessages + 1 %}
