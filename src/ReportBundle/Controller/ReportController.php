@@ -34,7 +34,8 @@ class ReportController extends Controller
         $this->em = $this->getDoctrine()->getManager();
         $reportRepository = $this->em->getRepository('ReportBundle:Report');
 
-        $report = $reportRepository->getReportById($id);
+        $report = $reportRepository->find($id);
+        var_dump($report->getFkBottle()->getMessage());
         if ($report !== null)
         {
             return $this->render('ReportBundle:Report:display.html.twig',
