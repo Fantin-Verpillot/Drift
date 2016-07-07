@@ -24,11 +24,13 @@ class BottleTest extends WebTestCase
 
     public function testPendingBottle()
     {
+        echo "\n[BOTTLE] Test pending bottle... ";
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
         $userRepository = $this->em->getRepository('MainBundle:User');
         $user = $userRepository->findAll()[1];
         $bottle = $bottleRepository->getPendingBottle($user);
         $this->assertEquals($bottle, null);
+        echo "OK\n";
     }
 
     /**
