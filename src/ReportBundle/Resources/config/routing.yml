@@ -13,7 +13,5 @@ report_display:
       id:    \d+
 
 report_ban:
-    path:       /admin/report/ban/{id}
+    path:       /admin/report/ban
     defaults:   { _controller: ReportBundle:Report:banUser }
-    requirements:
-      id:    \d+

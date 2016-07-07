@@ -5,6 +5,7 @@ namespace ReportBundle\Controller;
 use ReportBundle\Entity\Report;
 use JMS\SecurityExtraBundle\Annotation\Secure; /* /!\ Don't remove, used by the annotations /!\ */
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class ReportController extends Controller
 {
@@ -78,28 +79,35 @@ class ReportController extends Controller
 
     /**
      * @Secure(roles="ROLE_ADMIN")
-     * @param $id
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function banUserAction($id) {
+    public function banUserAction(Request $request)
+    {
         $this->em = $this->getDoctrine()->getManager();
         $userRepository = $this->em->getRepository('MainBundle:User');
-        $users = $userRepository->findById($id);
+        $reportRepository = $this->em->getRepository('ReportBundle:Report');
+        $id = $request->request->get('id');
+        $idReport = $request->request->get('idReport');
 
-        if (!empty($users)) {
-            $user = $users[0];
-            if ($user->getIsActive()) {
-                $user->setIsActive(false);
-                $this->em->persist($user);
-                $this->em->flush();
-                $this->get('session')->getFlashBag()->add('success', $user->getUsername().' has been banished');
-                return $this->redirectToRoute('report_homepage');
-            } else {
-                $this->get('session')->getFlashBag()->add('warning', $user->getUsername().' already banished');
-                return $this->redirectToRoute('report_homepage');
+        if (!empty($id) && !empty($idReport)) {
+            $user = $userRepository->find($id);
+            $report = $reportRepository->find($id);
+            if ($user !== null && $report !== null) {
+                if ($user->getIsActive()) {
+                    $user->setIsActive(false);
+                    $this->em->persist($user);
+                    $this->em->flush();
+                    $this->get('session')->getFlashBag()->add('success', 'You banished the user '. $user->getUsername());
+                    return $this->redirectToRoute('report_display', array('id' => $report->getId()));
+                } else {
+                    $this->get('session')->getFlashBag()->add('error', 'The user ' . $user->getUsername().' is already banished');
+                    return $this->redirectToRoute('report_display', array('id' => $report->getId()));
+                }
             }
         }
-        $this->get('session')->getFlashBag()->add('error', 'no user to banish');
+
+        $this->get('session')->getFlashBag()->add('error', 'You failed, please try again');
         return $this->redirectToRoute('report_homepage');
     }
 }

@@ -77,7 +77,7 @@ class CollectionController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction(Request $request)
+    public function deleteBottleAction(Request $request)
     {
         $this->em = $this->getDoctrine()->getManager();
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
@@ -93,8 +93,33 @@ class CollectionController extends Controller
             }
         }
 
-        $this->get('session')->getFlashBag()->add('error', 'This bottle doesn\'t exists in your collection, please try again.');
-        return $this->redirectToRoute('bottle_home');
+        $this->get('session')->getFlashBag()->add('error', 'This bottle doesn\'t exists in your collection, please try again');
+        return $this->redirectToRoute('collection_home');
+    }
+
+    /**
+     * @Secure(roles="ROLE_USER, ROLE_ADMIN")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteBottleAdminAction(Request $request)
+    {
+        $this->em = $this->getDoctrine()->getManager();
+        $bottleAdminRepository = $this->em->getRepository('BottleBundle:BottleAdmin');
+        $idBottle = $request->request->get('idBottle');
+        if (!empty($idBottle)) {
+            $bottleAdmin = $bottleAdminRepository->find($idBottle);
+            if ($bottleAdmin !== null) {
+                $bottleAdmin->setState(4);
+                $this->em->persist($bottleAdmin);
+                $this->em->flush();
+                $this->get('session')->getFlashBag()->add('success', 'You thrown this special bottle away from your collection');
+                return $this->redirectToRoute('collection_home');
+            }
+        }
+
+        $this->get('session')->getFlashBag()->add('error', 'This special bottle doesn\'t exists in your collection, please try again');
+        return $this->redirectToRoute('collection_home');
     }
     
 }

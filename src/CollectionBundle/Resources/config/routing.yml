@@ -14,6 +14,10 @@ collection_display_bottle_admin:
     requirements:
         id: \d+
 
-collection_delete:
-    path:     /collection/delete
-    defaults: { _controller: CollectionBundle:Collection:delete }
+collection_delete_bottle:
+    path:     /collection/delete/bottle
+    defaults: { _controller: CollectionBundle:Collection:deleteBottle }
+
+collection_delete_bottle_admin:
+    path:     /collection/delete/bottle_admin
+    defaults: { _controller: CollectionBundle:Collection:deleteBottleAdmin }
