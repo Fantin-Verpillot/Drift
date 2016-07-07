@@ -21,10 +21,17 @@
 
                         <div class="panel panel-default bottle-open animated zoomIn" style="background-color: white">
                             <p class="title">
-                                A new bottle has been received ..
+                                You received a new bottle ..
+                                <a href="{{ path('report_display', { 'id': bottle.id }) }}" style="float: right; font-size: 13px; position: relative; right: 20px; top: 10px;">Report</a>
                             </p>
+                            <hr />
+                            {% if bottle.image is not null %}
+                                <img src="{{ bottle.image }}" class="img-responsive" style="width: 400px; margin: 0 auto;">
+                                <div style="margin-bottom: 30px;"></div>
+                            {% endif %}
                             <p class="text">{{ bottle.message }}</p>
-                            <p class="sender pull-right">Written by {{ bottle.fkTransmitter.username }}</p>
+
+                            {#<p class="sender pull-right">Written by {{ bottle.fkTransmitter.username }}</p>#}
 
                             <div style="margin-top: 50px;">
 

@@ -33,10 +33,13 @@
                             {% set icon = 'info-circle' %}
                         {% endif %}
                         <div class="panel panel-default bottle-open animated zoomIn" style="background-color: white">
-                            <p class="title">
-                                <i class="fa fa-{{ icon }}" aria-hidden="true"></i>
-                                An administrator sent you a bottle ..
-                            </p>
+                            <div class="row">
+                                <p class="title">
+                                    <i class="fa fa-{{ icon }}" aria-hidden="true" style="float: left; position: relative; top: 13px; left: 14px; font-size: 25px;"></i>
+                                    An administrator sent you a bottle ..
+                                </p>
+                            </div>
+                            <hr />
                             <p class="text">{{ bottle.message }}</p>
 
                             <div style="margin-top: 20px;">
@@ -51,10 +54,14 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <button type="submit" name="write"
-                                                    class="btn btn-primary pull-right grow">
-                                                <i class="fa fa-check" aria-hidden="true"></i> Got it
-                                            </button>
+                                            <div class="pull-right">
+
+                                                <button type="submit" name="write"
+                                                        class="btn btn-primary grow">
+                                                    <i class="fa fa-check" aria-hidden="true"></i> Got it
+                                                </button>
+
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
