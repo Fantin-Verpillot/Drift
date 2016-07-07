@@ -33,13 +33,15 @@ class ReportController extends Controller
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    // TODO : update read + role admin doesnt work
     public function displayReportAction($id)
     {
         $this->em = $this->getDoctrine()->getManager();
         $reportRepository = $this->em->getRepository('ReportBundle:Report');
         $report = $reportRepository->find($id);
         if ($report !== null) {
+            $report->setState(1);
+            $this->em->persist($report);
+            $this->em->flush();
             return $this->render('ReportBundle:Report:display.html.twig', array('report' => $report));
         }
         $this->get('session')->getFlashBag()->add('error', 'This report doesn\'t exists, please try again');
