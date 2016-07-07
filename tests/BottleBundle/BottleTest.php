@@ -27,7 +27,6 @@ class BottleTest extends WebTestCase
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
         $userRepository = $this->em->getRepository('MainBundle:User');
         $user = $userRepository->findAll()[1];
-        echo $user->getUsername();
         $bottle = $bottleRepository->getPendingBottle($user);
         $this->assertEquals($bottle, null);
     }
