@@ -24,11 +24,35 @@ class LoadReportData extends AbstractFixture implements OrderedFixtureInterface
             ),
             array(
                 'fkBottle'  => $this->getReference('Bottle7'),
+                'state'     => 0,
+            ),
+            array(
+                'fkBottle'  => $this->getReference('Bottle8'),
+                'state'     => 0,
+            ),
+            array(
+                'fkBottle'  => $this->getReference('Bottle8'),
+                'state'     => 0,
+            ),
+            array(
+                'fkBottle'  => $this->getReference('Bottle8'),
                 'state'     => 1,
             ),
             array(
                 'fkBottle'  => $this->getReference('Bottle8'),
-                'state'     => 2,
+                'state'     => 1,
+            ),
+            array(
+                'fkBottle'  => $this->getReference('Bottle8'),
+                'state'     => 1,
+            ),
+            array(
+                'fkBottle'  => $this->getReference('Bottle8'),
+                'state'     => 1,
+            ),
+            array(
+                'fkBottle'  => $this->getReference('Bottle8'),
+                'state'     => 1,
             ),
         );
 

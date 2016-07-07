@@ -5,6 +5,21 @@
 {% endblock %}
 
 {% block body %}
+    {% if bottle.sourceRole == 'ROLE_ADMIN' %}
+    {% if (bottle.type == 'info') %}
+        {% set color = 'rgba(13, 189, 255, 0.15);' %}
+        {% set icon = 'info-circle' %}
+    {% elseif (bottle.type == 'warning') %}
+        {% set color = 'rgba(255, 255, 0, 0.15);' %}
+        {% set icon = 'exclamation-circle' %}
+    {% elseif (bottle.type == 'help') %}
+        {% set color = 'rgba(0, 128, 0, 0.15)' %}
+        {% set icon = 'question-circle' %}
+    {% else %}
+        {% set color = 'white' %}
+        {% set icon = 'info-circle' %}
+    {% endif %}
+{% endif %}
 
 <a href="{{ path('collection_home') }}"
    class="animated fadeIn grow"
@@ -22,7 +37,9 @@
                         {% if bottle.sourceRole == 'ROLE_USER' %}
                             <p class="title">Bottle opened ..</p>
                         {% else %}
-                            <p class="title">Bottle from Administrator ..</p>
+                            <p class="title">
+                                <i class="fa fa-{{ icon }}" aria-hidden="true"></i>
+                                Bottle from Administrator ..</p>
                         {% endif %}
                         <hr />
                         {% if bottle.sourceRole == 'ROLE_USER' %}

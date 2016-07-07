@@ -48,13 +48,13 @@ class BottleRepository extends EntityRepository
     public function getBottlesSentByUser($userConnected)
     {
         $sent = [];
-        $bottles = $this->findByState(2);
+        $bottles = $this->findByFkTransmitter($userConnected);
         foreach ($bottles as $bottle) {
-            if ($bottle->getFkTransmitter()->getId() === $userConnected->getId()) {
+            if ($bottle->getState() >= 2) {
                 $sent[] = $bottle;
             }
         }
-        return $bottles;
+        return $sent;
     }
 
 
