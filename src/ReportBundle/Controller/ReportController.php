@@ -29,19 +29,16 @@ class ReportController extends Controller
     }
 
 
-    public function displayReportAction($id) {
-
+    public function displayReportAction($id)
+    {
         $this->em = $this->getDoctrine()->getManager();
         $reportRepository = $this->em->getRepository('ReportBundle:Report');
-
         $report = $reportRepository->find($id);
-        if ($report !== null)
-        {
-            return $this->render('ReportBundle:Report:display.html.twig',
-                array(
-                    'report'    => $report,
-                 ));
+        if ($report !== null) {
+            return $this->render('ReportBundle:Report:display.html.twig', array('report' => $report));
         }
+        $this->get('session')->getFlashBag()->add('error', 'This report doesn\'t exists, please try again');
+        return $this->redirectToRoute('report_homepage');
     }
 
     /**
@@ -65,6 +62,6 @@ class ReportController extends Controller
         }
 
         $this->get('session')->getFlashBag()->add('error', 'You failed, please try again');
-        return $this->redirectToRoute('report_write');
+        return $this->redirectToRoute('bottle_home');
     }
 }
