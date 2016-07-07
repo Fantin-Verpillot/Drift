@@ -1,9 +1,9 @@
 <?php
-namespace BottleBundle\Repository;
+namespace BottleBundle;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class BottleRepositoryTest extends WebTestCase
+class BottleTest extends WebTestCase
 {
     /**
      * @var \Doctrine\ORM\EntityManager
