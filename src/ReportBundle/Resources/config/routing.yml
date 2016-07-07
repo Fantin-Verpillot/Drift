@@ -11,3 +11,9 @@ report_display:
     defaults:  { _controller: ReportBundle:Report:displayReport }
     requirements:
       id:    \d+
+
+report_ban:
+    path:       /report/ban/{id}
+    defaults:   { _controller: ReportBundle:Report:banUser }
+    requirements:
+      id:    \d+

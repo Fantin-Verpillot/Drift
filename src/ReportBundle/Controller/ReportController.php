@@ -67,4 +67,29 @@ class ReportController extends Controller
         $this->get('session')->getFlashBag()->add('error', 'You failed, please try again');
         return $this->redirectToRoute('report_write');
     }
+
+    public function banUserAction($id) {
+        $this->em = $this->getDoctrine()->getManager();
+        $userRepository = $this->em->getRepository('MainBundle:User');
+        $users = $userRepository->findById($id);
+
+        if (!empty($users))
+        {
+            $user = $users[0];
+            if ($user->getIsActive())
+            {
+                $user->setIsActive(false);
+                $this->em->persist($user);
+                $this->em->flush();
+                $this->get('session')->getFlashBag()->add('success', $user->getUsername().' has been banished');
+                return $this->redirectToRoute('report_homepage');
+            }
+            else {
+                $this->get('session')->getFlashBag()->add('warning', $user->getUsername().' already banished');
+                return $this->redirectToRoute('report_homepage');
+            }
+        }
+        $this->get('session')->getFlashBag()->add('error', 'no user to banish');
+        return $this->redirectToRoute('report_homepage');
+    }
 }
