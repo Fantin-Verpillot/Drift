@@ -63,7 +63,7 @@ class CollectionController extends Controller
 
         $bottleAdmin = $bottleAdminRepository->find($id);
         if ($bottleAdmin === null || $bottleAdmin->getState() != 3) {
-            $this->get('session')->getFlashBag()->add('error', 'This bottle doesn\'t exists in your collection, please try again');
+            $this->get('session')->getFlashBag()->add('error', 'This special bottle doesn\'t exists in your collection, please try again');
             return $this->redirectToRoute('collection_home');
         }
 
@@ -81,10 +81,11 @@ class CollectionController extends Controller
     {
         $this->em = $this->getDoctrine()->getManager();
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
+        $user = $this->get('security.token_storage')->getToken()->getUser();
         $idBottle = $request->request->get('idBottle');
         if (!empty($idBottle)) {
             $bottle = $bottleRepository->find($idBottle);
-            if ($bottle !== null) {
+            if ($bottle !== null && $bottle->getFkReceiver()->getId() === $user->getId()) {
                 $bottle->setState(4);
                 $this->em->persist($bottle);
                 $this->em->flush();
@@ -106,10 +107,11 @@ class CollectionController extends Controller
     {
         $this->em = $this->getDoctrine()->getManager();
         $bottleAdminRepository = $this->em->getRepository('BottleBundle:BottleAdmin');
+        $user = $this->get('security.token_storage')->getToken()->getUser();
         $idBottle = $request->request->get('idBottle');
         if (!empty($idBottle)) {
             $bottleAdmin = $bottleAdminRepository->find($idBottle);
-            if ($bottleAdmin !== null) {
+            if ($bottleAdmin !== null && $bottleAdmin->getFkReceiver()->getId() === $user->getId()) {
                 $bottleAdmin->setState(4);
                 $this->em->persist($bottleAdmin);
                 $this->em->flush();
