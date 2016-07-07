@@ -5,7 +5,6 @@ namespace ReportBundle\Controller;
 use ReportBundle\Entity\Report;
 use JMS\SecurityExtraBundle\Annotation\Secure; /* /!\ Don't remove, used by the annotations /!\ */
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 
 class ReportController extends Controller
 {
@@ -30,6 +29,8 @@ class ReportController extends Controller
 
     /**
      * @Secure(roles="ROLE_ADMIN")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     // TODO : update read + role admin doesnt work
     public function displayReportAction($id)
@@ -49,43 +50,51 @@ class ReportController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @internal param Request $request
      */
-    public function createReportAction() {
+    public function createReportAction()
+    {
         $this->em = $this->getDoctrine()->getManager();
         $bottleRepository = $this->em->getRepository('BottleBundle:Bottle');
+        $reportRepository = $this->em->getRepository('ReportBundle:Report');
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $bottle = $bottleRepository->getPendingBottle($user);
 
         if (!empty($bottle)) {
-            $report = new Report();
-            $report->constructReport($bottle, 0);
-            $this->em->persist($report);
-            $this->em->flush();
-            $this->get('session')->getFlashBag()->add('success', 'The bottle has been reported to an administrator');
-            return $this->redirectToRoute('bottle_open');
+            if ($reportRepository->findByFkBottle($bottle) === null) {
+                $report = new Report();
+                $report->constructReport($bottle, 0);
+                $this->em->persist($report);
+                $this->em->flush();
+                $this->get('session')->getFlashBag()->add('success', 'The bottle has been reported to an administrator');
+                return $this->redirectToRoute('bottle_open');
+            } else {
+                $this->get('session')->getFlashBag()->add('error', 'You have already reported this bottle to an administrator');
+                return $this->redirectToRoute('bottle_open');
+            }
         }
 
         $this->get('session')->getFlashBag()->add('error', 'You failed, please try again');
         return $this->redirectToRoute('bottle_home');
     }
 
-
+    /**
+     * @Secure(roles="ROLE_ADMIN")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function banUserAction($id) {
         $this->em = $this->getDoctrine()->getManager();
         $userRepository = $this->em->getRepository('MainBundle:User');
         $users = $userRepository->findById($id);
 
-        if (!empty($users))
-        {
+        if (!empty($users)) {
             $user = $users[0];
-            if ($user->getIsActive())
-            {
+            if ($user->getIsActive()) {
                 $user->setIsActive(false);
                 $this->em->persist($user);
                 $this->em->flush();
                 $this->get('session')->getFlashBag()->add('success', $user->getUsername().' has been banished');
                 return $this->redirectToRoute('report_homepage');
-            }
-            else {
+            } else {
                 $this->get('session')->getFlashBag()->add('warning', $user->getUsername().' already banished');
                 return $this->redirectToRoute('report_homepage');
             }

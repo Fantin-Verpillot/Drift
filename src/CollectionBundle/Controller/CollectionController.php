@@ -4,11 +4,15 @@ namespace CollectionBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use JMS\SecurityExtraBundle\Annotation\Secure; /* /!\ Don't remove, used by the annotations /!\ */
 
 class CollectionController extends Controller
 {
     private $em;
 
+    /**
+     * @Secure(roles="ROLE_USER, ROLE_ADMIN")
+     */
     public function indexAction()
     {
         $this->em = $this->getDoctrine()->getManager();
@@ -26,6 +30,11 @@ class CollectionController extends Controller
         );
     }
 
+    /**
+     * @Secure(roles="ROLE_USER, ROLE_ADMIN")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function displaySavedBottleAction($id)
     {
         $this->em = $this->getDoctrine()->getManager();
@@ -42,6 +51,11 @@ class CollectionController extends Controller
         );
     }
 
+    /**
+     * @Secure(roles="ROLE_USER, ROLE_ADMIN")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function displaySavedBottleAdminAction($id)
     {
         $this->em = $this->getDoctrine()->getManager();
@@ -58,6 +72,11 @@ class CollectionController extends Controller
         );
     }
 
+    /**
+     * @Secure(roles="ROLE_USER, ROLE_ADMIN")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function deleteAction(Request $request)
     {
         $this->em = $this->getDoctrine()->getManager();

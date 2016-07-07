@@ -1,5 +1,5 @@
 report_homepage:
-    path:     /report
+    path:     /admin/report
     defaults: { _controller: ReportBundle:Report:index }
 
 report_create:
@@ -7,13 +7,13 @@ report_create:
     defaults:  { _controller: ReportBundle:Report:createReport }
 
 report_display:
-    path:      /report/{id}
+    path:      /admin/report/{id}
     defaults:  { _controller: ReportBundle:Report:displayReport }
     requirements:
       id:    \d+
 
 report_ban:
-    path:       /report/ban/{id}
+    path:       /admin/report/ban/{id}
     defaults:   { _controller: ReportBundle:Report:banUser }
     requirements:
       id:    \d+
