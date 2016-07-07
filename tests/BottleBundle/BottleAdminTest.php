@@ -25,7 +25,7 @@ class BottleAdmin extends WebTestCase
 
     public function testAvailableBottleAdminLuigi()
     {
-        echo ") [BOTTLE] Test available bottles admin for Luigi... ";
+        echo ") [ADMIN_BOTTLE] Test available bottles admin for Luigi... ";
         $userRepository = $this->em->getRepository('MainBundle:User');
         $bottleAdminRepository = $this->em->getRepository('BottleBundle:BottleAdmin');
         $userLuigi = $userRepository->findAll()[1];
@@ -36,7 +36,7 @@ class BottleAdmin extends WebTestCase
 
     public function testAvailableBottleAdminMario()
     {
-        echo ") [BOTTLE] Test available bottles admin for Mario... ";
+        echo ") [ADMIN_BOTTLE] Test available bottles admin for Mario... ";
         $userRepository = $this->em->getRepository('MainBundle:User');
         $bottleAdminRepository = $this->em->getRepository('BottleBundle:BottleAdmin');
         $userMario = $userRepository->findAll()[0];
@@ -47,7 +47,7 @@ class BottleAdmin extends WebTestCase
 
     public function testNoAvailableBottleAdminForAdmin()
     {
-        echo ") [BOTTLE] Test not available bottles admin for Admin... ";
+        echo ") [ADMIN_BOTTLE] Test not available bottles admin for Admin... ";
         $userRepository = $this->em->getRepository('MainBundle:User');
         $bottleAdminRepository = $this->em->getRepository('BottleBundle:BottleAdmin');
         $userAdmin = $userRepository->findAll()[0];
@@ -59,7 +59,7 @@ class BottleAdmin extends WebTestCase
 
     public function testPendingBottleAdminLuigi()
     {
-        echo ") [BOTTLE] Test pending bottles admin for Luigi... ";
+        echo ") [ADMIN_BOTTLE] Test pending bottles admin for Luigi... ";
         $userRepository = $this->em->getRepository('MainBundle:User');
         $bottleAdminRepository = $this->em->getRepository('BottleBundle:BottleAdmin');
         $userLuigi = $userRepository->findAll()[1];
@@ -70,7 +70,7 @@ class BottleAdmin extends WebTestCase
 
     public function testPendingBottleAdminMario()
     {
-        echo ") [BOTTLE] Test pending bottles admin for Mario... ";
+        echo ") [ADMIN_BOTTLE] Test pending bottles admin for Mario... ";
         $userRepository = $this->em->getRepository('MainBundle:User');
         $bottleAdminRepository = $this->em->getRepository('BottleBundle:BottleAdmin');
         $userMario = $userRepository->findAll()[0];
@@ -81,7 +81,7 @@ class BottleAdmin extends WebTestCase
 
     public function testNoPendingBottleAdminForAdmin()
     {
-        echo ") [BOTTLE] Test no pending bottles admin for Admin... ";
+        echo ") [ADMIN_BOTTLE] Test no pending bottles admin for Admin... ";
         $userRepository = $this->em->getRepository('MainBundle:User');
         $bottleAdminRepository = $this->em->getRepository('BottleBundle:BottleAdmin');
         $userAdmin = $userRepository->findAll()[2];
@@ -92,7 +92,7 @@ class BottleAdmin extends WebTestCase
 
     public function testSavedBottlesAdminLuigi()
     {
-        echo ") [BOTTLE] Test saved bottles admin for Luigi... ";
+        echo ") [ADMIN_BOTTLE] Test saved bottles admin for Luigi... ";
         $userRepository = $this->em->getRepository('MainBundle:User');
         $bottleAdminRepository = $this->em->getRepository('BottleBundle:BottleAdmin');
         $userLuigi = $userRepository->findAll()[1];
@@ -103,7 +103,7 @@ class BottleAdmin extends WebTestCase
 
     public function testSavedBottlesAdminMario()
     {
-        echo ") [BOTTLE] Test saved bottles admin for Mario... ";
+        echo ") [ADMIN_BOTTLE] Test saved bottles admin for Mario... ";
         $userRepository = $this->em->getRepository('MainBundle:User');
         $bottleAdminRepository = $this->em->getRepository('BottleBundle:BottleAdmin');
         $userMario = $userRepository->findAll()[0];
@@ -114,7 +114,7 @@ class BottleAdmin extends WebTestCase
 
     public function testNoSavedBottlesAdminForAdmin()
     {
-        echo ") [BOTTLE] Test no saved bottles admin for Admin... ";
+        echo ") [ADMIN_BOTTLE] Test no saved bottles admin for Admin... ";
         $userRepository = $this->em->getRepository('MainBundle:User');
         $bottleAdminRepository = $this->em->getRepository('BottleBundle:BottleAdmin');
         $userAdmin = $userRepository->findAll()[2];
