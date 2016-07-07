@@ -22,7 +22,7 @@
                         <div class="panel panel-default bottle-open animated zoomIn" style="background-color: white">
                             <p class="title">
                                 You received a new bottle ..
-                                <a href="{{ path('report_display', { 'id': bottle.id }) }}" style="float: right; font-size: 13px; position: relative; right: 20px; top: 10px;">Report</a>
+                                <a href="{{ path('report_create', { 'id': bottle.id }) }}" style="float: right; font-size: 13px; position: relative; right: 20px; top: 10px;">Report</a>
                             </p>
                             <hr />
                             {% if bottle.image is not null %}
