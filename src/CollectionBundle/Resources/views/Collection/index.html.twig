@@ -33,36 +33,38 @@
 
             {% for bottle in bottles %}
                 <div class="col-md-3">
-                    <div class="panel panel-default bottle grow animated fadeIn">
-                        <p class="text">
-                            {{ bottle.message|length > 200 ? bottle.message | slice(0, 200) ~ ' ...' : bottle.message }}
-                        <p class="info">
-                            {% if (bottle.receivedDate is not null) %}
-                                {{ bottle.receivedDate|date('Y/m/d') }}
-                            {% else %}
-                                NULL_DATE
-                            {% endif %}
-                        </p>
+                    {% if bottle.sourceRole == 'ROLE_USER' %}
+                        <a href="{{ path('collection_display_bottle', { 'id': bottle.id }) }}" style="color: #333; text-decoration: none;">
+                    {% else %}
+                        <a href="{{ path('collection_display_bottle_admin', { 'id': bottle.id }) }}" style="color: #333; text-decoration: none;">
+                    {% endif %}
 
-                        {% if (bottle.image is defined) %}
-                            {% if (bottle.image is not null) %}
-                                <p class="image-icon">
-                                    <i class="fa fa-picture-o" aria-hidden="true"></i>
-                                    <span style="font-size: 11px">{{ bottle.fkTransmitter.username }}</span>
-                                </p>
-                            {% else %}
-                                <p class="image-icon" style="font-size: 11px;">
-                                    {{ bottle.fkTransmitter.username }}
-                                </p>
-                            {% endif %}
-                        {% else %}
-                            <p class="admin">
-                                Administrator
+                        <div class="panel panel-default bottle grow animated fadeIn">
+                            <p class="text">
+                                {{ bottle.message|length > 200 ? bottle.message | slice(0, 200) ~ ' ...' : bottle.message }}
+                            <p class="info">
+                                {% if (bottle.receivedDate is not null) %}
+                                    {{ bottle.receivedDate|date('Y/m/d') }}
+                                {% else %}
+                                    NULL_DATE
+                                {% endif %}
                             </p>
 
-                        {% endif %}
+                            {% if (bottle.image is defined) %}
+                                {% if (bottle.image is not null) %}
+                                    <p class="image-icon">
+                                        <i class="fa fa-picture-o" aria-hidden="true"></i>
+                                    </p>
+                                {% endif %}
+                            {% else %}
+                                <p class="admin">
+                                    Administrator
+                                </p>
 
-                    </div>
+                            {% endif %}
+
+                        </div>
+                    </a>
                 </div>
             {% endfor %}
         </div>

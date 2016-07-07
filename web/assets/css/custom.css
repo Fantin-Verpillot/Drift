@@ -4,6 +4,7 @@
     right: 10px;
     text-align: center;
     width: 300px;
+    z-index: 100;
 }
 
 html, body {
@@ -174,7 +175,7 @@ html, body {
 /* Open bottle page */
 
 .bottle-open {
-    padding: 20px;
+    padding: 23px;
 }
 
 .bottle-open p {
@@ -185,6 +186,7 @@ html, body {
     text-align: center;
     font-weight: 500;
     font-size: 24px;
+    color: #333;
 }
 
 .bottle-open .text {
@@ -197,6 +199,16 @@ html, body {
     font-size: 12px;
     margin-top: 10px;
     font-weight: 500;
+    color: #333;
+}
+
+.bottle-open hr {
+    background-color: #333;
+    border-color: #333;
+    color: #333;
+    width: 5%;
+    margin-top: 8px;
+    height: 5px;
 }
 
 .logout-button {

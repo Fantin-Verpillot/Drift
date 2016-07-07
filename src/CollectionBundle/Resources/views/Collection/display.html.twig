@@ -6,6 +6,11 @@
 
 {% block body %}
 
+<a href="{{ path('collection_home') }}"
+   class="animated fadeIn grow"
+   style="position: absolute; left: 10px; top: 10px; font-weight: 500; font-size: 22px; cursor: pointer; color: #666666; text-decoration: none;">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i> My collection
+</a>
 
 <div style="display: table; width: 100%; height: 100%">
     <div style="display: table-cell; vertical-align: middle">
@@ -13,9 +18,21 @@
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
 
-                    <div class="panel panel-default bottle-full">
-
-
+                    <div class="panel panel-default bottle-full animated fadeInDown">
+                        {% if bottle.sourceRole == 'ROLE_USER' %}
+                            <p class="title">Bottle opened ..</p>
+                        {% else %}
+                            <p class="title">Bottle from Administrator ..</p>
+                        {% endif %}
+                        <hr />
+                        {% if bottle.sourceRole == 'ROLE_USER' %}
+                            {% if bottle.image is not null %}
+                                <img src="{{ bottle.image }}" class="img-responsive" style="width: 400px; margin: 0 auto;">
+                                <div style="margin-bottom: 30px;"></div>
+                            {% endif %}
+                        {% endif %}
+                        <p class="message">{{ bottle.message }}</p>
+                        <p class="user-info">Date : {{  bottle.receivedDate | date('d/m/y') }}</p>
                     </div>
 
                 </div>
@@ -23,7 +40,5 @@
         </div>
     </div>
 </div>
-
-
 
 {% endblock %}
