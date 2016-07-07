@@ -42,6 +42,22 @@ class CollectionController extends Controller
         );
     }
 
+    public function displaySavedBottleAdminAction($id)
+    {
+        $this->em = $this->getDoctrine()->getManager();
+        $bottleAdminRepository = $this->em->getRepository('BottleBundle:BottleAdmin');
+
+        $bottleAdmin = $bottleAdminRepository->find($id);
+        if ($bottleAdmin === null || $bottleAdmin->getState() != 3) {
+            $this->get('session')->getFlashBag()->add('error', 'This bottle doesn\'t exists in your collection, please try again');
+            return $this->redirectToRoute('collection_home');
+        }
+
+        return $this->render('CollectionBundle:Collection:display.html.twig',
+            array('bottle' => $bottleAdmin)
+        );
+    }
+
     public function deleteAction(Request $request)
     {
         $this->em = $this->getDoctrine()->getManager();
