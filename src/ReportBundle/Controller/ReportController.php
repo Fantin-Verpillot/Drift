@@ -28,7 +28,10 @@ class ReportController extends Controller
             ));
     }
 
-
+    /**
+     * @Secure(roles="ROLE_ADMIN")
+     */
+    // TODO : update read + role admin doesnt work
     public function displayReportAction($id)
     {
         $this->em = $this->getDoctrine()->getManager();
@@ -64,6 +67,7 @@ class ReportController extends Controller
         $this->get('session')->getFlashBag()->add('error', 'You failed, please try again');
         return $this->redirectToRoute('bottle_home');
     }
+
 
     public function banUserAction($id) {
         $this->em = $this->getDoctrine()->getManager();
