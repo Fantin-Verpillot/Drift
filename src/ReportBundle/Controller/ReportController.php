@@ -62,7 +62,7 @@ class ReportController extends Controller
         $bottle = $bottleRepository->getPendingBottle($user);
 
         if (!empty($bottle)) {
-            if ($reportRepository->findByFkBottle($bottle) === null) {
+            if ($reportRepository->findOneByFkBottle($bottle) === null) {
                 $report = new Report();
                 $report->constructReport($bottle, 0);
                 $this->em->persist($report);
@@ -92,9 +92,11 @@ class ReportController extends Controller
         $id = $request->request->get('id');
         $idReport = $request->request->get('idReport');
 
+        
         if (!empty($id) && !empty($idReport)) {
             $user = $userRepository->find($id);
-            $report = $reportRepository->find($id);
+            $report = $reportRepository->find($idReport);
+
             if ($user !== null && $report !== null) {
                 if ($user->getIsActive()) {
                     $user->setIsActive(false);

@@ -32,10 +32,24 @@
                             {% endif %}
                             <p class="message">{{ report.fkBottle.message }}</p>
                             <p class="user-info">Written by {{  report.fkBottle.fkTransmitter.username }}</p>
+
+
+                            <div class="row" style="margin-top: 10px;">
+                                <form method="post" action="{{ path('report_ban') }}">
+                                    <input name="idReport" type="hidden" value="{{ report.id }}" />
+                                    <input name="id" type="hidden" value="{{ report.fkBottle.fkTransmitter.id }}" />
+                                    <div class="col-md-4 col-md-offset-4">
+                                        <button type="submit" class="btn btn-danger btn-block grow" style="">Ban {{ report.fkBottle.fkTransmitter.username }}</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
 
                     </div>
                 </div>
+
+
+
             </div>
         </div>
     </div>
