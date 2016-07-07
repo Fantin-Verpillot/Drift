@@ -24,7 +24,7 @@ class UserTest extends WebTestCase
     
     public function testEarnExperience()
     {
-        echo "\n[USER] Test earn experience... ";
+        echo ") [USER] Test earn experience... ";
         $userRepository = $this->em->getRepository('MainBundle:User');
         $userLuigi = $userRepository->findAll()[1];
         $userRepository->earnExperience($userLuigi, 5);
@@ -35,7 +35,7 @@ class UserTest extends WebTestCase
 
     public function testLevelUp()
     {
-        echo "\n[USER] Test level up... ";
+        echo ") [USER] Test level up... ";
         $userRepository = $this->em->getRepository('MainBundle:User');
         $userLuigi = $userRepository->findAll()[1];
         $userRepository->earnExperience($userLuigi, 5);

@@ -63,7 +63,7 @@ class BottleRepository extends EntityRepository
         $r1 = $b1->getReceivedDate();
         $r2 = $b2->getReceivedDate();
 
-        if ($r1 === $r2) {
+        if ($r1 == $r2) {
             return 0;
         }
         return ( $r1 > $r2) ? -1 : 1;

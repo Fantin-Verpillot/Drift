@@ -8,7 +8,7 @@ class PermissionTest extends WebTestCase
 {
     public function testHome()
     {
-        echo "\n[PERMISSION] Test home... ";
+        echo ") [PERMISSION] Test home... ";
         $client = static::createClient();
         $container = $client->getContainer();
         $url = $container->get('router')->generate('main_home');
@@ -19,7 +19,7 @@ class PermissionTest extends WebTestCase
 
     public function testLogin()
     {
-        echo "\n[PERMISSION] Test login... ";
+        echo ") [PERMISSION] Test login... ";
         $client = static::createClient();
         $container = $client->getContainer();
         $url = $container->get('router')->generate('login');
@@ -31,7 +31,7 @@ class PermissionTest extends WebTestCase
 
     public function testRegister()
     {
-        echo "\n[PERMISSION] Test register... ";
+        echo ") [PERMISSION] Test register... ";
         $client = static::createClient();
         $container = $client->getContainer();
         $url = $container->get('router')->generate('register');
