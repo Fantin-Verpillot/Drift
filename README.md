@@ -1,4 +1,5 @@
 #Drift
+The hosted version is available [here](http://drift-mti.herokuapp.com/login "Drift").
 
 Drift is an original social network developed in PHP/Symfony2. Send anonymous bottles containing a message and/or a picture all over the world. Follow your bottle and discover where it has been opened.
 
