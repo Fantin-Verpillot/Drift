@@ -1,68 +1,38 @@
-Symfony Standard Edition
-========================
+#Drift
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony
-application that you can use as the skeleton for your new applications.
+Drift is an original social network developed in PHP/Symfony2. Send anonymous bottles containing a message and/or a picture all over the world. Follow your bottle and discover where it has been opened.
 
-For details on how to download and get started with Symfony, see the
-[Installation][1] chapter of the Symfony Documentation.
+## Installation
 
-What's inside?
---------------
+###1. Get the project
 
-The Symfony Standard Edition is configured with the following defaults:
+Pull the project in your localhost directory. Start your server.
 
-  * An AppBundle you can use to start coding;
+###2. Install the required dependencies
 
-  * Twig as the only configured template engine;
+You will need composer. If you don't have it, follow [this link](https://getcomposer.org/download/ "https://getcomposer.org/download/").
+Then, go to the root directory and run:
 
-  * Doctrine ORM/DBAL;
+```shell 
+$ composer update
+```
 
-  * Swiftmailer;
+###3. Create the database using Doctrine
 
-  * Annotations enabled for everything.
+From the root directory, run:
+```shell
+$ php app/console doctrine:database:create
+$ php app/console doctrine:database:update --force
+```
 
-It comes pre-configured with the following bundles:
+### 4. Load the fixtures
 
-  * **FrameworkBundle** - The core Symfony framework bundle
+From the root directory, run:
 
-  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
-    template and routing annotation capability
+```shell
+$ php app/console doctrine:fixtures:load
+```
 
-  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
+### 5. Launch the website
 
-  * [**TwigBundle**][8] - Adds support for the Twig templating engine
-
-  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
-    component
-
-  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
-    sending emails
-
-  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
-
-  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
-    the web debug toolbar
-
-  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
-    configuring and working with Symfony distributions
-
-  * [**SensioGeneratorBundle**][13] (in dev/test env) - Adds code generation
-    capabilities
-
-  * **DebugBundle** (in dev/test env) - Adds Debug and VarDumper component
-    integration
-
-All libraries and bundles included in the Symfony Standard Edition are
-released under the MIT or BSD license.
-
-Enjoy!
-
-[1]:  https://symfony.com/doc/2.8/book/installation.html
-[6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
-[7]:  https://symfony.com/doc/2.8/book/doctrine.html
-[8]:  https://symfony.com/doc/2.8/book/templating.html
-[9]:  https://symfony.com/doc/2.8/book/security.html
-[10]: https://symfony.com/doc/2.8/cookbook/email.html
-[11]: https://symfony.com/doc/2.8/cookbook/logging/monolog.html
-[13]: https://symfony.com/doc/2.8/bundles/SensioGeneratorBundle/index.html
+You can now use the website. The URL depends on the path you chose.
